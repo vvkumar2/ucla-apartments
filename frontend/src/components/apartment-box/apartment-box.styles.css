@@ -1,0 +1,140 @@
+.apartment-box {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: 50%;
+    margin: 0px auto;
+    background-color: #FFFFFF;
+
+    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
+    border-radius: 20px;
+
+    max-height: 375px;
+}
+
+.apartment-box-description {
+    display: flex;
+    flex-direction: column;
+
+    width: 65%;
+}
+
+.apartment-box-image {
+    padding: 25px;
+    width: 35%;
+    border-radius: 40px;
+}
+
+.apartment-box-top {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    padding: 25px 25px 25px 10px;
+}
+
+.apartment-box-top-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.apartment-name {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+}
+.apartment-description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    color: #686868;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.apartment-url a {
+    text-decoration: none;
+    color: #686868;
+}
+
+.apartment-url a:hover {
+    text-decoration: underline;
+}
+
+.apartment-box-interested {
+    height: 40px;
+    width: 170px;
+    margin-left: auto;
+
+    background: #FB8500;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.507);
+
+    color: white;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.apartment-box-interested:hover {
+    background: #fb8600b6;
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
+.apartment-box-bottom {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    margin-top: auto;
+    padding: 25px
+}
+
+.apartment-box-bottom-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.apartment-rent {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.apartment-utilities {
+    color: #686868;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px; 
+}
+
+.apartment-box-bottom-right {
+    margin-left: auto;
+    padding-top: 35px;
+    color: #686868;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px; 
+
+}
+
+
+.apartment-description {
+    tab-size: 8;
+}

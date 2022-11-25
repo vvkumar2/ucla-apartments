@@ -1,0 +1,11 @@
+.section-header {
+    text-align: left;
+    
+    color: '#000000';
+    font-size: 50px;
+    line-height: 72px;
+    font-family: "Lato";
+
+    padding: 2.5% 0% 0% 5%;
+}
+
