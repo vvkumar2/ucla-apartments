@@ -4,26 +4,15 @@ import './App.css';
 
 function App() {
   // EXAMPLE CODE FOR TESTING
-  const [data, setdata] = useState({
-    connection_status: "Not Connected"
-  });
+  const [data, setdata] = useState([]);
 
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
-    fetch("/data").then((res) =>
-        res.json().then((data) => {
-            // Setting a data from api
-            setdata({
-              connection_status: data.Status
-            });
-        })
-    );
+    fetch("/data")
+    .then((response) => response.json())
+    .then((elements) => setdata(elements))
   }, []);
-
-  console.log(data)
-
-
 
   return (
     <div className="App">

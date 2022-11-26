@@ -1,5 +1,6 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask
+from scraper import apartment_list
 
 # Initializing flask app
 app = Flask(__name__)
@@ -9,9 +10,7 @@ app = Flask(__name__)
 def get_data():
   
     # Returning an api for showing in  reactjs
-    return {
-        'Status':"Connected"
-    }
+    return apartment_list
   
       
 # Running app
