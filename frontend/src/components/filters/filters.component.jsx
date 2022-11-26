@@ -1,7 +1,7 @@
 import React from "react";
 import './filters.styles.css'
 
-const Filters = ({searchFieldChangeHandler}) => {
+const Filters = ({searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
   return (
     <div className="filter-container">
         <div className="filter-container-top">
@@ -16,13 +16,13 @@ const Filters = ({searchFieldChangeHandler}) => {
                     className="bed-bath-search-box"
                     type="search"
                     placeholder="Beds"
-                    // onChange={onChangeHandler}
+                    onChange={bedFieldChangeHandler}
                 />
                 <input
                     className="bed-bath-search-box"
                     type="search"
                     placeholder="Baths"
-                    // onChange={onChangeHandler}
+                    onChange={bathFieldChangeHandler}
                 />
             </div>
             <div className="rent-filter">
@@ -31,7 +31,7 @@ const Filters = ({searchFieldChangeHandler}) => {
                     className="rent-search-box"
                     type="search"
                     placeholder="Min Rent"
-                    // onChange={onChangeHandler}
+                    onChange={minRentChangeHandler}
                 />
                 <p className="dash">-</p>
                 <p className="extra">$</p>
@@ -39,7 +39,7 @@ const Filters = ({searchFieldChangeHandler}) => {
                     className="rent-search-box"
                     type="search"
                     placeholder="Max Rent"
-                    // onChange={onChangeHandler}
+                    onChange={maxRentChangeHandler}
                 />
             </div>
             

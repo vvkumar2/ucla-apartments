@@ -16,7 +16,7 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
                     <div className="apartment-description">
                         <p className="apartment-address">{address}</p>
                         <p className="apartment-url"><a href={url}>{url}</a></p>
-                        <p>{beds} Bed | {baths} Bath | {sqft} sqft</p>
+                        <p>{beds} Bed | {baths} Bath</p>
                     </div>
                 </div>
                 <button className="apartment-box-interested">I'm Interested</button>

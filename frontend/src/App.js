@@ -5,6 +5,10 @@ import './App.css';
 function App() {
   // Crete states for search fields
   const [searchField, setSearchField] = useState("");
+  const [bedField, setBedField] = useState(NaN);
+  const [bathField, setBathField] = useState(NaN);
+  const [minRentField, setMinRentField] = useState(NaN);
+  const [maxRentField, setMaxRentField] = useState(NaN);
 
   // States for apartment lists
   const [apartments, setApartments] = useState([]);
@@ -20,22 +24,68 @@ function App() {
 
   // Filter apartments based on search field
   useEffect(() => {
-    const newFilteredApartments = apartments.filter((apartment) => {
+    var newFilteredApartments = apartments.filter((apartment) => {
       return apartment.name.toLocaleLowerCase().includes(searchField)
     });
-    
+
+    if (!isNaN(bedField)) {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        return apartment.bed === bedField
+      });
+    }
+
+    if (!isNaN(bathField)) {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        return apartment.bath === bathField
+      });
+    }
+
+    if (!isNaN(minRentField)) {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        return apartment.rent >= minRentField
+      });
+    }
+
+    if (!isNaN(maxRentField)) {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        return apartment.rent <= maxRentField
+      });
+    }
+
     setFilteredApartments(newFilteredApartments)
-  }, [apartments, searchField])
+  }, [apartments, searchField, bedField, bathField, minRentField, maxRentField])
 
   // On search handler for search field
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   }
+  const onBedChange = (event) => {
+    const bedFieldString = event.target.value;
+    setBedField(parseInt(bedFieldString, 10));
+  }
+  const onBathChange = (event) => {
+    const bathFieldString = event.target.value;
+    setBathField(parseInt(bathFieldString, 10));
+  }
+  const onMinRentChange = (event) => {
+    const minRent = event.target.value;
+    setMinRentField(parseInt(minRent, 10));
+  }
+  const onMaxRentChange = (event) => {
+    const maxRent = event.target.value;
+    setMaxRentField(parseInt(maxRent, 10));
+  }
+
 
   return (
     <div className="App">
-      <Listings apartment_list={filteredApartments} searchFieldChangeHandler={onSearchChange}/>
+      <Listings apartment_list={filteredApartments}
+        searchFieldChangeHandler={onSearchChange} 
+        bedFieldChangeHandler={onBedChange} 
+        bathFieldChangeHandler={onBathChange}
+        minRentChangeHandler={onMinRentChange}
+        maxRentChangeHandler={onMaxRentChange}/>
     </div>
   );
 }

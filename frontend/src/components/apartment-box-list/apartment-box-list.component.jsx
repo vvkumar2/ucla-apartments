@@ -12,11 +12,10 @@ const ApartmentBoxList = ({apartment_list}) => {
                 image="https://images1.apartments.com/i2/Wg9_HNk-Sm-8SGATHOaX2ZCheNkF1LdoFm8BOY4o3mk/111/image.jpg"
                 name={apartment.name}
                 address={apartment.address}
-                url="colbyapartments.com"
-                beds="5"
-                baths="3"
-                sqft="500"
-                monthly_rent="3000"
+                url={apartment.url}
+                beds={apartment.bed}
+                baths={apartment.bath}
+                monthly_rent={apartment.rent}
                 distance="0.2"
               />
             )})}

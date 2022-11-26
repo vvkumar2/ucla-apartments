@@ -1,4 +1,5 @@
 import requests
+import random
 from bs4 import BeautifulSoup
 
 # session = HTMLSession()
@@ -37,7 +38,9 @@ if len(apartment_name) == len(apartment_address):
     for i in range(0, len(apartment_address)):
         apartment_list.append({
             "name": apartment_name[i],
-            "address": apartment_address[i]
+            "address": apartment_address[i],
+            "url": "rentinwestwood.com",
+            "bed": random.randint(2, 5),
+            "bath": random.randint(1, 4),
+            "rent": 100*random.randint(30, 40)
         })
-
-# print(apartment_list)
