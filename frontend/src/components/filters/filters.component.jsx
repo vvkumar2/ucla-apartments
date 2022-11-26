@@ -1,7 +1,7 @@
 import React from "react";
 import './filters.styles.css'
 
-const Filters = (props) => {
+const Filters = ({searchFieldChangeHandler}) => {
   return (
     <div className="filter-container">
         <div className="filter-container-top">
@@ -9,7 +9,7 @@ const Filters = (props) => {
                 className="search-box"
                 type="search"
                 placeholder="Search for any keyword"
-                // onChange={onChangeHandler}
+                onChange={searchFieldChangeHandler}
             />
             <div className="bed-bath-filter">
                 <input

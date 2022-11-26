@@ -6,13 +6,13 @@ import SectionHeader from "../../components/section-header/section-header.compon
 
 import './listings.styles.css'
 
-const Listings = () => {
+const Listings = ({apartment_list, searchFieldChangeHandler}) => {
   return (
     <div className="listings-section" id="listings-section-id">
         <Navbar />
         <SectionHeader header_name="Apartments near UCLA" />
-        <Filters />
-        <ApartmentBoxList />
+        <Filters searchFieldChangeHandler={searchFieldChangeHandler}/>
+        <ApartmentBoxList apartment_list={apartment_list}/>
     </div>
   );
 };
