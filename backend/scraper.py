@@ -23,10 +23,10 @@ for result in results:
             apartment_name.append(result.getText())
 
 # Get apartment addresses
-for name in apartment_name:
+for index, name in list(enumerate(apartment_name)):
     apartment_address.append(name + " Los Angeles, CA 90024")
+    apartment_name[index] = apartment_name[index].replace(" Avenue", '').replace(" Drive", '')
 
-# Get nubmer of beds
 
 # HAVE TO FINISH WEB SCRAPING, I just stopped here 
 # b/c i wanted to test out how to pass it to flask and then react
@@ -39,3 +39,5 @@ if len(apartment_name) == len(apartment_address):
             "name": apartment_name[i],
             "address": apartment_address[i]
         })
+
+# print(apartment_list)
