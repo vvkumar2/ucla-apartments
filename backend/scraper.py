@@ -35,7 +35,7 @@ except Exception as e:
 apartment_list = []
 
 # Create an HTML Session object and use to connect to needed webpage
-for page_number in range(1, 1):
+for page_number in range(1, 2):
     print(page_number)
     session = HTMLSession()
     resp = session.get(f"https://www.renthop.com/apartments-for-rent/westwood-los-angeles-ca?min_price=0&max_price=100000&bathrooms=1&search_title=Westwood&page={page_number}&sort=hopscore")

@@ -5,12 +5,14 @@ const Filters = ({searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChan
   return (
     <div className="filter-container">
         <div className="filter-container-top">
-            <input
+            <div>
+                <input
                 className="search-box"
                 type="search"
                 placeholder="Search for any keyword"
                 onChange={searchFieldChangeHandler}
-            />
+                />
+            </div>
             <div className="bed-bath-filter">
                 <input
                     className="bed-bath-search-box"

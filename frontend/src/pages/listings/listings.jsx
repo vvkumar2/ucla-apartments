@@ -6,7 +6,11 @@ import SectionHeader from "../../components/section-header/section-header.compon
 
 import './listings.styles.css'
 
-const Listings = ({apartment_list, searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler, numListings}) => {
+const Listings = ({apartmentList, searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
+  const listingsPerPage = 10
+  let pageLimit = 5
+  let maxPages = Math.ceil(apartmentList.length/listingsPerPage)
+
   return (
     <div className="listings-section" id="listings-section-id">
         <Navbar />
@@ -16,8 +20,7 @@ const Listings = ({apartment_list, searchFieldChangeHandler, bedFieldChangeHandl
           bathFieldChangeHandler={bathFieldChangeHandler}
           minRentChangeHandler={minRentChangeHandler}
           maxRentChangeHandler={maxRentChangeHandler}/>
-        
-        <ApartmentBoxList apartment_list={apartment_list} numListings={numListings}/>
+        <ApartmentBoxList apartmentList={apartmentList} dataLimit={listingsPerPage} pageLimit={maxPages<pageLimit ? maxPages : pageLimit } maxPagesInput={maxPages}/>
     </div>
   );
 };

@@ -80,7 +80,7 @@ function App() {
 
   return (
     <div className="App">
-      <Listings apartment_list={filteredApartments}
+      <Listings apartmentList={filteredApartments}
         searchFieldChangeHandler={onSearchChange} 
         bedFieldChangeHandler={onBedChange} 
         bathFieldChangeHandler={onBathChange}
