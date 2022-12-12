@@ -15,8 +15,8 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
                     <h1 className="apartment-name">{name}</h1>
                     <div className="apartment-description">
                         <p className="apartment-address">{address}</p>
-                        <p className="apartment-url"><a href={url}>{url}</a></p>
-                        <p>{beds} Bed | {baths} Bath</p>
+                        {/* <p className="apartment-url"><a href={url}>{url}</a></p> */}
+                        <p>{beds} Bed | {baths} Bath | {sqft} Sqft </p>
                     </div>
                 </div>
                 <button className="apartment-box-interested">I'm Interested</button>
@@ -25,11 +25,11 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
             <div className="apartment-box-bottom">
                 <div className="apartment-box-bottom-left">
                     <h1 className="apartment-rent">Monthly Rent: ${monthly_rent}</h1>
-                    <p className="apartment-utilities">Utilities Included | Fully Furnished | Covered Parking</p>
+                    <p className="apartment-utilities">Distance to UCLA: {distance} mi</p>
                 </div>
-                <div className="apartment-box-bottom-right">
-                    <p className="apartment-distance">{distance} mi</p>
-                </div>
+                {/* <div className="apartment-box-bottom-right"> */}
+                    {/* <p className="apartment-distance">{distance} mi</p> */}
+                {/* </div> */}
             </div>
         </div>
     </div>

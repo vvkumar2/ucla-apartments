@@ -62,19 +62,19 @@ function App() {
   }
   const onBedChange = (event) => {
     const bedFieldString = event.target.value;
-    setBedField(parseInt(bedFieldString, 10));
+    setBedField(parseFloat(bedFieldString, 10));
   }
   const onBathChange = (event) => {
     const bathFieldString = event.target.value;
-    setBathField(parseInt(bathFieldString, 10));
+    setBathField(parseFloat(bathFieldString, 10));
   }
   const onMinRentChange = (event) => {
     const minRent = event.target.value;
-    setMinRentField(parseInt(minRent, 10));
+    setMinRentField(parseFloat(minRent, 10));
   }
   const onMaxRentChange = (event) => {
     const maxRent = event.target.value;
-    setMaxRentField(parseInt(maxRent, 10));
+    setMaxRentField(parseFloat(maxRent, 10));
   }
 
 
@@ -85,7 +85,8 @@ function App() {
         bedFieldChangeHandler={onBedChange} 
         bathFieldChangeHandler={onBathChange}
         minRentChangeHandler={onMinRentChange}
-        maxRentChangeHandler={onMaxRentChange}/>
+        maxRentChangeHandler={onMaxRentChange}
+        numListings={filteredApartments.length}/>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import SectionHeader from "../../components/section-header/section-header.compon
 
 import './listings.styles.css'
 
-const Listings = ({apartment_list, searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
+const Listings = ({apartment_list, searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler, numListings}) => {
   return (
     <div className="listings-section" id="listings-section-id">
         <Navbar />
@@ -16,7 +16,8 @@ const Listings = ({apartment_list, searchFieldChangeHandler, bedFieldChangeHandl
           bathFieldChangeHandler={bathFieldChangeHandler}
           minRentChangeHandler={minRentChangeHandler}
           maxRentChangeHandler={maxRentChangeHandler}/>
-        <ApartmentBoxList apartment_list={apartment_list}/>
+        
+        <ApartmentBoxList apartment_list={apartment_list} numListings={numListings}/>
     </div>
   );
 };

@@ -8,7 +8,6 @@ app = Flask(__name__)
 # Route for seeing a data
 @app.route('/data')
 def get_data():
-  
     # Returning an api for showing in  reactjs
     return apartment_list
   

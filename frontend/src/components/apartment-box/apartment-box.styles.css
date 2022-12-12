@@ -102,13 +102,13 @@
     flex-direction: row;
     text-align: left;
     margin-top: auto;
-    padding: 25px
+    padding: 30px 10px;
 }
 
 .apartment-box-bottom-left {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .apartment-rent {
@@ -128,7 +128,7 @@
     line-height: 24px; 
 }
 
-.apartment-box-bottom-right {
+/* .apartment-box-bottom-right {
     margin-left: auto;
     padding-top: 35px;
     color: #686868;
@@ -138,7 +138,7 @@
     font-size: 18px;
     line-height: 24px; 
 
-}
+} */
 
 
 .apartment-description {
