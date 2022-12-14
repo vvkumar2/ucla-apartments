@@ -1,8 +1,13 @@
 import React from "react";
 import './filters.styles.css'
 
-const Filters = ({searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
-  return (
+const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+      ]
+    return (
     <div className="filter-container">
         <div className="filter-container-top">
             <div>
@@ -12,6 +17,14 @@ const Filters = ({searchFieldChangeHandler, bedFieldChangeHandler, bathFieldChan
                 placeholder="Search for any keyword"
                 onChange={searchFieldChangeHandler}
                 />
+                <select className="sort-by-dropdown" onChange={sortByChangeHandler}>
+                    <option value="">Sort By</option>
+                    <option value="distance">Distance to UCLA</option>
+                    <option value="price_asc">Price Ascending</option>
+                    <option value="price_desc">Price Descending</option>
+                    <option value="sqft_asc">Sqft Ascending</option>
+                    <option value="sqft_desc">Sqft Descending</option>
+                </select>
             </div>
             <div className="bed-bath-filter">
                 <input

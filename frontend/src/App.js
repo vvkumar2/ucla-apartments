@@ -3,6 +3,9 @@ import Listings from './pages/listings/listings';
 import './App.css';
 
 function App() {
+  // Crete states for sort by field
+  const [sortBy, setSortBy] = useState("");
+
   // Crete states for search fields
   const [searchField, setSearchField] = useState("");
   const [bedField, setBedField] = useState(NaN);
@@ -27,6 +30,34 @@ function App() {
     var newFilteredApartments = apartments.filter((apartment) => {
       return apartment.name.toLocaleLowerCase().includes(searchField)
     });
+
+    if (sortBy !== "") {
+      if (sortBy==="price_asc") {
+        newFilteredApartments = newFilteredApartments.sort((a, b) =>
+          a["rent"] - b["rent"]
+        );
+      }
+      if (sortBy==="sqft_asc") {
+        newFilteredApartments = newFilteredApartments.sort((a, b) =>
+          a["sqft"] - b["sqft"]
+        );
+      }
+      if (sortBy==="price_desc") {
+        newFilteredApartments = newFilteredApartments.sort((a, b) =>
+          b["rent"] - a["rent"]
+        );
+      }
+      if (sortBy==="sqft_desc") {
+        newFilteredApartments = newFilteredApartments.sort((a, b) =>
+          b["sqft"] - a["sqft"]
+        );
+      }
+      if (sortBy==="distance") {
+        newFilteredApartments = newFilteredApartments.sort((a, b) =>
+          a["distance"] - b["distance"]
+        );
+      }
+    }
 
     if (!isNaN(bedField)) {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
@@ -53,8 +84,13 @@ function App() {
     }
 
     setFilteredApartments(newFilteredApartments)
-  }, [apartments, searchField, bedField, bathField, minRentField, maxRentField])
+  }, [apartments, searchField, bedField, bathField, minRentField, maxRentField, sortBy])
 
+  // On search handler for "Sort By" filter
+  const sortByChangeHandler = (event) => {
+    const sortByString = event.target.value.toLocaleLowerCase();
+    setSortBy(sortByString);
+  }
   // On search handler for search field
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
@@ -81,6 +117,7 @@ function App() {
   return (
     <div className="App">
       <Listings apartmentList={filteredApartments}
+        sortByChangeHandler={sortByChangeHandler}
         searchFieldChangeHandler={onSearchChange} 
         bedFieldChangeHandler={onBedChange} 
         bathFieldChangeHandler={onBathChange}
