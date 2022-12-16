@@ -30,6 +30,7 @@ except Exception as e:
     print(e)
 
 
+
 class ApartmentsSpider(scrapy.Spider):
     name = 'quotes'
     allowed_domains = ['apartments.com']

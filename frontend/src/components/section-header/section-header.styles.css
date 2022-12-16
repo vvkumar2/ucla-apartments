@@ -2,10 +2,14 @@
     text-align: left;
     
     color: '#000000';
-    font-size: 50px;
-    line-height: 72px;
+    font-size: 30px;
     font-family: "Lato";
 
-    padding: 2.5% 0% 0% 5%;
+    width: 90%;
+    margin: 0px auto;
+
+    padding: 8% 0% 0% 0%;
+
+    font-weight: 100;
 }
 

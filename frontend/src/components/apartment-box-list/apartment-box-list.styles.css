@@ -5,8 +5,67 @@
     padding: 50px 0px;
 } */
 
-.num-listings {
+.listings-pages-info {
+    display: flex;
+    flex-direction: row;
     width: 89%;
     margin: 10px auto 5px auto;
+
+    font-size: 14px;
+    color: #68686880;
+}
+
+.num-pages {
+    margin-left: auto;
+}
+
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.paginationItem {
+    font-size: 14px;
+    background: #f9fafe;
+    border: none;
+    padding: 10px 15px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin: 0px 5px 35px 5px;
+    cursor: pointer;
     color: #686868;
 }
+  
+.paginationItem span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .prev,
+  .next {
+    font-size: 14px;
+    background: #f9fafe;
+    border: none;
+    padding: 10px;
+    color: #686868;
+    margin: 0px 5px 35px 5px;
+    cursor: pointer;
+  }
+  
+  .paginationItem.active {
+    color: #023047;
+    font-weight: bold;
+    pointer-events: none;
+  }
+  
+  /* .prev.disabled,
+  .next.disabled {
+    color: #686868;
+    pointer-events: none;
+    box-shadow: none;
+  } */

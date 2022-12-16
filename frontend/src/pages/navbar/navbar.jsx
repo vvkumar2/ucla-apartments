@@ -1,30 +1,29 @@
 import React from "react";
-// import { Spin as Hamburger } from 'hamburger-react'
-
 import './navbar.styles.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+
 
 
 const Navbar = () => {
-    // const [isOpen, setOpen] = useState(false)
-    // const classes = isOpen ? 'hamburger-show' : 'hamburger-show-hide'
-
     return (
         <div className="navbar-container">
             <div className="logo-container">
-                <h1 className="logo-text">Website Name</h1>
+                <h1 className="logo-text" onClick={() => window.location.replace("/")}>Website Name</h1>
             </div>
-            {/* <div className="navbar-hamburger">
-                <div className="hamburger-button">
-                    <Hamburger color="black" toggled={isOpen} toggle={setOpen}/>
-                </div>
-                <div className={classes}>
-                    <ul className="hamburger-links">
-                        <div>About</div>
-                        <div>Experience</div>
-                        <div>Projects</div>
-                    </ul>
-                </div>
-            </div> */}
+            <div className="navbar-links">
+                {/* <a href="https://google.com" rel="noopener noreferrer" target="_blank">UCLA</a> */}
+                <div class="dropdown">
+                    <button class="dropbtn">Universities <FontAwesomeIcon icon={faCaretDown} /></button>
+                    <div class="dropdown-content">
+                        <div onClick={() => window.location.replace("/ucla-listings")}>UCLA</div>
+                        <div onClick={() => window.location.replace("/ucla-listings")}>USC</div>
+                        <div onClick={() => window.location.replace("/ucla-listings")}>UCSD</div>
+                    </div>
+                </div> 
+                <div className="navbar-liked-items" onClick={() => window.location.replace("/")}>Liked Items</div>
+                <div className="navbar-profile-icon" onClick={() => window.location.replace("/")}><FontAwesomeIcon icon={faCircleUser} /></div>
+            </div>
         </div>
     );
 };
