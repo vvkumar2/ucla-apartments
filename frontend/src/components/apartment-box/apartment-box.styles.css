@@ -84,10 +84,10 @@
     height: 40px;
     width: 170px;
 
-    background: #FB8500;
+    background: #00C1EC;
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.507);
+    box-shadow: 0px 0px 12px #c7c7c781;
 
     color: white;
     font-family: 'Lato';
@@ -99,16 +99,15 @@
 }
 
 .apartment-box-interested:hover {
-    background: #fb8600b6;
-    transform: scale(1.01);
+    background: #00c1ecab;
     cursor: pointer;
 }
 
 .like-button-icon {
     height: 40px;
     width: auto;
-    margin-top: 10px;
-    padding-left: 10px;
+    margin-top: 13px;
+    padding-left: 20px;
 }
 
 .not-clicked path:hover {
@@ -117,13 +116,13 @@
 
 .not-clicked path {
     stroke-width: 1.5px;
-    stroke: #686868;
+    stroke: #FF6961;
     fill: none;
 }
 .clicked path {
     stroke-width: 1.5px;
-    stroke: #686868;
-    fill: #FB8500;
+    stroke: #FF6961;
+    fill: #FF6961;
 }
 
 .apartment-box-bottom {

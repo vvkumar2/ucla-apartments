@@ -27,7 +27,7 @@
 
 .logo-text:hover {
     cursor: pointer;
-    color: #FB8500;
+    color: #023047;
 }
 
 .dropdown {
@@ -67,11 +67,14 @@
 }
 
 .dropdown-content div:hover {
-    background-color: #ddd;
+    background-color: #edf0f8;
+    color: #00c1ec;
+    cursor: pointer;
 }
 
 .dropdown:hover .dropbtn{
-    color: #FB8500;
+    color: #023047;
+    cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
@@ -93,7 +96,8 @@
 }
 
 .navbar-liked-items:hover {
-    color: #FB8500;
+    color: #023047;
+    cursor: pointer;
 }
 
 .navbar-profile-icon {
@@ -105,5 +109,6 @@
 }
 
 .navbar-profile-icon:hover {
-    color: #FB8500;
+    color: #023047;
+    cursor: pointer;
 }

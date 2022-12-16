@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
-import {ReactComponent as BookMark} from "../../assets/icons8-bookmark.svg"
+import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
 import './apartment-box.styles.css'
 
 const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_rent, distance}) => {
@@ -29,7 +29,7 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
                 </div>
                 <div className="apartment-box-top-right">
                     <button className="apartment-box-interested">Learn More</button>
-                    <BookMark className={btnClass ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
+                    <HeartIcon className={btnClass ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
                         onClick={() => {addToLiked(); }}/>
                 </div>
                 {/* Add a like button */}
