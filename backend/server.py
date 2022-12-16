@@ -2,10 +2,19 @@
 from flask import Flask
 from scraper import apartment_list
 
+
 # Initializing flask app
 app = Flask(__name__)
 
-# Route for seeing a data
+@app.route('/')
+def hello_world():
+    """
+    a health check
+    :return "string health check"
+    """
+    return "string health check"
+
+# # Route for seeing a data
 @app.route('/data')
 def get_data():
     # Returning an api for showing in  reactjs

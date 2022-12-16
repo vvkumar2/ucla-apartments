@@ -24,7 +24,7 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
             </div>
             <div className="apartment-box-bottom">
                 <div className="apartment-box-bottom-left">
-                    <h1 className="apartment-rent">Monthly Rent: ${monthly_rent}</h1>
+                    <h1 className="apartment-rent">Monthly Rent: {monthly_rent}</h1>
                     <p className="apartment-utilities">Distance to UCLA: {distance} mi</p>
                 </div>
                 {/* <div className="apartment-box-bottom-right"> */}
