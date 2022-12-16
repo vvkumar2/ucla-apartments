@@ -17,33 +17,56 @@ class ApartmentsSpider(scrapy.Spider):
             name = apt.xpath(
                 './/*[@class="property-title"]/span/text()').extract_first()
 
-            if name == None or "for rent" in name.lower():  # skip bad listings or non-listing elements
+            if name == None:  # skip non-listings
                 continue
 
-            address = apt.xpath(
-                './/*[@class="property-address js-url"]/text()').extract_first()
             url = apt.xpath(
                 './/*[@class="property-link"]/@href').extract_first()
+            apt_request = scrapy.Request(
+                url, callback=self.parse_apt_page, cb_kwargs=dict(name=name, url=url))
+            yield apt_request
 
-            beds_raw = apt.xpath(
-                './/*[@class="property-beds"]/text()').extract_first().split(' ')
+    def parse_apt_page(self, response, name, url):
+        address, beds, baths, sqft, rent, image_url = "", "", "", "", "", ""
 
-            beds = ""
-            if beds_raw[0] == "Studio":
-                if len(beds_raw) >= 3:
-                    beds = beds_raw[2]
-                else:
-                    beds = "1"
-            else:
-                beds = beds_raw[0]
+        # scrape address
+        street_city = response.xpath(
+            './/*[@class="propertyAddressContainer"]/h2/span/text()').extract()
+        state_zip = response.xpath(
+            './/*[@class="stateZipContainer"]/span/text()').extract()
 
-            baths = 2
-            sqft = 2000
-            monthly_rent = apt.xpath(
-                './/*[@class="property-pricing"]/text()').extract_first()
-            distance = "1.5 miles"
+        address = street_city[0] + " " + street_city[1] + \
+            ", " + state_zip[0] + " " + state_zip[1]
 
-            yield {"name": name, "address": address, "url": url, "beds": beds, "baths": baths, "sqft": sqft, "monthly_rent": monthly_rent, "distance": distance}
+        # scrape image url
+        image_styling = response.xpath(
+            './/*[@class="aspectRatioImage "]/@style').extract_first()
+        open_paren = image_styling.find("(")
+        close_paren = image_styling.rfind(")")
+
+        if open_paren != -1 and close_paren != -1:
+            image_url = image_styling[open_paren + 2:close_paren - 1] # remove one past parantheses to remove opening and closing quotes
+
+        # scrape all other details
+        details_list = response.xpath(
+            './/*[@id="priceBedBathAreaInfoWrapper"]//ul/li')
+
+        for entry in details_list:
+            label = entry.xpath(
+                './/*[@class="rentInfoLabel"]/text()').extract_first()
+            value = entry.xpath(
+                './/*[@class="rentInfoDetail"]/text()').extract_first()
+
+            if label == "Monthly Rent":
+                rent = value
+            elif label == "Bedrooms":
+                beds = (" ").join(value.split()[:-1])
+            elif label == "Bathrooms":
+                baths = (" ").join(value.split()[:-1])
+            elif label == "Square Feet":
+                sqft = (" ").join(value.split()[:-2])
+
+        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "rent": rent, "image_url": image_url}
 
 
 # uncomment this code and run python scraper.py to run the scraper as a standalone script

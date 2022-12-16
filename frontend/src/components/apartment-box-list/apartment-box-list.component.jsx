@@ -11,7 +11,7 @@ const ApartmentBoxList = ({apartment_list, numListings}) => {
         console.log(apartment)
         return (
           <ApartmentBox 
-            image="https://images1.apartments.com/i2/Wg9_HNk-Sm-8SGATHOaX2ZCheNkF1LdoFm8BOY4o3mk/111/image.jpg"
+            image={apartment.image_url}
             name={apartment.name}
             address={apartment.address}
             url={apartment.url}
