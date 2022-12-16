@@ -73,10 +73,16 @@
     text-decoration: underline;
 }
 
+.apartment-box-top-right {
+    margin-left: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
 .apartment-box-interested {
     height: 40px;
     width: 170px;
-    margin-left: auto;
 
     background: #FB8500;
     border-radius: 5px;
@@ -89,6 +95,7 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 22px;
+    margin-top: 10px;
 }
 
 .apartment-box-interested:hover {
@@ -97,18 +104,42 @@
     cursor: pointer;
 }
 
+.like-button-icon {
+    height: 40px;
+    width: auto;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.not-clicked path:hover {
+    fill:rgba(199, 199, 199, 0.486)
+}
+
+.not-clicked path {
+    stroke-width: 1.5px;
+    stroke: #686868;
+    fill: none;
+}
+.clicked path {
+    stroke-width: 1.5px;
+    stroke: #686868;
+    fill: #FB8500;
+}
+
 .apartment-box-bottom {
     display: flex;
     flex-direction: row;
     text-align: left;
     margin-top: auto;
-    padding: 30px 10px;
+    padding: 25px 25px 25px 10px;
 }
 
 .apartment-box-bottom-left {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+
+}
+
+.apartment-box-bottom-right {
+    margin-left: auto;
 }
 
 .apartment-rent {

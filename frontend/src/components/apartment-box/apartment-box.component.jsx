@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed, faBath } from '@fortawesome/free-solid-svg-icons'
-
+import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
+import {ReactComponent as BookMark} from "../../assets/icons8-bookmark.svg"
 import './apartment-box.styles.css'
 
 const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_rent, distance}) => {
-  return (
+    const [btnClass, setBtnClass] = useState(false);
+
+    function addToLiked() {
+        btnClass ? setBtnClass(false) : setBtnClass(true);
+    }
+
+    return (
     <div className="apartment-box">
         <img className="apartment-box-image"
             src={image}
@@ -21,17 +27,20 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
                         <p><FontAwesomeIcon icon={faBed} /> &emsp;{beds} &emsp;&emsp;&emsp;&emsp; <FontAwesomeIcon icon={faBath} /> &emsp;{baths} &emsp;&emsp;&emsp;&emsp;  {sqft} Sqft </p>
                     </div>
                 </div>
-                <button className="apartment-box-interested">I'm Interested</button>
+                <div className="apartment-box-top-right">
+                    <button className="apartment-box-interested">Learn More</button>
+                    <BookMark className={btnClass ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
+                        onClick={() => {addToLiked(); }}/>
+                </div>
                 {/* Add a like button */}
             </div>
             <div className="apartment-box-bottom">
                 <div className="apartment-box-bottom-left">
                     <h1 className="apartment-rent">Monthly Rent: ${monthly_rent}</h1>
-                    <p className="apartment-utilities">Distance to UCLA: {distance} mi</p>
                 </div>
-                {/* <div className="apartment-box-bottom-right"> */}
-                    {/* <p className="apartment-distance">{distance} mi</p> */}
-                {/* </div> */}
+                <div className="apartment-box-bottom-right">
+                    <p className="apartment-utilities">UCLA <FontAwesomeIcon icon={faPersonWalking} /> : {distance} mi</p>
+                </div>
             </div>
         </div>
     </div>

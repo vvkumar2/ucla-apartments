@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
+import Home from "./pages/homepage/homepage";
 import './App.css';
+
 
 function App() {
   // Crete states for sort by field
@@ -116,14 +119,20 @@ function App() {
 
   return (
     <div className="App">
-      <Listings apartmentList={filteredApartments}
-        sortByChangeHandler={sortByChangeHandler}
-        searchFieldChangeHandler={onSearchChange} 
-        bedFieldChangeHandler={onBedChange} 
-        bathFieldChangeHandler={onBathChange}
-        minRentChangeHandler={onMinRentChange}
-        maxRentChangeHandler={onMaxRentChange}
-        numListings={filteredApartments.length}/>
+      <Router>
+        <Routes>
+          <Route path="" element={<Home/>} />
+          <Route path="ucla-listings" element={
+            <Listings apartmentList={filteredApartments}
+              sortByChangeHandler={sortByChangeHandler}
+              searchFieldChangeHandler={onSearchChange} 
+              bedFieldChangeHandler={onBedChange} 
+              bathFieldChangeHandler={onBathChange}
+              minRentChangeHandler={onMinRentChange}
+              maxRentChangeHandler={onMaxRentChange}
+              numListings={filteredApartments.length}/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
