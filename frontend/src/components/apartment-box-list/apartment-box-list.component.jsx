@@ -57,14 +57,14 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
       {getPaginatedData().map((apartment) => {
         return (
           <ApartmentBox 
-            image="https://images1.apartments.com/i2/Wg9_HNk-Sm-8SGATHOaX2ZCheNkF1LdoFm8BOY4o3mk/111/image.jpg"
+            image={apartment.image_url}
             name={apartment.name}
             address={apartment.address}
             url={apartment.url}
-            beds={apartment.bed}
-            baths={apartment.bath}
+            beds={apartment.beds}
+            baths={apartment.baths}
             sqft={apartment.sqft}
-            monthly_rent={apartment.rent}
+            monthly_rent={apartment.monthly_rent}
             distance={apartment.distance}
           />
         )})}
