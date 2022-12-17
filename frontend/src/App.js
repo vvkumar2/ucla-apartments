@@ -130,7 +130,7 @@ function App() {
 
     if (!isNaN(bathField) && bathField!=="") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        return apartment.baths.includes(bathField)
+        return apartment.baths.includes(bathField) && !apartment.baths.includes("." + bathField)
       });
     }
 
@@ -156,8 +156,13 @@ function App() {
 
   // On search handler for "Sort By" filter
   const sortByChangeHandler = (event) => {
-    const sortByString = event.target.value.toLocaleLowerCase();
-    setSortBy(sortByString);
+    if (event !== null) {
+      setSortBy(event.value)
+      console.log(event.value);
+    }
+    else {
+      setSortBy("") 
+    }
   }
   // On search handler for search field
   const onSearchChange = (event) => {
@@ -165,12 +170,22 @@ function App() {
     setSearchField(searchFieldString);
   };
   const onBedChange = (event) => {
-    const bedFieldString = event.target.value;
-    setBedField(bedFieldString);
+    if (event !== null) {
+      setBedField(event.value)
+      console.log(event.value);
+    }
+    else {
+      setBedField("") 
+    }
   };
   const onBathChange = (event) => {
-    const bathFieldString = event.target.value;
-    setBathField(bathFieldString);
+    if (event !== null) {
+      setBathField(event.value)
+      console.log(event.value);
+    }
+    else {
+      setBathField("") 
+    }
   };
   const onMinRentChange = (event) => {
     const minRent = event.target.value;

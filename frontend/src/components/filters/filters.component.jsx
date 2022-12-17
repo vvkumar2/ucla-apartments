@@ -1,38 +1,77 @@
 import React from "react";
+import Select from 'react-select'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed, faBath, faBathtub } from '@fortawesome/free-solid-svg-icons'
 import './filters.styles.css'
 
 const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
+    const sort_by_options = [
+        { value: 'distance', label: "Distance to UCLA"},
+        { value: 'price_asc', label: "Price Descending"},
+        { value: 'price_desc', label: "Price Ascending"},
+        { value: 'sqft_asc', label: "Sqft: Descending"},
+        { value: 'sqft_desc', label: "Sqft: Ascending"},
+    ]
+    
+    const bed_bath_options = [
+        { value: '1', label: '1'},
+        { value: '2', label: '2' },
+        { value: '3', label: '3' },
+        { value: '4', label: '4' },
+        { value: '5', label: '5' },
+    ]
+    
     return (
     <div className="filter-container">
         <div className="filter-container-top">
-            <div>
+            <div className="search-sort-by-container">
                 <input
                 className="search-box"
                 type="search"
                 placeholder="Search for any keyword"
                 onChange={searchFieldChangeHandler}
                 />
-                <select className="sort-by-dropdown" onChange={sortByChangeHandler}>
-                    <option value="">Sort By</option>
-                    <option value="distance">Distance to UCLA</option>
-                    <option value="price_asc">Price Ascending</option>
-                    <option value="price_desc">Price Descending</option>
-                    <option value="sqft_asc">Sqft Ascending</option>
-                    <option value="sqft_desc">Sqft Descending</option>
-                </select>
+                <Select 
+                    className="sort-by-dropdown" 
+                    isClearable
+                    placeholder="Sort By" 
+                    options={sort_by_options} 
+                    onChange={sortByChangeHandler}
+                    styles={{
+                    control: base => ({
+                        ...base,
+                        border: 0,
+                        boxShadow: 'none'
+                    }) }}
+                />
+
             </div>
             <div className="bed-bath-filter">
-                <input
-                    className="bed-bath-search-box"
-                    type="search"
-                    placeholder="Beds"
+                <Select 
+                    className="bed-bath-search-box" 
+                    isClearable
+                    placeholder={<FontAwesomeIcon icon={faBed} />} 
+                    options={bed_bath_options} 
                     onChange={bedFieldChangeHandler}
+                    styles={{
+                    control: base => ({
+                        ...base,
+                        border: 0,
+                        boxShadow: 'none'
+                    }) }}
                 />
-                <input
-                    className="bed-bath-search-box"
-                    type="search"
-                    placeholder="Baths"
+                <Select 
+                    className="bed-bath-search-box" 
+                    isClearable
+                    placeholder={<FontAwesomeIcon icon={faBath} />} 
+                    options={bed_bath_options} 
                     onChange={bathFieldChangeHandler}
+                    styles={{
+                    control: base => ({
+                        ...base,
+                        border: 0,
+                        boxShadow: 'none'
+                    }) }}
                 />
             </div>
             <div className="rent-filter">

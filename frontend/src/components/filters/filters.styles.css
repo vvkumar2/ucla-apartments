@@ -6,12 +6,13 @@
     margin: 20px auto;
 }
 
+.search-sort-by-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .sort-by-dropdown {
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
-    
-    width: 150px;
+    width: auto;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0px 0px 12px #c7c7c740;
@@ -21,9 +22,8 @@
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 48px;
 
-    padding-left: 20px;
+    padding: 5px 0px;
     margin-left: 35px;
 }
 
@@ -51,22 +51,21 @@
 }
 
 .bed-bath-search-box {
-    -webkit-appearance: none;
+    /* -webkit-appearance: none; */
     border: none;
     outline: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
     box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
     border-radius: 10px;
-    width: 70px;
-    padding-left: 18px;
     margin-right: 10px;
 
     color: #686868;
+    background-color: white;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
-    line-height: 48px;
-    text-align: center;
+    font-size: 14px;
 }
 
 .rent-filter {
