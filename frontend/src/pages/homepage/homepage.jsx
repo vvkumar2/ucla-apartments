@@ -16,7 +16,7 @@ const Home = () => {
     <div className="homepage-container">
       <Navbar />
       <div className="homepage-content">
-        <div className="homepage-logo">The University Apartments</div>
+        <div className="homepage-logo">Website Name</div>
         <div className="homepage-dropdown">
           <Select 
             className="dropdown-bar" 
@@ -31,13 +31,6 @@ const Home = () => {
                 boxShadow: 'none'
               })
             }}
-            theme={theme => ({
-              ...theme,
-              colors: {
-                ...theme.colors,
-                neutral50: '#8ecae6',  // Placeholder color
-              },
-            })}
           />
           <button className="dropdown-submit">Search</button>
         </div>

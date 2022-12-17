@@ -64,7 +64,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
             beds={apartment.beds}
             baths={apartment.baths}
             sqft={apartment.sqft}
-            monthly_rent={apartment.monthly_rent}
+            rent={apartment.rent}
             distance={apartment.distance}
           />
         )})}

@@ -5,6 +5,65 @@ import Home from "./pages/homepage/homepage";
 import './App.css';
 import apartment_data from "./data/apartment_data.json";
 
+function getMinRent(rentString) {
+  if (rentString.includes("$")) {
+    rentString = rentString.replaceAll('$', '')
+  }
+  if (rentString.includes("-")) {
+    rentString = rentString.substr(0, rentString.indexOf("-")-1)
+  }
+  if (rentString.includes(",")) {
+    rentString = rentString.replaceAll(',', '')
+  }
+  if (rentString==="Call for Rent") {
+    rentString = "0"
+  }
+
+  return parseFloat(rentString, 10)
+}
+
+function getMaxRent(rentString) {
+  if (rentString.includes("$")) {
+    rentString = rentString.replaceAll('$', '')
+  }
+  if (rentString.includes("-")) {
+    rentString = rentString.substr(rentString.indexOf("-")+1, rentString.length)
+  }
+  if (rentString.includes(",")) {
+    rentString = rentString.replaceAll(',', '')
+  }
+  if (rentString==="Call for Rent") return 10000
+
+  return parseFloat(rentString, 10)
+}
+
+function getMinSqft(sqftString) {
+  if (sqftString.includes("-")) {
+    sqftString = sqftString.substr(0, sqftString.indexOf("-")-1)
+  }
+  if (sqftString.includes(",")) {
+    sqftString = sqftString.replaceAll(',', '')
+  }
+  if (sqftString==="") {
+    sqftString = "0"
+  }
+
+  return parseFloat(sqftString, 10)
+}
+
+function getMaxSqft(sqftString) {
+  if (sqftString.includes("-")) {
+    sqftString = sqftString.substr(sqftString.indexOf("-")+1, sqftString.length)
+  }
+  if (sqftString.includes(",")) {
+    sqftString = sqftString.replaceAll(',', '')
+  }
+  if (sqftString==="") {
+    sqftString = "0"
+  }
+
+  return parseFloat(sqftString, 10)
+}
 
 function App() {
   // Crete states for sort by field
@@ -29,66 +88,71 @@ function App() {
 
     if (sortBy !== "") {
       if (sortBy==="price_asc") {
-        newFilteredApartments = newFilteredApartments.sort((a, b) =>
-          a["rent"] - b["rent"]
+        newFilteredApartments = newFilteredApartments.sort((a, b) => {
+          return getMinRent(a["rent"]) - getMinRent(b["rent"])
+        }
         );
       }
       if (sortBy==="sqft_asc") {
-        newFilteredApartments = newFilteredApartments.sort((a, b) =>
-          a["sqft"] - b["sqft"]
+        newFilteredApartments = newFilteredApartments.sort((a, b) => {
+          return getMinSqft(a["sqft"]) - getMinSqft(b["sqft"])
+        }
         );
       }
       if (sortBy==="price_desc") {
-        newFilteredApartments = newFilteredApartments.sort((a, b) =>
-          b["rent"] - a["rent"]
+        newFilteredApartments = newFilteredApartments.sort((a, b) => {
+          return getMaxRent(b["rent"]) - getMaxRent(a["rent"])
+        }
         );
       }
       if (sortBy==="sqft_desc") {
-        newFilteredApartments = newFilteredApartments.sort((a, b) =>
-          b["sqft"] - a["sqft"]
+        newFilteredApartments = newFilteredApartments.sort((a, b) => {
+          console.log(b["sqft"])
+          return getMaxSqft(b["sqft"]) - getMaxSqft(a["sqft"])
+        }
         );
       }
       if (sortBy==="distance") {
-        newFilteredApartments = newFilteredApartments.sort((a, b) =>
-          a["distance"] - b["distance"]
+        newFilteredApartments = newFilteredApartments.sort((a, b) => {
+          let dista = a["distance"]
+          let distb = b["distance"]
+          return dista - distb
+        }
         );
       }
     }
 
-    if (!isNaN(bedField)) {
+    if (!isNaN(bedField) && bedField!=="") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        return apartment.bed === bedField;
+        return apartment.beds.includes(bedField)
       });
     }
 
-    if (!isNaN(bathField)) {
+    if (!isNaN(bathField) && bathField!=="") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        return apartment.bath === bathField;
+        return apartment.baths.includes(bathField)
       });
     }
 
     if (!isNaN(minRentField)) {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        return apartment.rent >= minRentField;
+        let rent = getMaxRent(apartment.rent);
+
+        return rent >= minRentField;
       });
     }
 
     if (!isNaN(maxRentField)) {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        return apartment.rent <= maxRentField;
+        let rent = getMinRent(apartment.rent);
+
+        return rent <= maxRentField;
       });
     }
 
 
     setFilteredApartments(newFilteredApartments);
-  }, [
-    apartments,
-    searchField,
-    bedField,
-    bathField,
-    minRentField,
-    maxRentField,
-  ]);
+  }, [apartments, sortBy, searchField, bedField, bathField, minRentField, maxRentField]);
 
   // On search handler for "Sort By" filter
   const sortByChangeHandler = (event) => {
@@ -102,15 +166,16 @@ function App() {
   };
   const onBedChange = (event) => {
     const bedFieldString = event.target.value;
-    setBedField(parseFloat(bedFieldString, 10));
+    setBedField(bedFieldString);
   };
   const onBathChange = (event) => {
     const bathFieldString = event.target.value;
-    setBathField(parseFloat(bathFieldString, 10));
+    setBathField(bathFieldString);
   };
   const onMinRentChange = (event) => {
     const minRent = event.target.value;
     setMinRentField(parseFloat(minRent, 10));
+    console.log(minRentField)
   };
   const onMaxRentChange = (event) => {
     const maxRent = event.target.value;

@@ -4,7 +4,7 @@ import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icon
 import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
 import './apartment-box.styles.css'
 
-const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_rent, distance}) => {
+const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, distance}) => {
     const [btnClass, setBtnClass] = useState(false);
 
     function addToLiked() {
@@ -36,7 +36,7 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, monthly_ren
             </div>
             <div className="apartment-box-bottom">
                 <div className="apartment-box-bottom-left">
-                    <h1 className="apartment-rent">Monthly Rent: ${monthly_rent}</h1>
+                    <h1 className="apartment-rent">Monthly Rent: {rent}</h1>
                 </div>
                 <div className="apartment-box-bottom-right">
                     <p className="apartment-utilities">UCLA <FontAwesomeIcon icon={faPersonWalking} /> : {distance} mi</p>
