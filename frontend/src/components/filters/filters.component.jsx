@@ -7,10 +7,10 @@ import './filters.styles.css'
 const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
     const sort_by_options = [
         { value: 'distance', label: "Distance to UCLA"},
-        { value: 'price_asc', label: "Price Descending"},
-        { value: 'price_desc', label: "Price Ascending"},
-        { value: 'sqft_asc', label: "Sqft: Descending"},
-        { value: 'sqft_desc', label: "Sqft: Ascending"},
+        { value: 'price_asc', label: "Price Ascending"},
+        { value: 'price_desc', label: "Price Descending"},
+        { value: 'sqft_asc', label: "Sqft: Ascending"},
+        { value: 'sqft_desc', label: "Sqft: Descending"},
     ]
     
     const bed_bath_options = [
@@ -18,7 +18,7 @@ const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeH
         { value: '2', label: '2' },
         { value: '3', label: '3' },
         { value: '4', label: '4' },
-        { value: '5', label: '5' },
+        { value: '5', label: '5+' },
     ]
     
     return (

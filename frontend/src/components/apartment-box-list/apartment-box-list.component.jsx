@@ -55,6 +55,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
           <p className="num-pages"> Page {currentPage} of {maxPages}</p>
         </div>
       {getPaginatedData().map((apartment) => {
+        const sqft = apartment.sqft ? apartment.sqft : "Unknown"
         return (
           <ApartmentBox 
             image={apartment.image_url}
@@ -63,7 +64,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
             url={apartment.url}
             beds={apartment.beds}
             baths={apartment.baths}
-            sqft={apartment.sqft}
+            sqft={sqft}
             rent={apartment.rent}
             distance={apartment.distance}
           />
