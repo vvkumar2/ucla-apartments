@@ -1,7 +1,7 @@
 import React from "react";
 import Select from 'react-select'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed, faBath, faBathtub } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons'
 import './filters.styles.css'
 
 const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
