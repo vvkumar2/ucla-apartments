@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Select from 'react-select'
 import Navbar from "../navbar/navbar";
 import './homepage.styles.css'
@@ -6,22 +6,36 @@ import './homepage.styles.css'
 
 
 const universities = [
-  { value: 'ucla', label: 'UCLA' },
-  { value: 'usc', label: 'USC' },
-  { value: 'ucsd', label: 'UCSD' },
+  { value: 'ucla-listings', label: 'UCLA' },
+  { value: 'usc-listings', label: 'USC' },
+  { value: 'ucsd-listings', label: 'UCSD' },
 ]
 
 const Home = () => {
+  const [selectedUniversity, setSelectedUniversity] = useState("");
+
+  function selectChangeHandler (event) {
+    setSelectedUniversity(event.value)
+  }
+
+  function onSubmitHandler () {
+    if(selectedUniversity!=="") {
+      window.location.replace("/" + selectedUniversity)
+    }
+  }
+
   return (
     <div className="homepage-container">
       <Navbar />
       <div className="homepage-content">
         <div className="homepage-logo">Website Name</div>
+        <div className="homepage-text">Helping students find their perfect home.</div>
         <div className="homepage-dropdown">
           <Select 
             className="dropdown-bar" 
-            isClearable placeholder={"Look for your University..."} 
+            isClearable placeholder={"Find your University..."} 
             options={universities} 
+            onChange={selectChangeHandler}
             styles={{
               height: 350, minHeight:350,
               control: base => ({
@@ -32,10 +46,10 @@ const Home = () => {
               })
             }}
           />
-          <button className="dropdown-submit">Search</button>
+          <button onClick={onSubmitHandler} className="dropdown-submit">Search</button>
         </div>
-        <div className="homepage-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
-        </div>
+        
+      </div>
     </div>
   );
 };
