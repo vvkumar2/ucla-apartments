@@ -13,9 +13,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-links">
                 {/* <a href="https://google.com" rel="noopener noreferrer" target="_blank">UCLA</a> */}
-                <div class="dropdown">
-                    <button class="dropbtn">Universities <FontAwesomeIcon icon={faCaretDown} /></button>
-                    <div class="dropdown-content">
+                <div className="dropdown">
+                    <button className="dropbtn">Universities <FontAwesomeIcon icon={faCaretDown} /></button>
+                    <div className="dropdown-content">
                         <div onClick={() => window.location.replace("/ucla-listings")}>UCLA</div>
                         <div onClick={() => window.location.replace("/ucla-listings")}>USC</div>
                         <div onClick={() => window.location.replace("/ucla-listings")}>UCSD</div>
