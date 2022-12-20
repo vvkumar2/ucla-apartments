@@ -5,7 +5,7 @@ import Filters from "../../components/filters/filters.component";
 import Navbar from "../navbar/navbar";
 import SectionHeader from "../../components/section-header/section-header.component";
 
-import apartment_data from '../../data/apartment_data.json'
+import apartment_data from "../../data/apartment_data.json";
 
 import "./listings.styles.css";
 
@@ -181,11 +181,22 @@ const Listings = () => {
   };
   const onMinRentChange = (event) => {
     const minRent = event.target.value;
+
+    // allow flexible input formats
+    minRent.replaceAll("$", "");
+    minRent.replaceAll(",", "");
+    minRent.replaceAll(" ", "");
+
     setMinRentField(parseFloat(minRent, 10));
-    console.log(minRentField);
   };
   const onMaxRentChange = (event) => {
     const maxRent = event.target.value;
+
+    // allow flexible input formats
+    maxRent.replaceAll("$", "");
+    maxRent.replaceAll(",", "");
+    maxRent.replaceAll(" ", "");
+
     setMaxRentField(parseFloat(maxRent, 10));
   };
 
