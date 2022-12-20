@@ -26,7 +26,6 @@ const Home = () => {
 
   return (
     <div className="homepage-container">
-      <Navbar />
       <div className="homepage-content">
         <h1 className="homepage-logo">Website Name</h1>
         <h2 className="homepage-text">The number one place for college students to find housing.</h2>

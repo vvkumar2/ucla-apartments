@@ -1,10 +1,11 @@
 .apartment-box {
     display: flex;
-    flex-direction: row;
-    width: 90%;
+    gap: 25px;
+    width: 100%;
     height: 50%;
     max-height: 375px;
     margin: 0px auto 40px auto;
+    padding: 25px;
 
     background-color: #FFFFFF;
     box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
@@ -21,12 +22,11 @@
 .apartment-box-description {
     display: flex;
     flex-direction: column;
-
+    flex: 1; /* make container fill the remaining space */
     width: 65%;
 }
 
 .apartment-box-image {
-    margin: 25px;
     width: 30%;
     border-radius: 15px;
     object-fit: cover;
@@ -35,9 +35,8 @@
 
 .apartment-box-top {
     display: flex;
-    flex-direction: row;
-    text-align: left;
-    padding: 25px 25px 25px 10px;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .apartment-box-top-left {
@@ -47,23 +46,28 @@
 }
 
 .apartment-name {
-    font-family: 'Lato';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
-    line-height: 48px;
+    line-height: 35px; /* needed to align text with the top of the image next to it */
 }
+
 .apartment-description {
     display: flex;
     flex-direction: column;
     gap: 5px;
 
     color: #686868;
-    font-family: "Lato";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
+
+}
+
+.apartment-details {
+    display: flex;
+    gap: 35px;
 }
 
 .apartment-url a {
@@ -76,10 +80,9 @@
 }
 
 .apartment-box-top-right {
-    margin-left: auto;
-    height: auto;
     display: flex;
-    flex-direction: row;
+    gap: 20px;
+    align-items: center;
 }
 
 .apartment-box-interested {
@@ -92,12 +95,10 @@
     box-shadow: 0px 0px 12px #c7c7c781;
 
     color: white;
-    font-family: 'Lato';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 22px;
-    margin-top: 10px;
 }
 
 .apartment-box-interested:hover {
@@ -107,9 +108,8 @@
 
 .like-button-icon {
     height: 40px;
-    width: auto;
-    margin-top: 13px;
-    padding-left: 20px;
+    width: 40px;
+    cursor: pointer;
 }
 
 .not-clicked path:hover {
@@ -129,14 +129,8 @@
 
 .apartment-box-bottom {
     display: flex;
-    flex-direction: row;
     text-align: left;
     margin-top: auto;
-    padding: 25px 25px 25px 10px;
-}
-
-.apartment-box-bottom-left {
-
 }
 
 .apartment-box-bottom-right {
@@ -144,8 +138,7 @@
 }
 
 .apartment-rent {
-    font-family: 'Lato';
-    font-style: normal;
+    font-style: normal; 
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
@@ -153,7 +146,6 @@
 
 .apartment-utilities {
     color: #686868;
-    font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -164,7 +156,7 @@
     margin-left: auto;
     padding-top: 35px;
     color: #686868;
-    font-family: 'Lato';
+    
     font-style: normal;
     font-weight: 400;
     font-size: 18px;

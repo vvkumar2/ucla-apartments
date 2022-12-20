@@ -1,11 +1,11 @@
 .navbar-container {
     text-align: left;
     width: 100%;
-    height: 36px;
+    height: 56px;
     padding: 10px;
 
     display: flex;
-    flex-direction: row;
+    
     box-shadow: 0 5px 10px 1px #cfcfcf4d;
     background-color: white;
 
@@ -84,7 +84,7 @@
 
 .navbar-links {
     display: flex;
-    flex-direction: row;
+    
     margin: 0px 20px 0px auto;
 }
 

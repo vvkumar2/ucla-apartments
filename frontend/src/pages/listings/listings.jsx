@@ -202,7 +202,6 @@ const Listings = () => {
 
   return (
     <div className="listings-section" id="listings-section-id">
-      <Navbar />
       <SectionHeader header_name="Apartments near UCLA" />
       <Filters
         searchFieldChangeHandler={onSearchChange}
