@@ -28,8 +28,8 @@ const Home = () => {
     <div className="homepage-container">
       <Navbar />
       <div className="homepage-content">
-        <div className="homepage-logo">Website Name</div>
-        <div className="homepage-text">Helping students find their perfect home.</div>
+        <h1 className="homepage-logo">Website Name</h1>
+        <h2 className="homepage-text">The number one place for college students to find housing.</h2>
         <div className="homepage-dropdown">
           <Select 
             className="dropdown-bar" 
