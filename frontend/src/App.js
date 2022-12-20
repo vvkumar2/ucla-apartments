@@ -1,42 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Listings from './pages/listings/listings';
+
 import Home from "./pages/homepage/homepage";
-import './App.css';
+import Listings from "./pages/listings/listings";
+import Profile from "./pages/profile/profile";
+
 import apartment_data from "./data/apartment_data.json";
+
+import "./App.css";
 
 function getMinValue(inputString) {
   if (inputString.includes("$")) {
-    inputString = inputString.replaceAll('$', '')
+    inputString = inputString.replaceAll("$", "");
   }
   if (inputString.includes("-")) {
-    inputString = inputString.substr(0, inputString.indexOf("-")-1)
+    inputString = inputString.substr(0, inputString.indexOf("-") - 1);
   }
   if (inputString.includes(",")) {
-    inputString = inputString.replaceAll(',', '')
+    inputString = inputString.replaceAll(",", "");
   }
-  if (inputString==="Call for Rent" || inputString==="") {
-    inputString = "100000"
+  if (inputString === "Call for Rent" || inputString === "") {
+    inputString = "100000";
   }
-  
-  return parseFloat(inputString, 10)
+
+  return parseFloat(inputString, 10);
 }
 
 function getMaxValue(inputString) {
   if (inputString.includes("$")) {
-    inputString = inputString.replaceAll('$', '')
+    inputString = inputString.replaceAll("$", "");
   }
   if (inputString.includes("-")) {
-    inputString = inputString.substr(inputString.indexOf("-")+1, inputString.length)
+    inputString = inputString.substr(
+      inputString.indexOf("-") + 1,
+      inputString.length
+    );
   }
   if (inputString.includes(",")) {
-    inputString = inputString.replaceAll(',', '')
+    inputString = inputString.replaceAll(",", "");
   }
-  if (inputString==="Call for Rent" || inputString==="") {
-    inputString = "0"
+  if (inputString === "Call for Rent" || inputString === "") {
+    inputString = "0";
   }
 
-  return parseFloat(inputString, 10)
+  return parseFloat(inputString, 10);
 }
 
 function App() {
@@ -61,62 +68,55 @@ function App() {
     });
 
     if (sortBy !== "") {
-      if (sortBy==="price_asc") {
+      if (sortBy === "price_asc") {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
-          return getMinValue(a["rent"]) - getMinValue(b["rent"])
-        }
-        );
+          return getMinValue(a["rent"]) - getMinValue(b["rent"]);
+        });
       }
-      if (sortBy==="sqft_asc") {
+      if (sortBy === "sqft_asc") {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
-          return getMinValue(a["sqft"]) - getMinValue(b["sqft"])
-        }
-        );
+          return getMinValue(a["sqft"]) - getMinValue(b["sqft"]);
+        });
       }
-      if (sortBy==="price_desc") {
+      if (sortBy === "price_desc") {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
-          return getMaxValue(b["rent"]) - getMaxValue(a["rent"])
-        }
-        );
+          return getMaxValue(b["rent"]) - getMaxValue(a["rent"]);
+        });
       }
-      if (sortBy==="sqft_desc") {
+      if (sortBy === "sqft_desc") {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
-          return getMaxValue(b["sqft"]) - getMaxValue(a["sqft"])
-        }
-        );
+          return getMaxValue(b["sqft"]) - getMaxValue(a["sqft"]);
+        });
       }
-      if (sortBy==="distance") {
+      if (sortBy === "distance") {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
-          let dista = a["distance"]
-          let distb = b["distance"]
-          return dista - distb
-        }
-        );
+          let dista = a["distance"];
+          let distb = b["distance"];
+          return dista - distb;
+        });
       }
     }
 
-    if (!isNaN(bedField) && bedField!=="") {
+    if (!isNaN(bedField) && bedField !== "") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        const min_beds = getMinValue(apartment.beds)
-        const max_beds = getMaxValue(apartment.beds)
-        if (bedField==="5") {
-          return !(max_beds < 5) && apartment.beds!=="Studio"
-        }
-        else {
-          return bedField >= min_beds && bedField <= max_beds
+        const min_beds = getMinValue(apartment.beds);
+        const max_beds = getMaxValue(apartment.beds);
+        if (bedField === "5") {
+          return !(max_beds < 5) && apartment.beds !== "Studio";
+        } else {
+          return bedField >= min_beds && bedField <= max_beds;
         }
       });
     }
 
-    if (!isNaN(bathField) && bathField!=="") {
+    if (!isNaN(bathField) && bathField !== "") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        const min_baths = getMinValue(apartment.baths)
-        const max_baths = getMaxValue(apartment.baths)
-        if (bathField==="5") {
-          return !(max_baths < 5)
-        }
-        else {
-          return bathField >= min_baths && bathField <= max_baths
+        const min_baths = getMinValue(apartment.baths);
+        const max_baths = getMaxValue(apartment.baths);
+        if (bathField === "5") {
+          return !(max_baths < 5);
+        } else {
+          return bathField >= min_baths && bathField <= max_baths;
         }
       });
     }
@@ -137,20 +137,26 @@ function App() {
       });
     }
 
-
     setFilteredApartments(newFilteredApartments);
-  }, [apartments, sortBy, searchField, bedField, bathField, minRentField, maxRentField]);
+  }, [
+    apartments,
+    sortBy,
+    searchField,
+    bedField,
+    bathField,
+    minRentField,
+    maxRentField,
+  ]);
 
   // On search handler for "Sort By" filter
   const sortByChangeHandler = (event) => {
     if (event !== null) {
-      setSortBy(event.value)
+      setSortBy(event.value);
       console.log(event.value);
+    } else {
+      setSortBy("");
     }
-    else {
-      setSortBy("") 
-    }
-  }
+  };
   // On search handler for search field
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
@@ -158,26 +164,24 @@ function App() {
   };
   const onBedChange = (event) => {
     if (event !== null) {
-      setBedField(event.value)
+      setBedField(event.value);
       console.log(event.value);
-    }
-    else {
-      setBedField("") 
+    } else {
+      setBedField("");
     }
   };
   const onBathChange = (event) => {
     if (event !== null) {
-      setBathField(event.value)
+      setBathField(event.value);
       console.log(event.value);
-    }
-    else {
-      setBathField("") 
+    } else {
+      setBathField("");
     }
   };
   const onMinRentChange = (event) => {
     const minRent = event.target.value;
     setMinRentField(parseFloat(minRent, 10));
-    console.log(minRentField)
+    console.log(minRentField);
   };
   const onMaxRentChange = (event) => {
     const maxRent = event.target.value;
@@ -188,16 +192,23 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="" element={<Home/>} />
-          <Route path="ucla-listings" element={
-            <Listings apartmentList={filteredApartments}
-              sortByChangeHandler={sortByChangeHandler}
-              searchFieldChangeHandler={onSearchChange} 
-              bedFieldChangeHandler={onBedChange} 
-              bathFieldChangeHandler={onBathChange}
-              minRentChangeHandler={onMinRentChange}
-              maxRentChangeHandler={onMaxRentChange}
-              numListings={filteredApartments.length}/>} />
+          <Route path="" element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+          <Route
+            path="ucla-listings"
+            element={
+              <Listings
+                apartmentList={filteredApartments}
+                sortByChangeHandler={sortByChangeHandler}
+                searchFieldChangeHandler={onSearchChange}
+                bedFieldChangeHandler={onBedChange}
+                bathFieldChangeHandler={onBathChange}
+                minRentChangeHandler={onMinRentChange}
+                maxRentChangeHandler={onMaxRentChange}
+                numListings={filteredApartments.length}
+              />
+            }
+          />
         </Routes>
       </Router>
     </div>
