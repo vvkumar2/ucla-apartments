@@ -10,41 +10,41 @@
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
-
-    margin-right: auto;
-    margin-left: auto;
 }
 
 .homepage-content {
     display: flex;
     flex-direction: column;
-    gap: 25px;
     justify-content: center;
+    align-items: center;
+    gap: 25px;
     transform: translate(0, 100%);
 }
 
 .homepage-logo {
     font-size: 64px;
-    font-family: "Lato";
     font-weight: bold;
     color: #FFFFFF;
     font-size: 72px;
-    margin: auto;
     text-shadow: 2px 4px 3px #7575754d;
     text-shadow: 1px 2px 1.5px #7575754d;
     /* text-shadow: -1px 0 #023047, 0 1px #023047, 1px 0 #023047, 0 -1px #023047; */
 
 }
 
+.homepage-text {
+    color: white;
+    font-weight: bold;
+    
+    text-shadow: -1px 0 #023047, 0 1px #023047, 1px 0 #023047, 0 -1px #023047;
+    text-shadow: 1px 2px 1.5px #7575754d;
+}
+
 .homepage-dropdown {
     display: flex;
     flex-direction: row;
     width: 50%;
-    margin: 50px auto 0px auto;
-    margin-right: auto;
-    margin-left: auto;
-    color: #023047;
-
+    margin-top: 50px;
 }
 
 .dropdown-bar {
@@ -77,14 +77,3 @@
 
 }
 
-.homepage-text {
-    width: 70%;
-    margin-right: auto;
-    margin-left: auto;
-
-    color: white;
-    font-weight: bold;
-    
-    text-shadow: -1px 0 #023047, 0 1px #023047, 1px 0 #023047, 0 -1px #023047;
-    text-shadow: 1px 2px 1.5px #7575754d;
-}

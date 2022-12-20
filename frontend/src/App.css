@@ -1,3 +1,4 @@
 .App {
   box-sizing: border-box; /* prevents borders from adding to the width of the element */
+  font-family: 'Lato', sans-serif;
 }
