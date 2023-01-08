@@ -65,10 +65,11 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 22px;
+    
 }
 
 .dropdown-submit:hover {
-    background: #00c1ecab;
+    background: #02b5dd;
     cursor: pointer;
 
 }
@@ -79,7 +80,6 @@
     margin-left: auto;
 
     color: white;
-    font-weight: bold;
     
     text-shadow: 1px 2px 1.5px #3535354d;
 }

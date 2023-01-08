@@ -1,9 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
 import Home from "./pages/homepage/homepage";
 import './App.css';
 import apartment_data from "./data/apartment_data.json";
+import Login from "./pages/login/login";
+import ResetPassword from "./pages/reset-password/reset-password";
+import Profile from "./pages/profile/profile";
+import { createClient } from '@supabase/supabase-js'
+import ResetEmail from "./pages/reset-email/reset-email";
+
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
 
 function getMinValue(inputString) {
   if (inputString.includes("$")) {
@@ -184,6 +195,7 @@ function App() {
     setMaxRentField(parseFloat(maxRent, 10));
   };
 
+
   return (
     <div className="App">
       <Router>
@@ -198,6 +210,10 @@ function App() {
               minRentChangeHandler={onMinRentChange}
               maxRentChangeHandler={onMaxRentChange}
               numListings={filteredApartments.length}/>} />
+          <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="reset-email" element={<ResetEmail />} />
         </Routes>
       </Router>
     </div>

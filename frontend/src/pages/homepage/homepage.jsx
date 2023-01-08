@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Select from 'react-select'
 import Navbar from "../navbar/navbar";
 import './homepage.styles.css'
-
 
 
 const universities = [
@@ -15,7 +14,9 @@ const Home = () => {
   const [selectedUniversity, setSelectedUniversity] = useState("");
 
   function selectChangeHandler (event) {
-    setSelectedUniversity(event.value)
+    if (event!==null) {
+      setSelectedUniversity(event.value)
+    }
   }
 
   function onSubmitHandler () {
@@ -23,6 +24,7 @@ const Home = () => {
       window.location.replace("/" + selectedUniversity)
     }
   }
+
 
   return (
     <div className="homepage-container">
@@ -33,7 +35,8 @@ const Home = () => {
         <div className="homepage-dropdown">
           <Select 
             className="dropdown-bar" 
-            isClearable placeholder={"Find your University..."} 
+            isClearable
+            placeholder={"Find your University..."} 
             options={universities} 
             onChange={selectChangeHandler}
             styles={{

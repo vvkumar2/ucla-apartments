@@ -1,0 +1,28 @@
+.reset-email-container {
+    justify-content: center;
+    transform: translate(0, 200%); 
+    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
+    border-radius: 20px;
+    background-color: white;  
+
+    width: 30%;
+    margin: 0 auto;
+    
+    padding: 15px 25px;
+}
+
+.reset-email-to-login{
+    font-size: 16px;
+    margin: 5% auto 0 auto;
+}
+
+.reset-email-to-login a {
+    font-weight: 300;
+    text-decoration: none;
+    color: #a5a3a3
+}
+
+.reset-email-to-login a:hover {
+    color: #858383;
+    cursor: pointer;
+}

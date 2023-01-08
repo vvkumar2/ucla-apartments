@@ -20,6 +20,7 @@
 }
 
 .logo-text {
+    text-decoration: none;
     color: #686868;
     font-size: 22px;
     font-family: "Lato";
@@ -46,7 +47,6 @@
     margin-right: 20px;
     margin-top: auto;
     margin-bottom: auto;
-
 }
 
 .dropdown-content {
@@ -58,7 +58,7 @@
     z-index: 1;
 }
 
-.dropdown-content div {
+.dropdown-content a {
     float: none;
     color: #686868;
     text-decoration: none;
@@ -67,7 +67,7 @@
     padding: 10px 10px;
 }
 
-.dropdown-content div:hover {
+.dropdown-content a:hover {
     background-color: #edf0f8;
     color: #00c1ec;
     cursor: pointer;

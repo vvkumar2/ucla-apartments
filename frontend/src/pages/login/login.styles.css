@@ -1,0 +1,107 @@
+.login-section {
+    max-height: 100vh;
+    height: 100%;
+}
+
+.login-container {
+    z-index: 1;
+    font-family: 'Lato';
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    padding: 0 50px;
+    justify-content: center;
+    transform: translate(0, 50%);
+    gap: 10%;
+}
+
+.login-text {
+    width: 40%;
+    text-align: left;
+    transform: translate(0, 30%);
+}
+
+.login-text h1 {
+    font-size: 44px;
+    padding-bottom: 10px;
+}
+
+.login-text h2 {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.login-form-container {
+    border-radius: 10px;
+    width: 30%;
+    background-color: white;
+    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.login-form {
+    width: 90%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 2px solid #a5a3a373;
+}
+
+.login-form input {
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #a5a3a373;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.submit-button {
+    border: none !important;
+    background-color: hsl(191, 100%, 46%);
+    color: white;
+    font-weight: bold;
+    margin-top: 15px !important;
+}
+
+.submit-button:hover {
+    background: hsl(191, 98%, 44%);
+    cursor: pointer;
+}
+
+.create-account-button {
+    border-radius: 5px;
+    width: 60%;
+    margin: 7% auto;
+    padding: 15px;
+
+    font-size: 18px;
+    border: none;
+    background-color: #fa8500;
+    color: white;
+    font-weight: bold;
+}
+
+.create-account-button:hover {
+    background: #ed8002;
+    cursor: pointer;
+}
+
+.forgot-password-button {
+    text-decoration: none;
+    color: #a5a3a3
+}
+
+.forgot-password-button:hover {
+    color: #858383;
+    cursor: pointer;
+}

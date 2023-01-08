@@ -2,13 +2,28 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
 import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
+import { createClient } from '@supabase/supabase-js'
 import './apartment-box.styles.css'
 
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+const el = {text: "Hadsfi"}
+const id = "f59598f1-0607-4436-a2ed-4f31d802948d";
 const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, distance}) => {
     const [btnClass, setBtnClass] = useState(false);
 
-    function addToLiked() {
+    async function addToLiked() {
         btnClass ? setBtnClass(false) : setBtnClass(true);
+
+        let { data, error } = await supabase
+            .rpc('append_array', {
+                id: id,
+                new_element: el
+        })
+        console.log(data)
+        console.log(error)
     }
 
     return (
