@@ -1,3 +1,4 @@
+from multiprocessing.connection import Client
 import scrapy
 from scrapy.crawler import CrawlerProcess
 import googlemaps
@@ -65,15 +66,17 @@ class ApartmentsSpider(scrapy.Spider):
         address = street_city[0] + " " + street_city[1] + \
             ", " + state_zip[0] + " " + state_zip[1]
 
-        # scrape image url
-        image_styling = response.xpath(
-            './/*[@class="aspectRatioImage "]/@style').extract_first()
-        open_paren = image_styling.find("(")
-        close_paren = image_styling.rfind(")")
+        # scrape cover image url
+        image_url = response.xpath(
+            './/*[@class="aspectRatioElement"]/div/img/@src').extract_first()
 
-        if open_paren != -1 and close_paren != -1:
-            # remove one past parantheses to remove opening and closing quotes
-            image_url = image_styling[open_paren + 2:close_paren - 1]
+        # scrape other pictures
+        # small_image_urls = response.xpath(
+        #     './/*[@class="aspectRatioElement"]/div/img/@src').extract()
+
+        # get phone number
+        phone_number = response.xpath(
+            './/*[@class="phoneNumber"]/text()').extract_first()
 
         # get distance from UCLA
         distance = get_distance_from_ucla(address)
@@ -100,7 +103,7 @@ class ApartmentsSpider(scrapy.Spider):
                 if value and len(value) > 1:
                     sqft = (" ").join(value.split()[:-2])
 
-        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "rent": rent, "image_url": image_url, "distance": distance}
+        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "phone": phone_number, "image_url": image_url, "rent": rent, "distance": distance }
 
 
 def get_distance_from_ucla(address):

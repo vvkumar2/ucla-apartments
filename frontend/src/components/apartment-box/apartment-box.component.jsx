@@ -1,30 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
 import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
 import { createClient } from '@supabase/supabase-js'
+import useUserContext from "../../context/user.context";
 import './apartment-box.styles.css'
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// const id = "e59598f1-0607-4446-a2ed-4f31d802948d";
+const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, distance, liked, addToLiked}) => {
+    // const [btnClass, setBtnClass] = useState(false);
+    // const { email, likedItems, setLikedItems } = useUserContext()
+    // const [likedItemsNow, setLikedItemsNow] = useState(useUserContext().likedItems)
 
-const el = {text: "Hadsfi"}
-const id = "f59598f1-0607-4436-a2ed-4f31d802948d";
-const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, distance}) => {
-    const [btnClass, setBtnClass] = useState(false);
+    // async function addToLiked() {
+    //     console.log(likedItems)
+    //     if (email==="") {
+    //         alert("Must Login to like items")
+    //     }
+    //     else {
+    //         const likedItem = { image: image, name: name, address: address, beds: beds, baths: baths, sqft: sqft, rent: rent, distance: distance } 
 
-    async function addToLiked() {
-        btnClass ? setBtnClass(false) : setBtnClass(true);
+            // if (btnClass) {
+                // let { data, error } = await supabase
+                // .rpc('remove_array', {
+                //     id: id,
+                //     new_element: likedItem
+                // })
+                // let index = likedItems.findIndex({image})
+                // setLikedItems(likedItems.splice(index, 1))
+            //     console.log(data)
+            //     console.log(error)
+            // }
+            // else {
+                // let { data, error } = await supabase
+                // .rpc('append_array', {
+                //     id: id,
+                //     new_element: likedItem
+                // })
+            //     setLikedItems(likedItems.concat({image}))
+            //     console.log(data)
+            //     console.log(error)
+            // }
 
-        let { data, error } = await supabase
-            .rpc('append_array', {
-                id: id,
-                new_element: el
-        })
-        console.log(data)
-        console.log(error)
-    }
+    //         btnClass ? setBtnClass(false) : setBtnClass(true);
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     async function fetchLikedItems (event) {
+    //         const { data, error } = await supabase
+    //             .from('users')
+    //             .select('liked_items')
+    //             .eq('email', email);
+    //         console.log(data[0].liked_items)
+    //         console.log(error)
+    //     }
+    //     fetchLikedItems()
+    // }, [btnClass])
 
     return (
     <div className="apartment-box">
@@ -44,8 +76,8 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, dista
                 </div>
                 <div className="apartment-box-top-right">
                     <button className="apartment-box-interested">Learn More</button>
-                    <HeartIcon className={btnClass ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
-                        onClick={() => {addToLiked(); }}/>
+                    <HeartIcon className={liked ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
+                        onClick={() => addToLiked(beds, name, rent, sqft, baths, image, address, distance)} />
                 </div>
                 {/* Add a like button */}
             </div>

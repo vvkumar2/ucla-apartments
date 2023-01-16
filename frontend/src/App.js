@@ -9,6 +9,7 @@ import ResetPassword from "./pages/reset-password/reset-password";
 import Profile from "./pages/profile/profile";
 import { createClient } from '@supabase/supabase-js'
 import ResetEmail from "./pages/reset-email/reset-email";
+import LikesPage from "./pages/liked-items/liked-items.component";
 
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -210,6 +211,7 @@ function App() {
               minRentChangeHandler={onMinRentChange}
               maxRentChangeHandler={onMaxRentChange}
               numListings={filteredApartments.length}/>} />
+          <Route path="liked-items" element={<LikesPage />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
           <Route path="reset-password" element={<ResetPassword />} />

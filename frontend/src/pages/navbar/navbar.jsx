@@ -22,7 +22,7 @@ const Navbar = () => {
                         <Link to="/ucla-listings">UCSD</Link>
                     </div>
                 </div> 
-                <Link to="/ucla-listings" className="navbar-liked-items">Liked Items</Link>
+                <Link to="/liked-items" className="navbar-liked-items">Liked Items</Link>
                 {loggedIn && <Link to="/profile" className="navbar-profile-icon"><FontAwesomeIcon icon={faCircleUser} /></Link>}
                 {!loggedIn && <Link to="/login" className="navbar-profile-icon"><FontAwesomeIcon icon={faCircleUser} /></Link>}
             </div>
