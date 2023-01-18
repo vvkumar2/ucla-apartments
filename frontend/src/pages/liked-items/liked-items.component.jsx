@@ -41,6 +41,7 @@ const LikesPage = () => {
         <div>
             <Navbar />
             <SectionHeader header_name="Liked Apartments" />
+            <div style={{paddingTop: "20px"}}/>
             { likedItems.length>0 && <ApartmentBoxList apartmentList={likedItems} dataLimit={listingsPerPage} pageLimit={maxPages<pageLimit ? maxPages : pageLimit } maxPagesInput={maxPages}/>}
             { error!=="" && <h1 className="liked-items-error-message">{error}</h1> }
         </div>

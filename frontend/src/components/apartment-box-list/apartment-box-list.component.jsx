@@ -134,9 +134,24 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
             distance={apartment.distance}
             liked={liked}
             addToLiked={addToLiked}
+            image_list={apartment.all_image_urls}
+            office_hours={apartment.office_hours}
+            about_text={apartment.about_text}
+            unique_features={apartment.unique_features}
+            community_amenities={apartment.community_amenities}
+            property_services={apartment.property_services}
+            apartment_highlights={apartment.apartment_highlights}
+            kitchen_features={apartment.kitchen_features}
+            floor_plan_features={apartment.floor_plan_features}
+            utilities={apartment.utilities}
+            website_url={apartment.website_url}
+            phone_number={apartment.phone_number}
+            phone_number_href={apartment.phone_number_href}
+            seller_logo={apartment.seller_logo_url}
+
           />
         )})}
-        </div>
+      </div>
         <div className="pagination">
           {/* previous button */}
           <button

@@ -67,16 +67,56 @@ class ApartmentsSpider(scrapy.Spider):
             ", " + state_zip[0] + " " + state_zip[1]
 
         # scrape cover image url
-        image_url = response.xpath(
+        main_image_url = response.xpath(
             './/*[@class="aspectRatioElement"]/div/img/@src').extract_first()
 
         # scrape other pictures
-        # small_image_urls = response.xpath(
-        #     './/*[@class="aspectRatioElement"]/div/img/@src').extract()
+        all_image_urls = response.xpath(
+            './/*[@class="aspectRatioElement"]/div/img/@src').extract()
+
+        # scrape seller logo
+        seller_logo_url = response.xpath(
+            './/*[@id="propertyHeader"]/div[2]/img/@src').extract_first()
 
         # get phone number
         phone_number = response.xpath(
             './/*[@class="phoneNumber"]/text()').extract_first()
+        
+        phone_number_href = ''.join(c for c in phone_number if c.isdigit())
+        phone_number_href = "tel:" + phone_number_href
+
+        # scrape about section
+        about_text = response.xpath(
+            './/*[@id="descriptionSection"]/p/text()').extract_first()
+
+        # scrape unique features
+        unique_features = response.xpath(
+            './/*[@id="99"]/ul/li/span/text()').extract()
+
+        # scrape website link
+        website_url = response.xpath(
+            './/*[@id="officeHoursSection"]/div/div/div[1]/div[2]/a/@href').extract_first()
+        
+        # scrape hours of operation
+        days_of_operation = response.xpath(
+            './/*[@class="daysHoursContainer"]/span[1]/text()').extract()
+            
+        hours_of_operation = response.xpath(
+            './/*[@class="daysHoursContainer"]/span[2]/text()').extract()
+        
+        office_hours = []
+
+        if len(days_of_operation) == len(hours_of_operation):
+            for i in range(len(days_of_operation)):
+                office_hours.append({"days": days_of_operation[i].strip().replace("\r", "").replace("\n", ""), "hours": hours_of_operation[i].strip().replace("\r", "").replace("\n", "")})
+
+        # scrape community amenities
+        community_amenities = response.xpath(
+            './/*[@class="amenityCard"]/p/text()').extract()
+        
+        # scrape property services
+        property_services = response.xpath(
+            './/*[@id="amenityGroup1"]/ul/li/span/text()').extract()
 
         # get distance from UCLA
         distance = get_distance_from_ucla(address)
@@ -84,6 +124,34 @@ class ApartmentsSpider(scrapy.Spider):
         # scrape all other details
         details_list = response.xpath(
             './/*[@id="priceBedBathAreaInfoWrapper"]//ul/li')
+
+        # scrape apartment highlights
+        apartment_highlights = response.xpath(
+            './/*[@id="amenityGroup5"]/ul/li/span/text()').extract()
+
+        # scrape kitchen appliances
+        kitchen_features = response.xpath(
+            './/*[@id="amenityGroup6"]/ul/li/span/text()').extract()
+
+        # scrape floor plan features
+        floor_plan_features = response.xpath(
+            './/*[@id="amenityGroup7"]/ul/li/span/text()').extract()
+
+        # scrape garage spaces
+        garage_spaces = response.xpath(
+            './/*[@id="profileV2FeesWrapper"]/div[1]/div/div/div[2]/ul/li[1]/div[2]/div/text()').extract()
+
+        # scrape included utilities
+        included_utilities = response.xpath(
+            './/*[@id="profileV2FeesWrapper"]/div[3]/div[1]/div/div/div[2]/ul/li/div/div[1]/text()').extract()
+
+        # append garage spaces to included utilities
+        included_utilities += garage_spaces
+
+        # scrape url to go to images page
+        # images_page_url = response.xpath(
+        #     './/*[@id="profileV2FeesWrapper"]/div[3]/div[1]/div/div/div[2]/ul/li/div/div[1]/text()').extract()
+
 
         for entry in details_list:
             label = entry.xpath(
@@ -102,8 +170,9 @@ class ApartmentsSpider(scrapy.Spider):
             elif label == "Square Feet":
                 if value and len(value) > 1:
                     sqft = (" ").join(value.split()[:-2])
+            
 
-        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "phone": phone_number, "image_url": image_url, "rent": rent, "distance": distance }
+        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "phone_number": phone_number, "phone_number_href": phone_number_href, "image_url": main_image_url, "all_image_urls": all_image_urls, "seller_logo_url": seller_logo_url, "rent": rent, "distance": distance, "about_text": about_text, "unique_features": unique_features, "website_url": website_url, "office_hours": office_hours, "community_amenities": community_amenities, "property_services": property_services, "apartment_highlights": apartment_highlights, "kitchen_features": kitchen_features, "floor_plan_features": floor_plan_features, "utilities": included_utilities }
 
 
 def get_distance_from_ucla(address):

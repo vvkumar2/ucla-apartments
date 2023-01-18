@@ -10,6 +10,7 @@ import Profile from "./pages/profile/profile";
 import { createClient } from '@supabase/supabase-js'
 import ResetEmail from "./pages/reset-email/reset-email";
 import LikesPage from "./pages/liked-items/liked-items.component";
+import DetailedListingPage from "./pages/detailed-listing-page/detailed-listing-page";
 
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -216,6 +217,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="reset-email" element={<ResetEmail />} />
+          <Route path="apartment-listing" element={<DetailedListingPage />} />
         </Routes>
       </Router>
     </div>

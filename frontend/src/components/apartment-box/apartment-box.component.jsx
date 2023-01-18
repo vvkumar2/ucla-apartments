@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
 import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
@@ -7,56 +8,12 @@ import useUserContext from "../../context/user.context";
 import './apartment-box.styles.css'
 
 // const id = "e59598f1-0607-4446-a2ed-4f31d802948d";
-const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, distance, liked, addToLiked}) => {
-    // const [btnClass, setBtnClass] = useState(false);
-    // const { email, likedItems, setLikedItems } = useUserContext()
-    // const [likedItemsNow, setLikedItemsNow] = useState(useUserContext().likedItems)
+const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, image_list, about_text, office_hours, seller_logo, community_amenities, utilities, apartment_highlights, floor_plan_features, kitchen_features, property_services, unique_features, distance, liked, addToLiked, website_url, phone_number, phone_number_href}) => {
+    let navigate = useNavigate()
 
-    // async function addToLiked() {
-    //     console.log(likedItems)
-    //     if (email==="") {
-    //         alert("Must Login to like items")
-    //     }
-    //     else {
-    //         const likedItem = { image: image, name: name, address: address, beds: beds, baths: baths, sqft: sqft, rent: rent, distance: distance } 
-
-            // if (btnClass) {
-                // let { data, error } = await supabase
-                // .rpc('remove_array', {
-                //     id: id,
-                //     new_element: likedItem
-                // })
-                // let index = likedItems.findIndex({image})
-                // setLikedItems(likedItems.splice(index, 1))
-            //     console.log(data)
-            //     console.log(error)
-            // }
-            // else {
-                // let { data, error } = await supabase
-                // .rpc('append_array', {
-                //     id: id,
-                //     new_element: likedItem
-                // })
-            //     setLikedItems(likedItems.concat({image}))
-            //     console.log(data)
-            //     console.log(error)
-            // }
-
-    //         btnClass ? setBtnClass(false) : setBtnClass(true);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     async function fetchLikedItems (event) {
-    //         const { data, error } = await supabase
-    //             .from('users')
-    //             .select('liked_items')
-    //             .eq('email', email);
-    //         console.log(data[0].liked_items)
-    //         console.log(error)
-    //     }
-    //     fetchLikedItems()
-    // }, [btnClass])
+    function learnMoreHandler () {
+        navigate("/apartment-listing", {state: { image_list: image_list, name: name, address: address, seller_logo: seller_logo, unique_features: unique_features, community_amenities: community_amenities, apartment_highlights: apartment_highlights, kitchen_features: kitchen_features, floor_plan_features: floor_plan_features, utilities: utilities, phone_number: phone_number, phone_number_href: phone_number_href, website_url: website_url, property_services: property_services, about_text:about_text, beds: beds, baths: baths, sqft: sqft, rent: rent, distance: distance, office_hours: office_hours }});
+    }
 
     return (
     <div className="apartment-box">
@@ -70,12 +27,11 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, dista
                     <h1 className="apartment-name">{name}</h1>
                     <div className="apartment-description">
                         <p className="apartment-address">{address}</p>
-                        {/* <p className="apartment-url"><a href={url}>{url}</a></p> */}
                         <p><FontAwesomeIcon icon={faBed} /> &emsp;{beds} &emsp;&emsp;&emsp;&emsp; <FontAwesomeIcon icon={faBath} /> &emsp;{baths} &emsp;&emsp;&emsp;&emsp;  {sqft} Sqft </p>
                     </div>
                 </div>
                 <div className="apartment-box-top-right">
-                    <button className="apartment-box-interested">Learn More</button>
+                    <button className="apartment-box-interested" onClick={learnMoreHandler}>Learn More</button>
                     <HeartIcon className={liked ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
                         onClick={() => addToLiked(beds, name, rent, sqft, baths, image, address, distance)} />
                 </div>
