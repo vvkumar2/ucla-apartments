@@ -20,7 +20,7 @@
 
 .gallery-image {
     /* border: 2px solid #c7c7c740; */
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 10px !important;
+    box-shadow: rgba(140, 140, 140, 0.325) 0px 0px 10px !important;
     border-radius: 15px !important;
 }
 
