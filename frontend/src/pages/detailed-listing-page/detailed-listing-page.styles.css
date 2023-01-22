@@ -216,34 +216,24 @@
     text-align: left;
 }
 
-.detailed-apartment-section-header {
-    font-size: 24px;
-    font-weight: 600;
-    padding: 0 0 10px 0;
-}
-
 .detailed-apartment-about-text {
     font-size: 16px;
     font-weight: 300;
     line-height: 24px;
 }
 
-.detailed-apartment-features {
+.error-listing {
+    font-size: 34px;
+    font-family: "Lato";
+    font-weight: 500;
+
+    margin: 20vh auto;
+}
+
+.homepage-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;;
-    padding: 20px 30px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
-    text-align: left;
+    gap: 25px;
+    justify-content: center;
+    transform: translate(0, 100%);
 }
-
-.detailed-apartment-features-text {
-    margin: 10px 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(0px, auto);
-}
-

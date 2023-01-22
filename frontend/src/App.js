@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
 import Home from "./pages/homepage/homepage";
 import './App.css';
-import apartment_data from "./data/apartment_data.json";
 import Login from "./pages/login/login";
 import ResetPassword from "./pages/reset-password/reset-password";
 import Profile from "./pages/profile/profile";
@@ -64,7 +63,19 @@ function App() {
   const [maxRentField, setMaxRentField] = useState(NaN);
 
   // States for apartment lists
-  const [apartments] = useState(apartment_data);
+  const [apartments, setApartments] = useState([])
+  
+  useEffect(() => {
+    async function getListingData() {
+      const data = await supabase
+        .from('apartment_data')
+        .select('*')
+        .then((json_data) => {setApartments(json_data.data)})
+    }
+    getListingData()
+  }, [])
+  // const [apartments] = useState(apartment_data);
+  // console.log(apartment_data)
   const [filteredApartments, setFilteredApartments] = useState(apartments);
 
   // Filter apartments based on search field

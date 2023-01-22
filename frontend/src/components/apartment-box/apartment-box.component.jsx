@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
 import {ReactComponent as HeartIcon} from "../../assets/heart-icon.svg"
-import { createClient } from '@supabase/supabase-js'
-import useUserContext from "../../context/user.context";
 import './apartment-box.styles.css'
 
-// const id = "e59598f1-0607-4446-a2ed-4f31d802948d";
-const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, image_list, about_text, office_hours, seller_logo, community_amenities, utilities, apartment_highlights, floor_plan_features, kitchen_features, property_services, unique_features, distance, liked, addToLiked, website_url, phone_number, phone_number_href}) => {
-    let navigate = useNavigate()
 
-    function learnMoreHandler () {
-        navigate("/apartment-listing", {state: { image_list: image_list, name: name, address: address, seller_logo: seller_logo, unique_features: unique_features, community_amenities: community_amenities, apartment_highlights: apartment_highlights, kitchen_features: kitchen_features, floor_plan_features: floor_plan_features, utilities: utilities, phone_number: phone_number, phone_number_href: phone_number_href, website_url: website_url, property_services: property_services, about_text:about_text, beds: beds, baths: baths, sqft: sqft, rent: rent, distance: distance, office_hours: office_hours }});
-    }
+const ApartmentBox = ({id, name, address, image, beds, baths, sqft, rent, distance, liked, image_list, about_text, office_hours, seller_logo, community_amenities, utilities, apartment_highlights, floor_plan_features, kitchen_features, property_services, unique_features, website_url, phone_number, phone_number_href, addToLiked}) => {
 
     return (
     <div className="apartment-box">
@@ -31,11 +24,10 @@ const ApartmentBox = ({image, name, address, url, beds, baths, sqft, rent, image
                     </div>
                 </div>
                 <div className="apartment-box-top-right">
-                    <button className="apartment-box-interested" onClick={learnMoreHandler}>Learn More</button>
+                    <button className="apartment-box-interested"><Link to={"/apartment-listing?id=" + String(id)}>Learn More</Link></button>
                     <HeartIcon className={liked ? "like-button-icon clicked" : "like-button-icon not-clicked"} 
                         onClick={() => addToLiked(beds, name, rent, sqft, baths, image, address, distance)} />
                 </div>
-                {/* Add a like button */}
             </div>
             <div className="apartment-box-bottom">
                 <div className="apartment-box-bottom-left">

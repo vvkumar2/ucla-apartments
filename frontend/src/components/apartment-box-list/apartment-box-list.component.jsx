@@ -113,8 +113,8 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
           <p className="num-pages"> Page {currentPage} of {maxPages}</p>
         </div>
       {getPaginatedData().map((apartment) => {
-        const sqft = apartment.sqft ? apartment.sqft : "Unknown"
-        var info = { beds: apartment.beds, name: apartment.name, rent: apartment.rent, sqft: sqft, baths: apartment.baths, address: apartment.address, distance: apartment.distance, image_url: apartment.image_url }  
+        if (apartment!==undefined) {
+        var info = { beds: apartment.beds, name: apartment.name, rent: apartment.rent, sqft: apartment.sqft, baths: apartment.baths, address: apartment.address, distance: apartment.distance, image_url: apartment.image_url }
         if (likedItems!==null && likedItems!==[]) var liked = likedItems.some(elem => JSON.stringify(info) === JSON.stringify(elem));
         // console.log(info)
         // console.log(likedItems)
@@ -123,13 +123,14 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
         // console.log(contains)
         return (
           <ApartmentBox 
+            id={apartment.id}
             image={apartment.image_url}
             name={apartment.name}
             address={apartment.address}
             url={apartment.url}
             beds={apartment.beds}
             baths={apartment.baths}
-            sqft={sqft}
+            sqft={apartment.sqft}
             rent={apartment.rent}
             distance={apartment.distance}
             liked={liked}
@@ -150,7 +151,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
             seller_logo={apartment.seller_logo_url}
 
           />
-        )})}
+        )}})}
       </div>
         <div className="pagination">
           {/* previous button */}
