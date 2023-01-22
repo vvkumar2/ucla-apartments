@@ -28,7 +28,7 @@
 }
 
 .search-box {
-    -webkit-appearance: none;
+    --webkit-appearance: none;
     border: none;
     outline: none;
     width: 250px;
@@ -89,7 +89,7 @@
 }
 
 .rent-search-box {
-    -webkit-appearance: none;
+    --webkit-appearance: none;
     border: none;
     outline: none;
     width: 85px;

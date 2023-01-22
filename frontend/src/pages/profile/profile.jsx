@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import './profile.styles.css'
 import Navbar from "../navbar/navbar";
-import { createClient } from '@supabase/supabase-js'
 import useUserContext from "../../context/user.context";
+import { createClient } from '@supabase/supabase-js'
 import { Navigate } from "react-router-dom";
+import './profile.styles.css'
 
+// Creating a client for the supabase database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-
+// Profile page component that displays user information
 const Profile = () => {
     const [firstName, setFirstName] = useState(useUserContext().firstName);
     const [lastName, setLastName] = useState(useUserContext().lastName);
@@ -20,22 +21,19 @@ const Profile = () => {
     const [error, setError] = useState("");
     const { login, loggedIn, logout, changeEmail } = useUserContext()
 
-    // function logoutProfile () {
-    //     logout();
-    // }
 
     function emailChangeHandler (event) {
         const searchFieldString = event.target.value.toLocaleLowerCase();
         setNewEmail(searchFieldString);
     }
 
+    // Function that handles the reset email button
     async function onClickResetEmail ()  {
         setError("")
 
         if (newEmail === "") {
             setError("There was an error initiating email change: reload page and try again.")
         }
-        // Valid email address
         else {
             const { user, error } = await supabase.auth.updateUser(
                 { email: String(newEmail) },
@@ -48,12 +46,11 @@ const Profile = () => {
             }
             else {
                 setError("Confirmation email sent to new email address! Must confirm email or else you will not be able to sign in again.")
-                // changeEmail(newEmail)
-                // setEmail(newEmail)
             }
         }
     }
 
+    // Function that handles the reset password button
     async function onClickResetPassword ()  {
         setChangingEmail(false)
         setError("")
@@ -75,6 +72,7 @@ const Profile = () => {
         console.log(error)
     }
 
+    // On page load, fetch the user's name and other info from the database and set the state
     useEffect(() => {
         async function fetchName (event) {
             if (firstName === "" && lastName === "" && loggedIn) {
@@ -111,6 +109,7 @@ const Profile = () => {
             fetchName()
     }, [])
 
+    // If the user is not logged in, redirect to the login page
     if (!loggedIn) {
         return <Navigate to={{ pathname: "/login" }} />;
     }
@@ -118,7 +117,6 @@ const Profile = () => {
     return (
         <div className="profile-container">
             <Navbar />
-            {/* {firstName!=="" && lastName!=="" &&  */}
             <div className="profile-content-container">
                 <div className="profile-header-container">
                     <div className="profile-first-row">
@@ -130,8 +128,6 @@ const Profile = () => {
                         { dateRegistered!=="" && <h2 className="profile-date-registered">Member since: {dateRegistered}</h2>}
                     </div>
                 </div>
-                {/* <div className="profile-info">
-                </div> */}
                 <div className="profile-info-change">
                     <h2 className="profile-change-email" onClick={() => {setChangingEmail(!changingEmail); setError("");}}>Change Email</h2>
                     <h2 className="profile-change-password" onClick={onClickResetPassword}>Change Password</h2>
@@ -149,8 +145,6 @@ const Profile = () => {
                 }
                 {error && <p style={{ marginBottom: "30px", color: "#FF6961", fontWeight: "bold"}}>{String(error)}</p>}
             </div>
-            {/* <div style={{backgroundColor: "blue", width: "100px", height: "100px"}} onClick={updateUserEmail}>CLICK</div> */}
-            {/* } */}
         </div>
     );
 };

@@ -10,10 +10,12 @@ const ApartmentBox = ({id, name, address, image, beds, baths, sqft, rent, distan
 
     return (
     <div className="apartment-box">
+        {/* Image */}
         <img className="apartment-box-image"
             src={image}
             alt=""
         />
+        {/* Apartment Description */}
         <div className="apartment-box-description">
             <div className="apartment-box-top">
                 <div className="apartment-box-top-left">

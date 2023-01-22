@@ -1,10 +1,3 @@
-/* .apartment-box-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding: 50px 0px;
-} */
-
 .listings-pages-info {
     display: flex;
     flex-direction: row;
@@ -18,7 +11,6 @@
 .num-pages {
     margin-left: auto;
 }
-
 
 .pagination {
     display: flex;
@@ -62,10 +54,3 @@
     font-weight: bold;
     pointer-events: none;
   }
-  
-  /* .prev.disabled,
-  .next.disabled {
-    color: #686868;
-    pointer-events: none;
-    box-shadow: none;
-  } */

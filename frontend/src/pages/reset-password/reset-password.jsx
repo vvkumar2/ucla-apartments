@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import "./reset-password.styles.css"
 
+// Creating a client for the supabase database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -14,7 +15,6 @@ const ResetPassword = () => {
     const [confirmPassword, setConfirmPassword] = React.useState("");
     const [error, setError] = useState('');
 
-
     function changeConfirmPassword(event) {
         setConfirmPassword(event.target.value)
     }
@@ -23,6 +23,7 @@ const ResetPassword = () => {
         setPassword(event.target.value)
     }
 
+    // Update the user's password in the database to the new password
     async function ResetHandler (event) {
         if (confirmPassword !== password) {
             setError("Password fields do not match")

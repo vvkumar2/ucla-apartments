@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js'
 import useUserContext from "../../context/user.context";
 import { Navigate } from "react-router-dom";
 
+// Creating a client for Supabase using the URL and anon key
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -22,6 +23,7 @@ const Popup = ({handleClose}) => {
     const { login } = useUserContext();
 
 
+    // function to handle the registration of a new user
     const Register = async (event) => {
         event.preventDefault();
         if (firstName==="" || lastName==="") {
@@ -56,10 +58,12 @@ const Popup = ({handleClose}) => {
         }
     }
 
+    // function to handle the login of an existing user
     if (isSignedIn) {
         return <Navigate to={{ pathname: "/profile" }} />;
     }
 
+    // functions to set the state of the input fields
     function changeFirstName(event) {
         setFirstName(event.target.value)
     }
@@ -79,18 +83,6 @@ const Popup = ({handleClose}) => {
     function changeConfirmPassword(event) {
         setConfirmPassword(event.target.value)
     }
-
-    // function onSubmitNewAccount() {
-        // const registerAccount = {
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //     email: email,
-        //     username: username,
-        //     password: password
-        // }
-        
-        // console.log(registerAccount)
-    // }
 
   return (
     <div className="popup-box-container">

@@ -19,7 +19,6 @@
 }
 
 .gallery-image {
-    /* border: 2px solid #c7c7c740; */
     box-shadow: rgba(140, 140, 140, 0.325) 0px 0px 10px !important;
     border-radius: 15px !important;
 }

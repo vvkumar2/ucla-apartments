@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import './liked-items.styles.css'
 import Navbar from "../navbar/navbar";
-import { createClient } from '@supabase/supabase-js'
 import useUserContext from "../../context/user.context";
-import { Navigate } from "react-router-dom";
 import SectionHeader from "../../components/section-header/section-header.component";
 import ApartmentBoxList from "../../components/apartment-box-list/apartment-box-list.component";
+import { createClient } from '@supabase/supabase-js'
+import './liked-items.styles.css'
 
+// Creating a supabase client to query the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -16,6 +16,7 @@ const LikesPage = () => {
     const [error, setError] = useState("");
     const { email } = useUserContext();
 
+    // Fetches the liked items for the user
     useEffect(() => {
         async function fetchLikedItems (event) {
             if (email!=="") {

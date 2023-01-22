@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
 import Home from "./pages/homepage/homepage";
-import './App.css';
 import Login from "./pages/login/login";
 import ResetPassword from "./pages/reset-password/reset-password";
 import Profile from "./pages/profile/profile";
-import { createClient } from '@supabase/supabase-js'
 import ResetEmail from "./pages/reset-email/reset-email";
 import LikesPage from "./pages/liked-items/liked-items.component";
 import DetailedListingPage from "./pages/detailed-listing-page/detailed-listing-page";
+import { createClient } from '@supabase/supabase-js'
+import './App.css';
 
-
+// Creating a supabase client to connect to the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-
+// Function to get the minimum value of the range for beds, baths, and sqft
 function getMinValue(inputString) {
   if (inputString.includes("$")) {
     inputString = inputString.replaceAll('$', '')
@@ -34,6 +34,7 @@ function getMinValue(inputString) {
   return parseFloat(inputString, 10)
 }
 
+// Function to get the maximum value of the range for beds, baths, and sqft
 function getMaxValue(inputString) {
   if (inputString.includes("$")) {
     inputString = inputString.replaceAll('$', '')
@@ -52,10 +53,10 @@ function getMaxValue(inputString) {
 }
 
 function App() {
-  // Crete states for sort by field
+  // Create states for sort by field
   const [sortBy, setSortBy] = useState("");
 
-  // Crete states for search fields
+  // Create states for search fields
   const [searchField, setSearchField] = useState("");
   const [bedField, setBedField] = useState(NaN);
   const [bathField, setBathField] = useState(NaN);
@@ -65,6 +66,7 @@ function App() {
   // States for apartment lists
   const [apartments, setApartments] = useState([])
   
+  // Get apartment data from database and set it to the apartments state
   useEffect(() => {
     async function getListingData() {
       const data = await supabase
@@ -74,8 +76,6 @@ function App() {
     }
     getListingData()
   }, [])
-  // const [apartments] = useState(apartment_data);
-  // console.log(apartment_data)
   const [filteredApartments, setFilteredApartments] = useState(apartments);
 
   // Filter apartments based on search field
@@ -119,6 +119,7 @@ function App() {
       }
     }
 
+    // Filter apartments based on bed field
     if (!isNaN(bedField) && bedField!=="") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
         const min_beds = getMinValue(apartment.beds)
@@ -132,6 +133,7 @@ function App() {
       });
     }
 
+    // Filter apartments based on bath field
     if (!isNaN(bathField) && bathField!=="") {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
         const min_baths = getMinValue(apartment.baths)
@@ -145,6 +147,7 @@ function App() {
       });
     }
 
+    // Filter apartments based on min rent field
     if (!isNaN(minRentField)) {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
         let rent = getMaxValue(apartment.rent);
@@ -153,6 +156,7 @@ function App() {
       });
     }
 
+    // Filter apartments based on max rent field
     if (!isNaN(maxRentField)) {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
         let rent = getMinValue(apartment.rent);
@@ -160,7 +164,6 @@ function App() {
         return rent <= maxRentField;
       });
     }
-
 
     setFilteredApartments(newFilteredApartments);
   }, [apartments, sortBy, searchField, bedField, bathField, minRentField, maxRentField]);
@@ -175,7 +178,8 @@ function App() {
       setSortBy("") 
     }
   }
-  // On search handler for search field
+
+  // Search field handlers for each filter
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
@@ -207,7 +211,6 @@ function App() {
     const maxRent = event.target.value;
     setMaxRentField(parseFloat(maxRent, 10));
   };
-
 
   return (
     <div className="App">

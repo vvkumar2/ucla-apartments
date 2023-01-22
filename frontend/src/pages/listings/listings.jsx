@@ -5,6 +5,7 @@ import Navbar from "../navbar/navbar";
 import SectionHeader from "../../components/section-header/section-header.component";
 import './listings.styles.css'
 
+// This is the Listings page component that renders all the apartments for selected school and allows user to filter them by different parameters such as price, number of bedrooms, etc.
 const Listings = ({apartmentList, searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
   const listingsPerPage = 10
   let pageLimit = 5

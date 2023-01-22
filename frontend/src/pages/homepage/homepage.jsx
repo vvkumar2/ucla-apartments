@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import Navbar from "../navbar/navbar";
 import './homepage.styles.css'
-
 
 const universities = [
   { value: 'ucla-listings', label: 'UCLA' },
@@ -13,12 +12,14 @@ const universities = [
 const Home = () => {
   const [selectedUniversity, setSelectedUniversity] = useState("");
 
+  // Sets state the user selects a university from the dropdown
   function selectChangeHandler (event) {
     if (event!==null) {
       setSelectedUniversity(event.value)
     }
   }
 
+  // Redirects the user to the listings page for the selected university
   function onSubmitHandler () {
     if(selectedUniversity!=="") {
       window.location.replace("/" + selectedUniversity)
@@ -44,7 +45,7 @@ const Home = () => {
               control: base => ({
                 ...base,
                 border: 0,
-                // This line disable the blue border
+                // Disables the blue border
                 boxShadow: 'none'
               })
             }}

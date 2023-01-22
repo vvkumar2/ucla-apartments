@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from "react";
-import './detailed-listing-page.styles.css'
 import Navbar from "../navbar/navbar";
-import { useLocation, useParams } from "react-router-dom";
-import SectionHeader from "../../components/section-header/section-header.component";
-import { ReactPhotoCollage } from "react-photo-collage";
-import { Link } from "react-router-dom";
+import FeatureListBox from "../../components/feature-list-box/feature-list-box.component";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMobileAndroid, faBed, faBath, faGlobe, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper";
 import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
 import { createClient } from '@supabase/supabase-js'
-import FeatureListBox from "../../components/feature-list-box/feature-list-box.component";
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import './detailed-listing-page.styles.css'
 
+// Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 
 const DetailedListingPage = () => {
+    // Getting the id of the apartment from the url
     const queryParameters = new URLSearchParams(window.location.search)
     const id = queryParameters.get("id")
     const [apartmentInfo, setApartmentInfo] = useState([])
     const [error, setError] = useState(false)
 
-
+    // Fetching the apartment details from the database using the id from the url
     useEffect(() => {
         async function fetchApartmentDetails (event) {
             if (id>0) {
@@ -51,8 +47,10 @@ const DetailedListingPage = () => {
 
     return (
         <div>
+            {/* If the apartment id is valid, display the apartment details */}
             { apartmentInfo.length!==0 && !error && <div>
             <Navbar />
+            {/* Displaying the apartment images in a carousel using pure-react-carousel library */}
             <div className="gallery-container">
                 <CarouselProvider
                     visibleSlides={3}
@@ -76,6 +74,7 @@ const DetailedListingPage = () => {
                     </div>
                 </CarouselProvider>
             </div>
+            {/* Displaying the apartment details */}
             <div className="information-container">
                 <div className="left-side">
                     <div className="detailed-apartment-description">
@@ -93,12 +92,13 @@ const DetailedListingPage = () => {
                         <h1>{apartmentInfo.sqft} Sqft</h1>
                         <h1>{apartmentInfo.rent} Monthly</h1>
                     </div>
+
                     { apartmentInfo.about_text!=="" && 
                         <div className="detailed-apartment-about">
                             <h1 className="detailed-apartment-section-header">About</h1>
                             <h1 className="detailed-apartment-about-text">{apartmentInfo.about_text}</h1>
-                        </div>
-                    }
+                        </div> }
+                    {/* Displaying the apartment features in a FeatureListBox component if they exist */}
                     { apartmentInfo.unique_features.length!==0 && <FeatureListBox section_header="Unique Features" features_list={apartmentInfo.unique_features} /> }
                     { apartmentInfo.community_amenities.length!==0 && <FeatureListBox section_header="Amenities" features_list={apartmentInfo.community_amenities} /> }
                     { apartmentInfo.property_services.length!==0 && <FeatureListBox section_header="Property Services" features_list={apartmentInfo.property_services} /> }
@@ -107,6 +107,8 @@ const DetailedListingPage = () => {
                     { apartmentInfo.floor_plan_features.length!==0 && <FeatureListBox section_header="Floor Plan Features" features_list={apartmentInfo.floor_plan_features} /> }
                     { apartmentInfo.utilities.length!==0 && <FeatureListBox section_header="Utilities" features_list={apartmentInfo.utilities} /> }
                 </div>
+
+                {/* Displaying the contact information for the apartment */}
                 <div className="right-side">
                     <div className="contact-information-container">
                         <div className="contact-information">
@@ -115,6 +117,7 @@ const DetailedListingPage = () => {
                             { apartmentInfo.phone_number_href!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faMobileAndroid} /><a href={apartmentInfo.phone_number_href}> {apartmentInfo.phone_number}</a></h1> }
                             { apartmentInfo.website_url!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faGlobe} /><a href={apartmentInfo.website_url}> Visit Property Website</a></h1> }
                         </div>
+                        {/* Displaying the office hours if they exist */}
                         {apartmentInfo.office_hours.length!==0 &&
                             <div className="hours-of-operation">
                                 <h1 className="hours-heading">Hours</h1>

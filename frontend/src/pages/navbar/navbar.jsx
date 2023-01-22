@@ -5,7 +5,7 @@ import { faCircleUser, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 import useUserContext from "../../context/user.context";
 
-
+// Navbar component that is displayed on every page of the website.
 const Navbar = () => {
     const { loggedIn } = useUserContext();
     return (

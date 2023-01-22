@@ -6,17 +6,18 @@ import './apartment-box-list.styles.css'
 import { createClient } from '@supabase/supabase-js'
 import useUserContext from "../../context/user.context";
 
+// Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) => {
-  // const maxPagesInitial = Math.ceil(apartmentList.length/dataLimit);
   const [maxPages, setMaxPages] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [likedItems, setLikedItems] = useState([]);
   const { email } = useUserContext();
 
+  // Set the max number of pages needed to display all the apartments
   useEffect(() => {
     setMaxPages(Math.ceil(apartmentList.length/dataLimit))
     setCurrentPage(1)
@@ -26,6 +27,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
     window.scrollTo({ behavior: 'smooth', top: '0px' });
   }, [currentPage]);
 
+  // Fetch the liked items from the database for the current user and set the likedItems state
   useEffect(() => {
     async function fetchLikedItems (event) {
       if (email!=="") {
@@ -39,15 +41,18 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
     fetchLikedItems()
   }, [])
 
+  // Add or remove an item from the liked items list in the database and update the likedItems state
   async function addToLiked(beds, name, rent, sqft, baths, image, address, distance) {
+    // If the user is not logged in, alert them that they need to log in to like items
     if (email==="") {
       alert("Can only like items when you're logged in")
     }
     else {
-      const id = "e59598f1-0607-4446-a2ed-4f31d802948d";
+      // Check if the item is already liked
       var likedItem = { beds: beds, name: name, rent: rent, sqft: sqft, baths: baths, address: address, distance: distance, image_url: image }  
       if (likedItems!==null && likedItems!==[]) var liked = likedItems.some(elem => JSON.stringify(likedItem) === JSON.stringify(elem));
 
+      // If the item is not already liked, add it to the liked items list
       if(!liked) {
         let { data, error } = await supabase
         .rpc('append_array', {
@@ -59,12 +64,16 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
         console.log(data)
         console.log(error)
       }
+
+      // If the item is already liked, remove it from the liked items list
       else {
         let { data, error } = await supabase
         .rpc('remove_array', {
           email: email,
             new_element: likedItem
         })
+
+        // Update the likedItems state
         const newLikedItems = []
         for (let i=0; i<likedItems.length; i++) {
           var item = { beds: likedItems[i].beds, name: likedItems[i].name, rent: likedItems[i].rent, sqft: likedItems[i].sqft, baths: likedItems[i].baths, address: likedItems[i].address, distance: likedItems[i].distance, image_url: likedItems[i].image_url }  
@@ -77,29 +86,34 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
     }
   }
 
+  // Go to the next page
   function goToNextPage() {
     if(currentPage<maxPages) {
       setCurrentPage((page) => page + 1);
     }
   }
 
+  // Go to the previous page
   function goToPreviousPage() {
     if(currentPage>1) {
       setCurrentPage((page) => page - 1);
     }
   }
 
+  // Change the current page
   function changePage(event) {
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
   }
 
+  // Get the data for the current page
   const getPaginatedData = () => {
     const startIndex = currentPage * dataLimit - dataLimit;
     const endIndex = startIndex + dataLimit;
     return apartmentList.slice(startIndex, endIndex);
   };
 
+  // Get the page numbers to display
   const getPaginationGroup = () => {
     let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
@@ -112,15 +126,13 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
           <p className="num-listings">Showing {apartmentList.length} Results</p>
           <p className="num-pages"> Page {currentPage} of {maxPages}</p>
         </div>
+      
+      {/* Render the apartment boxes */}
       {getPaginatedData().map((apartment) => {
         if (apartment!==undefined) {
         var info = { beds: apartment.beds, name: apartment.name, rent: apartment.rent, sqft: apartment.sqft, baths: apartment.baths, address: apartment.address, distance: apartment.distance, image_url: apartment.image_url }
         if (likedItems!==null && likedItems!==[]) var liked = likedItems.some(elem => JSON.stringify(info) === JSON.stringify(elem));
-        // console.log(info)
-        // console.log(likedItems)
-        // console.log(JSON.stringify(info))
-        // console.log(JSON.stringify(likedItems[0]))
-        // console.log(contains)
+
         return (
           <ApartmentBox 
             id={apartment.id}

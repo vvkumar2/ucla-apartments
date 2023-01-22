@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Popup from "../../components/popup-component/popup-component";
 import Navbar from "../navbar/navbar";
-import './login.styles.css'
-import { createClient } from '@supabase/supabase-js'
 import useUserContext from "../../context/user.context";
+import { createClient } from '@supabase/supabase-js'
 import { Navigate } from "react-router-dom";
+import './login.styles.css'
 
+// Creating a new Supabase client using the URL and anon key from the environment variables
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+// This is the Login page component that renders the login form and allows user to login to their account.
 const Login = () => {
     const {login} = useUserContext()
 
@@ -17,9 +19,7 @@ const Login = () => {
     const [password, setPassword] = React.useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [error, setError] = useState("");
-
     const [isSignedIn, setIsSignedIn] = React.useState(false);
-
 
     function changeEmail(event) {
         setEmail(event.target.value)
@@ -29,6 +29,7 @@ const Login = () => {
         setPassword(event.target.value)
     }
 
+    // This function is called when the user clicks the login button. It calls the Supabase auth API to login the user.
     async function LoginHandler(event) {
         event.preventDefault();
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -45,6 +46,7 @@ const Login = () => {
         }
     }
 
+    // This function is called when the user clicks the forgot password button. It calls the Supabase auth API to send a password reset email to the user.
     async function onClickReset ()  {
         if (email === "") {
             setError("To reset password, first enter your email above")
@@ -62,6 +64,7 @@ const Login = () => {
         return <Navigate to={{ pathname: "/profile" }} />;
     }
 
+    // This function is called when the user clicks the create account button. It opens the create account popup.
     function createAccountPopUp() {
         setIsOpen(!isOpen)
     }

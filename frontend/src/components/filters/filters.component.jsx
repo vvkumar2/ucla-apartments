@@ -21,6 +21,7 @@ const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeH
         { value: '5', label: '5+' },
     ]
     
+    // rendering all the filters for the user to interact with
     return (
     <div className="filter-container">
         <div className="filter-container-top">
@@ -91,14 +92,7 @@ const Filters = ({searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeH
                     onChange={maxRentChangeHandler}
                 />
             </div>
-            
-
-            
-
         </div>
-        {/* <div>
-            Add "Sort By" filter
-        </div> */}
     </div>
   );
 };
