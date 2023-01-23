@@ -131,7 +131,7 @@ const ApartmentBoxList = ({apartmentList, dataLimit, pageLimit, maxPagesInput}) 
       {getPaginatedData().map((apartment) => {
         if (apartment!==undefined) {
         var info = { beds: apartment.beds, name: apartment.name, rent: apartment.rent, sqft: apartment.sqft, baths: apartment.baths, address: apartment.address, distance: apartment.distance, image_url: apartment.image_url }
-        if (likedItems!==null && likedItems!==[]) var liked = likedItems.some(elem => JSON.stringify(info) === JSON.stringify(elem));
+        if (likedItems.length!==0) var liked = likedItems.some(elem => JSON.stringify(info) === JSON.stringify(elem));
 
         return (
           <ApartmentBox 

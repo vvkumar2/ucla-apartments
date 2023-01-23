@@ -7,6 +7,7 @@ import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from '
 import { createClient } from '@supabase/supabase-js'
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import './detailed-listing-page.styles.css'
+import ContactPopup from "../../components/contact-popup/contact-popup.component";
 
 // Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -20,6 +21,7 @@ const DetailedListingPage = () => {
     const id = queryParameters.get("id")
     const [apartmentInfo, setApartmentInfo] = useState([])
     const [error, setError] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
 
     // Fetching the apartment details from the database using the id from the url
     useEffect(() => {
@@ -44,6 +46,10 @@ const DetailedListingPage = () => {
         }
         fetchApartmentDetails()
     }, [])
+
+    function createContactPopUp() {
+        setIsOpen(!isOpen)
+    }
 
     return (
         <div>
@@ -113,7 +119,7 @@ const DetailedListingPage = () => {
                     <div className="contact-information-container">
                         <div className="contact-information">
                             <h1 className="contact-property">Contact This Property</h1>
-                            <div className="contact-send-message"><h1>Send Message</h1></div>
+                            <div className="contact-send-message" onClick={createContactPopUp}><h1>Send Message</h1></div>
                             { apartmentInfo.phone_number_href!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faMobileAndroid} /><a href={apartmentInfo.phone_number_href}> {apartmentInfo.phone_number}</a></h1> }
                             { apartmentInfo.website_url!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faGlobe} /><a href={apartmentInfo.website_url}> Visit Property Website</a></h1> }
                         </div>
@@ -139,6 +145,7 @@ const DetailedListingPage = () => {
                 <h1 className="error-listing">Sorry, we couldn't find that listing</h1>
             </div> 
         }
+        {isOpen && <ContactPopup handleClose={createContactPopUp} /> }
         </div>
     );
 };

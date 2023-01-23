@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from "../../components/popup-component/popup-component";
+import RegisterPopup from "../../components/register-popup-component/register-popup-component";
 import Navbar from "../navbar/navbar";
 import useUserContext from "../../context/user.context";
 import { createClient } from '@supabase/supabase-js'
@@ -111,7 +111,7 @@ const Login = () => {
                 </button>
             </div>
         </div>
-        {isOpen && <Popup handleClose={createAccountPopUp}
+        {isOpen && <RegisterPopup handleClose={createAccountPopUp}
         />}
     </div>
   );

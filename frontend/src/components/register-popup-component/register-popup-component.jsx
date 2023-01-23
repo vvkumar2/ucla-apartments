@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './popup-component.styles.css'
+import './register-popup-component.styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 import { createClient } from '@supabase/supabase-js'
@@ -12,7 +12,7 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 
-const Popup = ({handleClose}) => {
+const RegisterPopup = ({handleClose}) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -145,4 +145,4 @@ const Popup = ({handleClose}) => {
   );
 };
  
-export default Popup;
+export default RegisterPopup;
