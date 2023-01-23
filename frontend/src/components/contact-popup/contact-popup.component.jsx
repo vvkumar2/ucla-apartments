@@ -59,6 +59,10 @@ const ContactPopup = ({handleClose}) => {
         setCustomMessage(event.target.value)
     }
 
+    // function to send email to owner
+    function sendEmailToOwner(event) {
+    }
+
   return (
     <div className="popup-box-container">
       <div className="popup-box">
@@ -66,7 +70,7 @@ const ContactPopup = ({handleClose}) => {
             <h1>Contact Owner</h1>
             <div className="popup-close-icon" onClick={handleClose}><FontAwesomeIcon icon={faX} /></div>
         </div>
-        <form className="contact-form" onSubmit={null}>
+        <form className="contact-form" onSubmit={sendEmailToOwner}>
             <div className="contact-name-email-form">
                 <div className="contact-name-form">
                     <input
