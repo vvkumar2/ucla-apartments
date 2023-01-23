@@ -4,13 +4,8 @@ import useUserContext from "../../context/user.context";
 import SectionHeader from "../../components/section-header/section-header.component";
 import ApartmentBoxList from "../../components/apartment-box-list/apartment-box-list.component";
 import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartment-box.component";
-import { createClient } from "@supabase/supabase-js";
+import { fetchLikedItemsFromSupabase } from "../../utils/supabase-utils";
 import "./liked-items.styles.css";
-
-// Creating a supabase client to query the database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const LikesPage = () => {
     const [likedItems, setLikedItems] = useState([]);
@@ -21,16 +16,14 @@ const LikesPage = () => {
 
     // Fetches the liked items for the user
     useEffect(() => {
-        async function fetchLikedItems(event) {
-            if (email !== "") {
-                const { data } = await supabase.from("users").select("liked_items").eq("email", email);
-                if (data[0].liked_items) setLikedItems(data[0].liked_items);
-                if (data[0].liked_items.length === 0) setError("No Liked Items");
-            } else {
-                setError("Sign in to like items");
-            }
+        async function setNewLikedItems() {
+            const newLikedItems = await fetchLikedItemsFromSupabase(email);
+            if (newLikedItems === undefined) setError("Sign in to like items");
+            else if (newLikedItems.length === 0) setError("No liked items");
+            else setLikedItems(newLikedItems);
         }
-        fetchLikedItems();
+
+        setNewLikedItems();
     }, [email]);
 
     return (
@@ -44,8 +37,8 @@ const LikesPage = () => {
                             <h2 className="apartment-category-header">Saved for later</h2>
                             {likedItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, image_url, supabase_id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} supabase_id={supabase_id} />
+                                    {likedItems.map(({ name, address, image_url, id }) => (
+                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
                                     ))}
                                 </div>
                             ) : (
@@ -56,8 +49,8 @@ const LikesPage = () => {
                             <h2 className="apartment-category-header">Contacting Owner</h2>
                             {likedItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, image_url, supabase_id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} supabase_id={supabase_id} />
+                                    {likedItems.map(({ name, address, image_url, id }) => (
+                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
                                     ))}
                                 </div>
                             ) : (
@@ -68,8 +61,8 @@ const LikesPage = () => {
                             <h2 className="apartment-category-header">Applications in Progress</h2>
                             {likedItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, distance, image_url, supabase_id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} supabase_id={supabase_id} />
+                                    {likedItems.map(({ name, address, distance, image_url, id }) => (
+                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
                                     ))}
                                 </div>
                             ) : (

@@ -5,6 +5,7 @@ import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import "./apartment-box-list.styles.css";
 import { createClient } from "@supabase/supabase-js";
 import useUserContext from "../../context/user.context";
+import { addItemToSupabaseCategory } from "../../utils/supabase-utils";
 
 // Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -38,63 +39,22 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
         fetchLikedItems();
     }, []);
 
-    // Add or remove an item from the liked items list in the database and update the likedItems state
     async function addToLiked(beds, name, rent, sqft, baths, image, address, distance, id) {
-        // If the user is not logged in, alert them that they need to log in to like items
-        if (email === "") {
-            alert("Can only like items when you're logged in");
-        } else {
-            // Check if the item is already liked
-            var likedItem = {
-                beds: beds,
-                name: name,
-                rent: rent,
-                sqft: sqft,
-                baths: baths,
-                address: address,
-                distance: distance,
-                image_url: image,
-                supabase_id: id,
-            };
-
-            if (likedItems !== null && likedItems !== []) var liked = likedItems.some((elem) => JSON.stringify(likedItem) === JSON.stringify(elem));
-
-            // If the item is not already liked, add it to the liked items list
-            if (!liked) {
-                await supabase.rpc("append_array", {
-                    email: email,
-                    new_element: likedItem,
-                });
-                setLikedItems(likedItems.concat(likedItem));
-            }
-
-            // If the item is already liked, remove it from the liked items list
-            else {
-                await supabase.rpc("remove_array", {
-                    email: email,
-                    new_element: likedItem,
-                });
-
-                // Update the likedItems state
-                const newLikedItems = [];
-                for (let i = 0; i < likedItems.length; i++) {
-                    var item = {
-                        beds: likedItems[i].beds,
-                        name: likedItems[i].name,
-                        rent: likedItems[i].rent,
-                        sqft: likedItems[i].sqft,
-                        baths: likedItems[i].baths,
-                        address: likedItems[i].address,
-                        distance: likedItems[i].distance,
-                        image_url: likedItems[i].image_url,
-                    };
-                    if (!(JSON.stringify(item) === JSON.stringify(likedItem))) {
-                        newLikedItems.push(item);
-                    }
-                }
-                setLikedItems(newLikedItems);
-            }
-        }
+        const newLikedItems = await addItemToSupabaseCategory(
+            likedItems,
+            email,
+            "LIKED",
+            beds,
+            name,
+            rent,
+            sqft,
+            baths,
+            image,
+            address,
+            distance,
+            id
+        );
+        if (newLikedItems !== undefined) setLikedItems(newLikedItems);
     }
 
     // Go to the next page
