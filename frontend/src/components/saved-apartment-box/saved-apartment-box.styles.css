@@ -1,0 +1,70 @@
+.saved-apartment-box {
+  height: 200px;
+  width: 400px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
+  border-radius: 20px;
+  padding: 20px 30px;
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.saved-apartment-box-image {
+  min-width: 200px;
+  max-width: 200px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.saved-apartment-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.saved-apartment-box-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 190px;
+}
+
+.saved-apartment-box-header {
+  max-width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saved-apartment-box-address {
+  text-align: left;
+}
+
+.saved-apartment-box-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.saved-apartment-box-button {
+  width: 120px;
+  height: 30px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 15px;
+  background: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.saved-apartment-box-button * {
+  text-decoration: none;
+  color: black;
+}
