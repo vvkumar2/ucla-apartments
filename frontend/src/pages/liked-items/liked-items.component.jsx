@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/navbar";
 import useUserContext from "../../context/user.context";
 import SectionHeader from "../../components/section-header/section-header.component";
-import ApartmentBoxList from "../../components/apartment-box-list/apartment-box-list.component";
 import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartment-box.component";
 import { createClient } from "@supabase/supabase-js";
 import "./liked-items.styles.css";
@@ -14,8 +13,6 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const LikesPage = () => {
     const [likedItems, setLikedItems] = useState([]);
-    const [activeApplications, setActiveApplications] = useState([]);
-    const [submittedApplications, setSubmittedApplications] = useState([]);
     const [error, setError] = useState("");
     const { email } = useUserContext();
 
@@ -68,7 +65,7 @@ const LikesPage = () => {
                             <h2 className="apartment-category-header">Applications in Progress</h2>
                             {likedItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, distance, image_url, supabase_id }) => (
+                                    {likedItems.map(({ name, address, image_url, supabase_id }) => (
                                         <SavedApartmentBox name={name} address={address} image_url={image_url} supabase_id={supabase_id} />
                                     ))}
                                 </div>

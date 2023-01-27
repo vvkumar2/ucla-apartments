@@ -17,9 +17,9 @@ export default function SavedApartmentBox({ name, address, image_url, supabase_i
                     <span className="saved-apartment-box-address">{abbreviatedAddress}</span>
                 </div>
                 <div className="saved-apartment-box-buttons">
-                    <Link to={`/apartment-listing?id=${supabase_id}`}>
+                    {/* <Link to={`/apartment-listing?id=${supabase_id}`}>
                         <button className="saved-apartment-box-button">View</button>
-                    </Link>
+                    </Link> */}
                     <button className="saved-apartment-box-button">Move</button>
                 </div>
             </div>

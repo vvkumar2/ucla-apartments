@@ -14,12 +14,12 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey)
 const Profile = () => {
     const [firstName, setFirstName] = useState(useUserContext().firstName);
     const [lastName, setLastName] = useState(useUserContext().lastName);
-    const [email, setEmail] = useState(useUserContext().email);
+    const [email] = useState(useUserContext().email);
     const [dateRegistered, setDateRegistered] = useState("");
     const [changingEmail, setChangingEmail] = useState(false);
     const [newEmail, setNewEmail] = useState("")
     const [error, setError] = useState("");
-    const { login, loggedIn, logout, changeEmail } = useUserContext()
+    const { login, loggedIn, logout } = useUserContext()
 
 
     function emailChangeHandler (event) {
@@ -35,7 +35,7 @@ const Profile = () => {
             setError("There was an error initiating email change: reload page and try again.")
         }
         else {
-            const { user, error } = await supabase.auth.updateUser(
+            const { error } = await supabase.auth.updateUser(
                 { email: String(newEmail) },
                 {
                     redirectTo: "http://localhost:3000/reset-email"
@@ -58,7 +58,7 @@ const Profile = () => {
             setError("There was an error initiating password change: reload page and try again.")
         }
         else {
-            const { data, error } = await supabase.auth.resetPasswordForEmail(
+            const { error } = await supabase.auth.resetPasswordForEmail(
                 String(email),
                 { redirectTo: "http://localhost:3000/reset-password" }
             )
@@ -107,7 +107,7 @@ const Profile = () => {
             }
         }
             fetchName()
-    }, [])
+    }, [dateRegistered, email, firstName, lastName, loggedIn, login])
 
     // If the user is not logged in, redirect to the login page
     if (!loggedIn) {

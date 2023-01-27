@@ -32,7 +32,7 @@ const Login = () => {
     // This function is called when the user clicks the login button. It calls the Supabase auth API to login the user.
     async function LoginHandler(event) {
         event.preventDefault();
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
           })
@@ -52,7 +52,7 @@ const Login = () => {
             setError("To reset password, first enter your email above")
         }
         else {
-            const { data, error } = await supabase.auth.resetPasswordForEmail(
+            await supabase.auth.resetPasswordForEmail(
                 String(email),
                 { redirectTo: "http://localhost:3000/reset-password" }
             )

@@ -33,6 +33,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
             if (email !== "") {
                 const { data, error } = await supabase.from("users").select("liked_items").eq("email", email);
                 if (data[0].liked_items) setLikedItems(data[0].liked_items);
+                console.log(data[0].liked_items)
             }
         }
         fetchLikedItems();
@@ -57,11 +58,12 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
                 supabase_id: id,
             };
 
-            if (likedItems !== null && likedItems !== []) var liked = likedItems.some((elem) => JSON.stringify(likedItem) === JSON.stringify(elem));
+            var liked = false;
+            if (likedItems !== null && likedItems.length !== 0) var liked = likedItems.some((elem) => JSON.stringify(likedItem) === JSON.stringify(elem));
 
             // If the item is not already liked, add it to the liked items list
             if (!liked) {
-                await supabase.rpc("append_array", {
+                await supabase.rpc("append_to_liked_items", {
                     email: email,
                     new_element: likedItem,
                 });
@@ -70,7 +72,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
 
             // If the item is already liked, remove it from the liked items list
             else {
-                await supabase.rpc("remove_array", {
+                await supabase.rpc("remove_from_liked_items", {
                     email: email,
                     new_element: likedItem,
                 });
@@ -87,12 +89,14 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
                         address: likedItems[i].address,
                         distance: likedItems[i].distance,
                         image_url: likedItems[i].image_url,
+                        supabase_id: likedItems[i].supabase_id,
                     };
                     if (!(JSON.stringify(item) === JSON.stringify(likedItem))) {
                         newLikedItems.push(item);
                     }
                 }
                 setLikedItems(newLikedItems);
+
             }
         }
     }
@@ -153,10 +157,12 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
                             address: apartment.address,
                             distance: apartment.distance,
                             image_url: apartment.image_url,
+                            supabase_id: apartment.id
                         };
-                        if (likedItems !== null && likedItems !== [])
+                        if (likedItems.length !== 0) {
+                            console.log(JSON.stringify(info))
                             var liked = likedItems.some((elem) => JSON.stringify(info) === JSON.stringify(elem));
-
+                        }
                         return (
                             <ApartmentBox
                                 id={apartment.id}

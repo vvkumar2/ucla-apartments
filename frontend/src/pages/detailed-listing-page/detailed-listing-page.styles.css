@@ -183,8 +183,14 @@
     font-weight: 300;
 }
 
-.detailed-apartment-seller-logo {
+.detailed-apartment-icons-logo {
     margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.detailed-apartment-icons-logo .like-button-icon {
+    margin-left: auto
 }
 
 .detailed-apartment-information {

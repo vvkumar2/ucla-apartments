@@ -58,21 +58,28 @@ class ApartmentsSpider(scrapy.Spider):
         address, beds, baths, sqft, rent, image_url = "", "", "", "", "", ""
 
         # scrape address
-        street_city = response.xpath(
-            './/*[@class="propertyAddressContainer"]/h2/span/text()').extract()
-        state_zip = response.xpath(
-            './/*[@class="stateZipContainer"]/span/text()').extract()
+        
+        street = response.xpath(
+            './/*[@id="propertyAddressRow"]/div/h2/span[1]/span/text()').extract_first()
+        city = response.xpath(
+            './/*[@id="propertyAddressRow"]/div/h2/span[2]/text()').extract_first()   
+        state = response.xpath(
+            './/*[@class="stateZipContainer"]/span[1]/text()').extract_first()
+        zip_code = response.xpath(
+            './/*[@class="stateZipContainer"]/span[2]/text()').extract_first()
 
-        address = street_city[0] + " " + street_city[1] + \
-            ", " + state_zip[0] + " " + state_zip[1]
+        if street == None or city == None or state == None or zip_code == None:
+            return
+        address = street + " " + city + \
+            ", " + state + " " + zip_code
 
         # scrape cover image url
         main_image_url = response.xpath(
             './/*[@class="aspectRatioElement"]/div/img/@src').extract_first()
 
         # scrape other pictures
-        all_image_urls = response.xpath(
-            './/*[@class="aspectRatioElement"]/div/img/@src').extract()
+        # all_image_urls = response.xpath(
+        #     './/*[@class="aspectRatioElement"]/div/img/@src').extract()
 
         # scrape seller logo
         seller_logo_url = response.xpath(
@@ -119,7 +126,10 @@ class ApartmentsSpider(scrapy.Spider):
             './/*[@id="amenityGroup1"]/ul/li/span/text()').extract()
 
         # get distance from UCLA
-        distance = get_distance_from_ucla(address)
+        coordinates = get_distance_from_ucla(address)
+        distance_from_ucla = coordinates[0]
+        apartment_lat = coordinates[1]
+        apartment_lng = coordinates[2]
 
         # scrape all other details
         details_list = response.xpath(
@@ -172,7 +182,7 @@ class ApartmentsSpider(scrapy.Spider):
                     sqft = (" ").join(value.split()[:-2])
             
 
-        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "phone_number": phone_number, "phone_number_href": phone_number_href, "image_url": main_image_url, "all_image_urls": all_image_urls, "seller_logo_url": seller_logo_url, "rent": rent, "distance": distance, "about_text": about_text, "unique_features": unique_features, "website_url": website_url, "office_hours": office_hours, "community_amenities": community_amenities, "property_services": property_services, "apartment_highlights": apartment_highlights, "kitchen_features": kitchen_features, "floor_plan_features": floor_plan_features, "utilities": included_utilities }
+        yield {"name": name, "url": url, "address": address, "beds": beds, "baths": baths, "sqft": sqft, "phone_number": phone_number, "phone_number_href": phone_number_href, "image_url": main_image_url, "all_image_urls": [], "seller_logo_url": seller_logo_url, "rent": rent, "distance": distance_from_ucla, "latitude": apartment_lat, "longitude": apartment_lng, "about_text": about_text, "unique_features": unique_features, "website_url": website_url, "office_hours": office_hours, "community_amenities": community_amenities, "property_services": property_services, "apartment_highlights": apartment_highlights, "kitchen_features": kitchen_features, "floor_plan_features": floor_plan_features, "utilities": included_utilities }
 
 
 def get_distance_from_ucla(address):
@@ -181,6 +191,7 @@ def get_distance_from_ucla(address):
     Returns -1 if address is invalid or if there is an error
     '''
     try:
+        # print(address)
         endpoint = f"{base_url}?address={address}&key={GMAPS_API_KEY}"
 
         # Get coordinates of apartment
@@ -196,8 +207,7 @@ def get_distance_from_ucla(address):
             "rows"][0]["elements"][0]["distance"]["value"]
         result_distance = 0.621371 * result_distance/1000
         result_distance = round(result_distance, 2)
-
-        return result_distance
+        return result_distance, apartment_lat, apartment_lng
     except:
         return -1
 
