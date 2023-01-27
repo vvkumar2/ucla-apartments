@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from "../../components/popup-component/popup-component";
+import RegisterPopup from "../../components/register-popup-component/register-popup-component";
 import Navbar from "../navbar/navbar";
 import useUserContext from "../../context/user.context";
 import { createClient } from '@supabase/supabase-js'
@@ -32,7 +32,7 @@ const Login = () => {
     // This function is called when the user clicks the login button. It calls the Supabase auth API to login the user.
     async function LoginHandler(event) {
         event.preventDefault();
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
           })
@@ -52,7 +52,7 @@ const Login = () => {
             setError("To reset password, first enter your email above")
         }
         else {
-            const { data, error } = await supabase.auth.resetPasswordForEmail(
+            await supabase.auth.resetPasswordForEmail(
                 String(email),
                 { redirectTo: "http://localhost:3000/reset-password" }
             )
@@ -111,7 +111,7 @@ const Login = () => {
                 </button>
             </div>
         </div>
-        {isOpen && <Popup handleClose={createAccountPopUp}
+        {isOpen && <RegisterPopup handleClose={createAccountPopUp}
         />}
     </div>
   );

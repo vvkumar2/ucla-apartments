@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../navbar/navbar";
 import { createClient } from '@supabase/supabase-js'
 import { Link } from "react-router-dom";

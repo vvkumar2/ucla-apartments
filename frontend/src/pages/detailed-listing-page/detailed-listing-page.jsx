@@ -7,6 +7,9 @@ import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from '
 import { createClient } from '@supabase/supabase-js'
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import './detailed-listing-page.styles.css'
+import { ReactComponent as HeartIcon } from "../../assets/heart-icon.svg";
+import useUserContext from "../../context/user.context";
+
 
 // Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -20,6 +23,42 @@ const DetailedListingPage = () => {
     const id = queryParameters.get("id")
     const [apartmentInfo, setApartmentInfo] = useState([])
     const [error, setError] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+    const [likedItems, setLikedItems] = useState([]);
+    const [liked, setLiked] = useState(false);
+    const { email } = useUserContext();
+
+    // Add or remove an item from the liked items list in the database and update the likedItems state
+    async function addToLiked(beds, name, rent, sqft, baths, image, address, distance, id) {
+        if (email !== "") {
+            var likedItem = {
+                beds: beds,
+                name: name,
+                rent: rent,
+                sqft: sqft,
+                baths: baths,
+                address: address,
+                distance: distance,
+                image_url: image,
+                supabase_id: id,
+            };
+            if (liked) {
+                await supabase.rpc("remove_from_liked_items", {
+                    email: email,
+                    new_element: likedItem,
+                });
+                setLiked(false)
+            }
+            else {
+                await supabase.rpc("append_to_liked_items", {
+                    email: email,
+                    new_element: likedItem,
+                });
+                setLiked(true)
+            }
+        }
+    }
+
 
     // Fetching the apartment details from the database using the id from the url
     useEffect(() => {
@@ -42,8 +81,39 @@ const DetailedListingPage = () => {
             else 
                 setError(true)
         }
+
         fetchApartmentDetails()
+
     }, [])
+
+    useEffect(() => {
+        async function fetchLikedItems(event) {
+            if (email !== "") {
+                const { data, error } = await supabase.from("users").select("liked_items").eq("email", email);
+                if (data[0].liked_items) setLikedItems(data[0].liked_items);
+            
+                var likedItem = 
+                {
+                    beds: apartmentInfo.beds,
+                    name: apartmentInfo.name,
+                    rent: apartmentInfo.rent,
+                    sqft: apartmentInfo.sqft,
+                    baths: apartmentInfo.baths,
+                    address: apartmentInfo.address,
+                    distance: apartmentInfo.distance,
+                    image_url: apartmentInfo.image_url,
+                    supabase_id: apartmentInfo.id,
+                };
+
+                if (likedItems !== null && likedItems.length !== 0) setLiked(likedItems.some((elem) => JSON.stringify(likedItem) === JSON.stringify(elem)));
+            }
+        }
+    fetchLikedItems()
+    }, [email, apartmentInfo])
+
+    function createContactPopUp() {
+        setIsOpen(!isOpen)
+    }
 
     return (
         <div>
@@ -82,8 +152,12 @@ const DetailedListingPage = () => {
                             <h1 className="detailed-apartment-name">{apartmentInfo.name}</h1>
                             <h2 className="detailed-apartment-address">{apartmentInfo.address}</h2>
                         </div>
-                        <div className="detailed-apartment-seller-logo">
-                            <img src={apartmentInfo.seller_logo} alt="" style={{maxWidth: "150px", maxHeight: "70px", verticalAlign: "middle"}}/>
+                        <div className="detailed-apartment-icons-logo">
+                            <HeartIcon
+                                className={liked ? "like-button-icon clicked" : "like-button-icon not-clicked"}
+                                onClick={() => addToLiked(apartmentInfo.beds, apartmentInfo.name, apartmentInfo.rent, apartmentInfo.sqft, apartmentInfo.baths, apartmentInfo.image_url, apartmentInfo.address, apartmentInfo.distance, apartmentInfo.id)}
+                            />
+                            <img src={apartmentInfo.seller_logo_url} alt="" style={{maxWidth: "150px", maxHeight: "70px", verticalAlign: "middle"}}/>
                         </div>
                     </div>
                     <div className="detailed-apartment-information">
@@ -113,7 +187,7 @@ const DetailedListingPage = () => {
                     <div className="contact-information-container">
                         <div className="contact-information">
                             <h1 className="contact-property">Contact This Property</h1>
-                            <div className="contact-send-message"><h1>Send Message</h1></div>
+                            {/* <div className="contact-send-message" onClick={createContactPopUp}><h1>Send Message</h1></div> */}
                             { apartmentInfo.phone_number_href!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faMobileAndroid} /><a href={apartmentInfo.phone_number_href}> {apartmentInfo.phone_number}</a></h1> }
                             { apartmentInfo.website_url!==null && <h1 className="contact-phone-number"><FontAwesomeIcon icon={faGlobe} /><a href={apartmentInfo.website_url}> Visit Property Website</a></h1> }
                         </div>
@@ -139,6 +213,7 @@ const DetailedListingPage = () => {
                 <h1 className="error-listing">Sorry, we couldn't find that listing</h1>
             </div> 
         }
+        {/* {isOpen && <ContactPopup handleClose={createContactPopUp} /> } */}
         </div>
     );
 };
