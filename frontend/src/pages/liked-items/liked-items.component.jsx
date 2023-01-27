@@ -2,28 +2,43 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/navbar";
 import useUserContext from "../../context/user.context";
 import SectionHeader from "../../components/section-header/section-header.component";
-import ApartmentBoxList from "../../components/apartment-box-list/apartment-box-list.component";
 import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartment-box.component";
-import { fetchLikedItemsFromSupabase } from "../../utils/supabase-utils";
+import { fetchSavedItemFromSupabaseCategory } from "../../utils/supabase-utils";
 import "./liked-items.styles.css";
 
 const LikesPage = () => {
-    const [likedItems, setLikedItems] = useState([]);
-    const [activeApplications, setActiveApplications] = useState([]);
-    const [submittedApplications, setSubmittedApplications] = useState([]);
+    const [savedForLaterItems, setSavedForLaterItems] = useState([]);
+    const [contactingOwnerItems, setContactingOwnerItems] = useState([]);
+    const [applicationsInProgressItems, setApplicationsInProgressItems] = useState([]);
+    const [completedItems, setCompletedItems] = useState([]);
+
     const [error, setError] = useState("");
     const { email } = useUserContext();
 
-    // Fetches the liked items for the user
+    // updae all saved items on page load
     useEffect(() => {
-        async function setNewLikedItems() {
-            const newLikedItems = await fetchLikedItemsFromSupabase(email);
-            if (newLikedItems === undefined) setError("Sign in to like items");
-            else if (newLikedItems.length === 0) setError("No liked items");
-            else setLikedItems(newLikedItems);
+        async function populateItemCategories() {
+            const savedForLaterItemsResponse = await fetchSavedItemFromSupabaseCategory(email, "SAVED_FOR_LATER");
+            const contactingOwnerItemsResponse = await fetchSavedItemFromSupabaseCategory(email, "CONTACTING_OWNER");
+            const applicationsInProgressItemsResponse = await fetchSavedItemFromSupabaseCategory(email, "APPLICATIONS_IN_PROGRESS");
+            const completedItemsResponse = await fetchSavedItemFromSupabaseCategory(email, "COMPLETED");
+
+            if (
+                savedForLaterItemsResponse === undefined ||
+                contactingOwnerItemsResponse === undefined ||
+                applicationsInProgressItemsResponse === undefined ||
+                completedItemsResponse === undefined
+            ) {
+                setError("Please login to see your saved apartments");
+                return;
+            }
+            setSavedForLaterItems(savedForLaterItemsResponse);
+            setContactingOwnerItems(contactingOwnerItemsResponse);
+            setApplicationsInProgressItems(applicationsInProgressItemsResponse);
+            setCompletedItems(completedItemsResponse);
         }
 
-        setNewLikedItems();
+        populateItemCategories();
     }, [email]);
 
     return (
@@ -35,51 +50,50 @@ const LikesPage = () => {
                     <div className="apartment-categories">
                         <div className="apartment-category">
                             <h2 className="apartment-category-header">Saved for later</h2>
-                            {likedItems.length > 0 ? (
+                            {savedForLaterItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, image_url, id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
+                                    {savedForLaterItems.map((apt) => (
+                                        <SavedApartmentBox apartment={apt} category={"SAVED_FOR_LATER"} />
                                     ))}
                                 </div>
                             ) : (
-                                <span>No liked apartments</span>
+                                <span>No apartments in this category</span>
                             )}
                         </div>
                         <div className="apartment-category">
                             <h2 className="apartment-category-header">Contacting Owner</h2>
-                            {likedItems.length > 0 ? (
+                            {contactingOwnerItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, image_url, id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
+                                    {contactingOwnerItems.map((apt) => (
+                                        <SavedApartmentBox apartment={apt} category={"CONTACTING_OWNER"} />
                                     ))}
                                 </div>
                             ) : (
-                                <span>No liked apartments</span>
+                                <span>No apartments in this category</span>
                             )}
                         </div>
                         <div className="apartment-category">
                             <h2 className="apartment-category-header">Applications in Progress</h2>
-                            {likedItems.length > 0 ? (
+                            {applicationsInProgressItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map(({ name, address, distance, image_url, id }) => (
-                                        <SavedApartmentBox name={name} address={address} image_url={image_url} id={id} />
+                                    {applicationsInProgressItems.map((apt) => (
+                                        <SavedApartmentBox apartment={apt} category={"APPLICATIONS_IN_PROGRESS"} />
                                     ))}
                                 </div>
                             ) : (
-                                <span>No liked apartments</span>
+                                <span>No apartments in this category</span>
                             )}
                         </div>
                         <div className="apartment-category">
                             <h2 className="apartment-category-header">Completed</h2>
-                            {likedItems.length > 0 ? (
+                            {completedItems.length > 0 ? (
                                 <div className="saved-apartment-cards">
-                                    {likedItems.map((apt) => {
-                                        console.log(apt);
-                                        // return <SavedApartmentBox name={name} address={address} distance={distance} image_url={image_url} id={id} />;
-                                    })}
+                                    {completedItems.map((apt) => (
+                                        <SavedApartmentBox apartment={apt} category={"COMPLETED"} />
+                                    ))}
                                 </div>
                             ) : (
-                                <span>No liked apartments</span>
+                                <span>No apartments in this category</span>
                             )}
                         </div>
                     </div>

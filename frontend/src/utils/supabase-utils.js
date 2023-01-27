@@ -1,85 +1,91 @@
 import { createClient } from "@supabase/supabase-js";
 
-export async function fetchLikedItemsFromSupabase(email) {
-    const supabase = createClient(process.env.REACT_APP_SUPABASE_URL ?? "", process.env.REACT_APP_SUPABASE_ANON_KEY ?? "");
-
-    if (email !== "") {
-        const { data } = await supabase.from("users").select("liked_items").eq("email", email);
-        return data[0].liked_items ?? [];
-    }
-
-    return;
-}
-
-// Add or remove an item from the liked items list in the database and update the likedItems state
-// category must be one of the following: 'LIKED', 'CONTACTING_OWNER', 'SAVED_FOR_LATER', 'APPLICATIONS_IN_PROGRESS', 'COMPLETED'
-export async function addItemToSupabaseCategory(likedItems, email, category, beds, name, rent, sqft, baths, image, address, distance, id) {
+/**
+ * Return the list of items in the specified category for the current user
+ * @param email users email
+ * @param category one of the following:  'LIKED', 'CONTACTING_OWNER', 'SAVED_FOR_LATER', 'APPLICATIONS_IN_PROGRESS', 'COMPLETED'
+ */
+export async function fetchSavedItemFromSupabaseCategory(email, category) {
     if (["LIKED", "CONTACTING_OWNER", "SAVED_FOR_LATER", "APPLICATIONS_IN_PROGRESS", "COMPLETED"].includes(category) === false) return;
 
-    let rpc_dest = "";
-    switch (category) {
-        case "LIKED":
-            rpc_dest = "liked_items";
-            break;
-        case "CONTACTING_OWNER":
-            rpc_dest = "contacting_owner";
-            break;
+    if (email !== "") {
+        const fieldName = `apartments_${category.toLowerCase()}`;
+        const supabase = createClient(process.env.REACT_APP_SUPABASE_URL ?? "", process.env.REACT_APP_SUPABASE_ANON_KEY ?? "");
+        const { data } = await supabase.from("users").select(fieldName).eq("email", email);
+        return data[0][fieldName] ?? [];
+    }
+}
 
-        case "SAVED_FOR_LATER":
-            rpc_dest = "saved_for_later";
-            break;
+export async function checkIfItemInSupabaseCategory(email, apartment, category) {
+    if (["LIKED", "CONTACTING_OWNER", "SAVED_FOR_LATER", "APPLICATIONS_IN_PROGRESS", "COMPLETED"].includes(category) === false) return;
 
-        case "APPLICATIONS_IN_PROGRESS":
-            rpc_dest = "applications_in_progress";
-            break;
-        case "COMPLETED":
-            rpc_dest = "completed";
-            break;
-        default:
-            return;
+    if (email !== "") {
+        const supabase = createClient(process.env.REACT_APP_SUPABASE_URL ?? "", process.env.REACT_APP_SUPABASE_ANON_KEY ?? "");
+        const { data } = await supabase.from("users").select(`apartments_${category.toLowerCase()}`).eq("email", email);
+
+        const res = data[0]['apartments_liked'] ?? [];
+        return res.some((elem) => elem.id === apartment.id);
+    }
+}
+
+/**
+ * Add or remove an item from the liked items list in the database and update the likedItems state
+ * @param category one of the following: 'LIKED', 'CONTACTING_OWNER', 'SAVED_FOR_LATER', 'APPLICATIONS_IN_PROGRESS', 'COMPLETED'
+ */
+export async function addItemToSupabaseCategory(email, category, apartment, prevCategory = "NONE") {
+    if (["LIKED", "CONTACTING_OWNER", "SAVED_FOR_LATER", "APPLICATIONS_IN_PROGRESS", "COMPLETED"].includes(category) === false) return;
+
+    if (email === "") {
+        return alert("Please login to save items!");
     }
 
+    let rpc_dest = category.toLowerCase();
     const supabase = createClient(process.env.REACT_APP_SUPABASE_URL ?? "", process.env.REACT_APP_SUPABASE_ANON_KEY ?? "");
 
-    // If the user is not logged in, alert them that they need to log in to like items
-    if (email === "") {
-        alert("Please login to save items!");
-    } else {
-        // Check if the item is already liked
-        var likedItem = {
-            beds: beds,
-            name: name,
-            rent: rent,
-            sqft: sqft,
-            baths: baths,
-            address: address,
-            distance: distance,
-            image_url: image,
-            id: id,
-        };
+    const currentCategoryItems = await fetchSavedItemFromSupabaseCategory(email, category);
+    if (currentCategoryItems !== null && currentCategoryItems !== []) var exists = currentCategoryItems.some((elem) => elem.id === apartment.id);
 
-        if (likedItems !== null && likedItems !== []) var liked = likedItems.some((elem) => JSON.stringify(likedItem) === JSON.stringify(elem));
+    if (!exists) {
+        // If the item is already saved in a different category, remove it from that category
+        if (prevCategory !== "NONE") {
+            const prevCategoryItems = await fetchSavedItemFromSupabaseCategory(email, prevCategory);
+            if (prevCategoryItems !== null && prevCategoryItems !== []) var existsPrev = prevCategoryItems.some((elem) => elem.id === apartment.id);
 
-        // If the item is not already liked, add it to the liked items list
-        if (!liked) {
-            await supabase.rpc(`append_to_${rpc_dest}`, {
-                email: email,
-                new_element: likedItem,
-            });
-            return likedItems.concat(likedItem);
+            if (existsPrev) {
+                await supabase.rpc(`remove_from_${prevCategory.toLowerCase()}_items`, {
+                    email: email,
+                    remove_element: apartment,
+                });
+            }
         }
 
-        // If the item is already liked, remove it from the liked items list
-        else {
-            await supabase.rpc(`remove_from_${rpc_dest}`, {
+        await supabase.rpc(`append_to_${rpc_dest}_items`, {
+            email: email,
+            new_element: apartment,
+        });
+
+        // liked apartments also get added to saved for later
+        if (category === "LIKED") {
+            await supabase.rpc(`append_to_saved_for_later_items`, {
                 email: email,
-                new_element: likedItem,
+                new_element: apartment,
             });
+        }
+        return apartment;
+    } else {
+        // if apartment is already saved, remove from liked and all other categories
+        await supabase.rpc(`remove_from_liked_items`, {
+            email: email,
+            remove_element: apartment,
+        });
 
-            // Update the likedItems state
-            const newLikedItems = likedItems.map(({ id }) => id !== likedItem.id);
-
-            return newLikedItems;
+        for (const otherCategory of ["CONTACTING_OWNER", "SAVED_FOR_LATER", "APPLICATIONS_IN_PROGRESS", "COMPLETED"]) {
+            if (checkIfItemInSupabaseCategory(email, apartment, otherCategory)) {
+                await supabase.rpc(`remove_from_${otherCategory.toLowerCase()}_items`, {
+                    email: email,
+                    remove_element: apartment,
+                });
+            }
         }
     }
 }

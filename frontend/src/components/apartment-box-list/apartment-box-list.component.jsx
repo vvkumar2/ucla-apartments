@@ -3,20 +3,10 @@ import ApartmentBox from "../apartment-box/apartment-box.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import "./apartment-box-list.styles.css";
-import { createClient } from "@supabase/supabase-js";
-import useUserContext from "../../context/user.context";
-import { addItemToSupabaseCategory } from "../../utils/supabase-utils";
-
-// Creating a supabase client to access the database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }) => {
     const [maxPages, setMaxPages] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
-    const [likedItems, setLikedItems] = useState([]);
-    const { email } = useUserContext();
 
     // Set the max number of pages needed to display all the apartments
     useEffect(() => {
@@ -27,35 +17,6 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
     useEffect(() => {
         window.scrollTo({ behavior: "smooth", top: "0px" });
     }, [currentPage]);
-
-    // Fetch the liked items from the database for the current user and set the likedItems state
-    useEffect(() => {
-        async function fetchLikedItems(event) {
-            if (email !== "") {
-                const { data, error } = await supabase.from("users").select("liked_items").eq("email", email);
-                if (data[0].liked_items) setLikedItems(data[0].liked_items);
-            }
-        }
-        fetchLikedItems();
-    }, []);
-
-    async function addToLiked(beds, name, rent, sqft, baths, image, address, distance, id) {
-        const newLikedItems = await addItemToSupabaseCategory(
-            likedItems,
-            email,
-            "LIKED",
-            beds,
-            name,
-            rent,
-            sqft,
-            baths,
-            image,
-            address,
-            distance,
-            id
-        );
-        if (newLikedItems !== undefined) setLikedItems(newLikedItems);
-    }
 
     // Go to the next page
     function goToNextPage() {
@@ -101,54 +62,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
                     </p>
                 </div>
 
-                {/* Render the apartment boxes */}
-                {getPaginatedData().map((apartment) => {
-                    if (apartment !== undefined) {
-                        var info = {
-                            beds: apartment.beds,
-                            name: apartment.name,
-                            rent: apartment.rent,
-                            sqft: apartment.sqft,
-                            baths: apartment.baths,
-                            address: apartment.address,
-                            distance: apartment.distance,
-                            image_url: apartment.image_url,
-                        };
-                        if (likedItems !== null && likedItems !== [])
-                            var liked = likedItems.some((elem) => JSON.stringify(info) === JSON.stringify(elem));
-
-                        return (
-                            <ApartmentBox
-                                id={apartment.id}
-                                image={apartment.image_url}
-                                name={apartment.name}
-                                address={apartment.address}
-                                url={apartment.url}
-                                beds={apartment.beds}
-                                baths={apartment.baths}
-                                sqft={apartment.sqft}
-                                rent={apartment.rent}
-                                distance={apartment.distance}
-                                liked={liked}
-                                addToLiked={addToLiked}
-                                image_list={apartment.all_image_urls}
-                                office_hours={apartment.office_hours}
-                                about_text={apartment.about_text}
-                                unique_features={apartment.unique_features}
-                                community_amenities={apartment.community_amenities}
-                                property_services={apartment.property_services}
-                                apartment_highlights={apartment.apartment_highlights}
-                                kitchen_features={apartment.kitchen_features}
-                                floor_plan_features={apartment.floor_plan_features}
-                                utilities={apartment.utilities}
-                                website_url={apartment.website_url}
-                                phone_number={apartment.phone_number}
-                                phone_number_href={apartment.phone_number_href}
-                                seller_logo={apartment.seller_logo_url}
-                            />
-                        );
-                    }
-                })}
+                {getPaginatedData().map((apartment) => (apartment ? <ApartmentBox apartment={apartment} /> : null))}
             </div>
             <div className="pagination">
                 {/* previous button */}

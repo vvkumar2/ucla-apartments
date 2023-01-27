@@ -114,6 +114,7 @@
     width: auto;
     margin-top: 3px;
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .not-clicked path:hover {
