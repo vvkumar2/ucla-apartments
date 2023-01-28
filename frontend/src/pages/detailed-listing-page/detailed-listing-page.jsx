@@ -57,8 +57,10 @@ const DetailedListingPage = () => {
                 setLiked(true)
             }
         }
+        else {
+            alert("Please login to add to your liked items list");
+        }
     }
-
 
     // Fetching the apartment details from the database using the id from the url
     useEffect(() => {

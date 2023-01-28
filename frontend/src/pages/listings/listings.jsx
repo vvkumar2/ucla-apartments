@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMap, faList } from '@fortawesome/free-solid-svg-icons'
 
 // This is the Listings page component that renders all the apartments for selected school and allows user to filter them by different parameters such as price, number of bedrooms, etc.
-const Listings = ({apartmentList, searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
+const Listings = ({ResetFilters, apartmentList, searchFieldChangeHandler, sortByChangeHandler, bedFieldChangeHandler, bathFieldChangeHandler, minRentChangeHandler, maxRentChangeHandler}) => {
   const [mapView, setMapView] = React.useState(false)
   const listingsPerPage = 10
   let pageLimit = 5
@@ -32,7 +32,8 @@ const Listings = ({apartmentList, searchFieldChangeHandler, sortByChangeHandler,
           bedFieldChangeHandler={bedFieldChangeHandler}
           bathFieldChangeHandler={bathFieldChangeHandler}
           minRentChangeHandler={minRentChangeHandler}
-          maxRentChangeHandler={maxRentChangeHandler}/>
+          maxRentChangeHandler={maxRentChangeHandler}
+          ResetFilters={ResetFilters}/>
         <ApartmentBoxList apartmentList={apartmentList} dataLimit={listingsPerPage} pageLimit={maxPages<pageLimit ? maxPages : pageLimit } maxPagesInput={maxPages}/>
       </div> }
       { mapView && <div className="map-section">

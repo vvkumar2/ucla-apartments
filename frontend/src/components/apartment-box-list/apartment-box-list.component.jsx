@@ -43,7 +43,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
     async function addToLiked(beds, name, rent, sqft, baths, image, address, distance, id) {
         // If the user is not logged in, alert them that they need to log in to like items
         if (email === "") {
-            alert("Can only like items when you're logged in");
+            alert("Please login to add to your liked items list");
         } else {
             // Check if the item is already liked
             var likedItem = {

@@ -212,6 +212,17 @@ function App() {
     setMaxRentField(parseFloat(maxRent, 10));
   };
 
+  // Reset filters
+  const resetFilters = () => {
+    setSortBy("")
+    setSearchField("")
+    setBedField(NaN)
+    setBathField(NaN)
+    setMinRentField(NaN)
+    setMaxRentField(NaN)
+  }
+
+
   return (
     <div className="App">
       <Router>
@@ -225,7 +236,8 @@ function App() {
               bathFieldChangeHandler={onBathChange}
               minRentChangeHandler={onMinRentChange}
               maxRentChangeHandler={onMaxRentChange}
-              numListings={filteredApartments.length}/>} />
+              numListings={filteredApartments.length}
+              ResetFilters={resetFilters}/>} />
           <Route path="liked-items" element={<LikesPage />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
