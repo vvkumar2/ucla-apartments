@@ -1,20 +1,40 @@
 .saved-apartment-box {
-  height: 200px;
-  width: 400px;
+  height: 350px;
+  width: 300px;
   background-color: #FFFFFF;
-  box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
-  border-radius: 20px;
-  padding: 20px 30px;
-  gap: 10px;
+  box-shadow: rgb(0 0 0 / 30%) 0px 2px 4px 0px;
+  border-radius: 8px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.saved-apartment-box-image-container {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .saved-apartment-box-image {
-  min-width: 200px;
-  max-width: 200px;
+  width: 100%;
   overflow: hidden;
   object-fit: cover;
+  filter: brightness(50%);
+}
+
+.saved-apartment-box-header {
+  position: absolute;
+  color: white;
+  bottom: 10px;
+  left: 10px;
+  max-width: 100%;
+  font-size: 26px;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .saved-apartment-box-content {
@@ -22,6 +42,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  height: 126px;
+  margin: 8px 12px;
 }
 
 .saved-apartment-box-top {
@@ -29,42 +51,63 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
-  width: 190px;
+  width: 100%;
 }
 
-.saved-apartment-box-header {
-  max-width: 100%;
+.saved-apartment-box-address {
   font-size: 18px;
   font-weight: bold;
-  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.saved-apartment-box-address {
+.saved-apartment-box-features {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.vertical-line-break {
+  width: 1px;
+  height: 100%;
+  background-color: rgb(141, 141, 141);
+}
+
+.saved-apartment-box-feature {
   text-align: left;
+  font-size: 16px;
 }
 
 .saved-apartment-box-buttons {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  justify-content: space-between;
 }
 
 .saved-apartment-box-button {
-  width: 120px;
+  width: calc(270px/2);
   height: 30px;
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 15px;
+  border-radius: 4px;
   background: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+.saved-apartment-box-dropdown {
+  width: calc(270px/2);
+  height: 30px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  background: white;
+  font-weight: bold;
+  text-align-last: center;
+
 }
 
 .saved-apartment-box-button * {
   text-decoration: none;
   color: black;
 }
+
