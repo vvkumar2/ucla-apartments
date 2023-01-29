@@ -52,6 +52,7 @@ export async function addItemToSupabaseCategory(email, category, apartment, prev
             if (prevCategoryItems !== null && prevCategoryItems !== []) var existsPrev = prevCategoryItems.some((elem) => elem.id === apartment.id);
 
             if (existsPrev) {
+                console.log(apartment)
                 await supabase.rpc(`remove_from_${prevCategory.toLowerCase()}_items`, {
                     email: email,
                     remove_element: apartment,
@@ -74,9 +75,10 @@ export async function addItemToSupabaseCategory(email, category, apartment, prev
         return apartment;
     } else {
         // if apartment is already saved, remove from liked and all other categories
+        console.log(apartment)
         await supabase.rpc(`remove_from_liked_items`, {
             email: email,
-            remove_element: apartment,
+            new_element: apartment,
         });
 
         for (const otherCategory of ["CONTACTING_OWNER", "SAVED_FOR_LATER", "APPLICATIONS_IN_PROGRESS", "COMPLETED"]) {

@@ -32,9 +32,9 @@ export default function SavedApartmentBox({ apartment, category }) {
                     </div>
                 </div>
                 <div className="saved-apartment-box-buttons">
-                    <Link to={`/apartment-listing?id=${id}`}>
+                    <a href={`/apartment-listing?id=${id}`}>
                         <button className="saved-apartment-box-button">View</button>
-                    </Link>
+                    </a>
                     <select onChange={handleDropdownChange} name="cars" id="cars" className="saved-apartment-box-dropdown">
                         <option value="Move to" selected hidden disabled>
                             Move to

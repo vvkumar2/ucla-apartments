@@ -13,7 +13,6 @@ const ApartmentBox = ({ apartment }) => {
     const [liked, setLiked] = useState(false);
 
     const { id, name, address, image_url, beds, baths, sqft, rent, distance } = apartment;
-    console.log(apartment)
 
     async function addToLiked() {
         const response = await addItemToSupabaseCategory(email, "LIKED", apartment);
