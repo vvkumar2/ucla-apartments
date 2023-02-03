@@ -6,16 +6,17 @@ import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartm
 import { fetchSavedItemFromSupabaseCategory } from "../../utils/supabase-utils";
 import "./liked-items.styles.css";
 
+
 const LikesPage = () => {
+    const { email } = useUserContext();
     const [savedForLaterItems, setSavedForLaterItems] = useState([]);
     const [contactingOwnerItems, setContactingOwnerItems] = useState([]);
     const [applicationsInProgressItems, setApplicationsInProgressItems] = useState([]);
     const [completedItems, setCompletedItems] = useState([]);
-
     const [error, setError] = useState("");
-    const { email } = useUserContext();
+    
 
-    // updae all saved items on page load
+    // update all saved items on page load
     useEffect(() => {
         async function populateItemCategories() {
             const savedForLaterItemsResponse = await fetchSavedItemFromSupabaseCategory(email, "SAVED_FOR_LATER");
@@ -37,7 +38,6 @@ const LikesPage = () => {
             setApplicationsInProgressItems(applicationsInProgressItemsResponse);
             setCompletedItems(completedItemsResponse);
         }
-
         populateItemCategories();
     }, [email]);
 

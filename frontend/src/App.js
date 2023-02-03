@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
 import Home from "./pages/homepage/homepage";
@@ -9,6 +9,7 @@ import ResetEmail from "./pages/reset-email/reset-email";
 import LikesPage from "./pages/liked-items/liked-items.component";
 import DetailedListingPage from "./pages/detailed-listing-page/detailed-listing-page";
 import { createClient } from '@supabase/supabase-js'
+import useUserContext from "./context/user.context";
 import './App.css';
 
 // Creating a supabase client to connect to the database
@@ -53,6 +54,29 @@ function getMaxValue(inputString) {
 }
 
 function App() {
+  
+  // Retrieve the user context
+  const {login, logout, loggedIn} = useUserContext();
+
+  // Initialize the user based on the stored session
+  const initUser = useCallback(async () => {
+    const {data: { session },} = await supabase.auth.getSession()
+    if (session) {
+      await login(session.user.email, session.user.user_metadata.first_name, session.user.user_metadata.last_name)
+      console.log("Session exists")
+      console.log(session)
+    }
+    else {
+      logout();
+      console.log("No session")
+    }
+  }, [login]);
+  
+  useEffect(() => {
+    initUser();
+  }, [initUser]);
+    
+
   // Create states for sort by field
   const [sortBy, setSortBy] = useState("");
 
@@ -69,7 +93,7 @@ function App() {
   // Get apartment data from database and set it to the apartments state
   useEffect(() => {
     async function getListingData() {
-      const data = await supabase
+      await supabase
         .from('apartment_data')
         .select('*')
         .then((json_data) => {setApartments(json_data.data)})
@@ -172,7 +196,6 @@ function App() {
   const sortByChangeHandler = (event) => {
     if (event !== null) {
       setSortBy(event.value)
-      console.log(event.value);
     }
     else {
       setSortBy("") 
@@ -187,7 +210,6 @@ function App() {
   const onBedChange = (event) => {
     if (event !== null) {
       setBedField(event.value)
-      console.log(event.value);
     }
     else {
       setBedField("") 
@@ -196,7 +218,6 @@ function App() {
   const onBathChange = (event) => {
     if (event !== null) {
       setBathField(event.value)
-      console.log(event.value);
     }
     else {
       setBathField("") 
@@ -205,7 +226,6 @@ function App() {
   const onMinRentChange = (event) => {
     const minRent = event.target.value;
     setMinRentField(parseFloat(minRent, 10));
-    console.log(minRentField)
   };
   const onMaxRentChange = (event) => {
     const maxRent = event.target.value;

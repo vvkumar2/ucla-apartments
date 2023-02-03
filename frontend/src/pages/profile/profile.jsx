@@ -27,6 +27,13 @@ const Profile = () => {
         setNewEmail(searchFieldString);
     }
 
+    // Log out button
+    async function onClickLogout () {
+        logout()
+        await supabase.auth.signOut();
+    }
+    
+
     // Function that handles the reset email button
     async function onClickResetEmail ()  {
         setError("")
@@ -69,7 +76,6 @@ const Profile = () => {
                 setError("Email sent! Follow link in email to continue.")
             }
         }
-        console.log(error)
     }
 
     // On page load, fetch the user's name and other info from the database and set the state
@@ -82,12 +88,10 @@ const Profile = () => {
                     .eq('email', email);
             
                 if (error) {
-                    console.log(error)
                     setFirstName("")
                     setLastName("")
                 }
                 else {
-                    console.log(data)
                     setFirstName(data[0].first_name)
                     setLastName(data[0].last_name)
                     
@@ -101,7 +105,6 @@ const Profile = () => {
 
 
                     setDateRegistered(month_registered_name + " " + year_registered)
-                    console.log(dateRegistered)
                     login(email, firstName, lastName)
                 }
             }
@@ -121,7 +124,7 @@ const Profile = () => {
                 <div className="profile-header-container">
                     <div className="profile-first-row">
                         <h1 className="profile-name">{firstName} {lastName}</h1>
-                        <div className="profile-logout" onClick={() => {logout(); supabase.auth.signOut();}}>Logout</div>
+                        <div className="profile-logout" onClick={onClickLogout}>Logout</div>
                     </div>
                     <div className="profile-second-row">
                         <h2 className="profile-email-registered">{email}</h2>
