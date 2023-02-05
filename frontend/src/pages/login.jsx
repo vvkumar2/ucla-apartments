@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import RegisterPopup from "../components/register-popup-component/register-popup-component";
+import RegisterPopup from "../components/register-popup-component";
 import Navbar from "../components/navbar";
 import FormInput from "../components/form-input";
 
@@ -23,7 +23,6 @@ const Login = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [isOpen, setIsOpen] = useState(false);
-    const [error, setError] = useState("");
     const [isSignedIn, setIsSignedIn] = React.useState(false);
 
     function changeEmail(event) {
@@ -42,11 +41,10 @@ const Login = () => {
             password: password,
         });
         if (error) {
-            setError("Try again: " + error.message);
+            toast.error("Try again: " + error.message);
         } else {
             setIsSignedIn(true);
             login(email, "", "");
-            setError("");
         }
     }
 

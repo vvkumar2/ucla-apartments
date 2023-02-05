@@ -6,10 +6,10 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 
 import { createClient } from "@supabase/supabase-js";
-import useUserContext from "../../context/user.context";
+import useUserContext from "../context/user.context";
 import { Navigate } from "react-router-dom";
 
-import FormInput from "../form-input";
+import FormInput from "./form-input";
 
 // Creating a client for Supabase using the URL and anon key
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
