@@ -107,7 +107,6 @@ const RegisterPopup = ({ handleClose }) => {
                     </button>
                 </div>
             </form>
-            <ToastContainer />
         </div>
     );
 };

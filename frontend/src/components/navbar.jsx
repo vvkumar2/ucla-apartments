@@ -11,7 +11,7 @@ const Navbar = ({ color_scheme }) => {
     const navigate = useNavigate();
 
     const handleWebsiteNameClick = () => navigate("/");
-    const handleGetStartedClick = () => navigate("/login");
+    const handleGetStartedClick = () => navigate("/ucla-listings");
     const handleLoginClick = () => navigate("/login");
     const handleProfileClick = () => navigate("/profile");
     const handleLikedItemsClick = () => navigate("/liked-items");
@@ -33,7 +33,7 @@ const Navbar = ({ color_scheme }) => {
             ) : (
                 <div className="flex gap-5">
                     <button className={`h-9 ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold`} onClick={handleGetStartedClick}>
-                        Get Started
+                        View Listings
                     </button>
                     <button className="w-20 h-9 bg-blue-500 text-white rounded-md font-bold" onClick={handleLoginClick}>
                         Log In

@@ -41,7 +41,7 @@ const Login = () => {
             password: password,
         });
         if (error) {
-            toast.error("Try again: " + error.message);
+            toast.error(error.message);
         } else {
             setIsSignedIn(true);
             login(email, "", "");
@@ -96,18 +96,7 @@ const Login = () => {
                     </div>
                 </form>
                 {isOpen && <RegisterPopup handleClose={createAccountPopUp} />}
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
+                <ToastContainer hideProgressBar={true} />
             </div>
         </div>
     );
