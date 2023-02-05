@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../navbar/navbar";
+import Navbar from "../../components/navbar";
 import FeatureListBox from "../../components/feature-list-box/feature-list-box.component";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMobileAndroid, faBed, faBath, faGlobe, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'

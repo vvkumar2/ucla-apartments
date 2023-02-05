@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../navbar/navbar";
+import Navbar from "../../components/navbar";
 import useUserContext from "../../context/user.context";
 import SectionHeader from "../../components/section-header/section-header.component";
 import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartment-box.component";
 import { fetchSavedItemFromSupabaseCategory } from "../../utils/supabase-utils";
 import "./liked-items.styles.css";
-
 
 const LikesPage = () => {
     const { email } = useUserContext();
@@ -14,7 +13,6 @@ const LikesPage = () => {
     const [applicationsInProgressItems, setApplicationsInProgressItems] = useState([]);
     const [completedItems, setCompletedItems] = useState([]);
     const [error, setError] = useState("");
-    
 
     // update all saved items on page load
     useEffect(() => {

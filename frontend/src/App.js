@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from './pages/listings/listings';
-import Home from "./pages/homepage/homepage";
-import Login from "./pages/login/login";
+import Home from "./pages/homepage";
+import Login from "./pages/login";
 import ResetPassword from "./pages/reset-password/reset-password";
 import Profile from "./pages/profile/profile";
 import ResetEmail from "./pages/reset-email/reset-email";
