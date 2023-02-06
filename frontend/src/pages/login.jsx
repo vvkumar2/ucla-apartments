@@ -41,7 +41,7 @@ const Login = () => {
             password: password,
         });
         if (error) {
-            toast.error("Try again: " + error.message);
+            toast.error(error.message);
         } else {
             setIsSignedIn(true);
             login(email, "", "");
@@ -75,13 +75,9 @@ const Login = () => {
                     <h1 className="text-2xl font-bold">Login</h1>
                     <div className="w-full flex flex-col items-center gap-3">
                         <FormInput placeholder="Email" value={email} onChange={changeEmail} />
-                        <FormInput placeholder="Password" value={password} onChange={changePassword} />
+                        <FormInput placeholder="Password" value={password} onChange={changePassword} password />
                     </div>
-                    <div className="flex justify-between w-full">
-                        <div className="flex items-center gap-3">
-                            <input className="w-4 h-4" type="checkbox" />
-                            <span>Remember me</span>
-                        </div>
+                    <div className="flex justify-end w-full">
                         <span className="text-blue-500 cursor-pointer" onClick={handleForgotPasswordClick}>
                             Forgot password?
                         </span>
@@ -96,18 +92,7 @@ const Login = () => {
                     </div>
                 </form>
                 {isOpen && <RegisterPopup handleClose={createAccountPopUp} />}
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
+                <ToastContainer hideProgressBar={true} />
             </div>
         </div>
     );
