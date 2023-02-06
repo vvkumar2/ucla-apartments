@@ -32,9 +32,9 @@ const Navbar = ({ color_scheme }) => {
                 </div>
             ) : (
                 <div className="flex gap-5">
-                    <button className={`h-9 ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold`} onClick={handleGetStartedClick}>
+                    {/* <button className={`h-9 ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold`} onClick={handleGetStartedClick}>
                         Get Started
-                    </button>
+                    </button> */}
                     <button className="w-20 h-9 bg-blue-500 text-white rounded-md font-bold" onClick={handleLoginClick}>
                         Log In
                     </button>
