@@ -11,39 +11,6 @@
     flex-direction: row;
 }
 
-.sort-by-dropdown {
-    width: auto;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0px 0px 12px #c7c7c740;
-
-    color: #686868;
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-
-    padding: 5px 0px;
-    margin-left: 35px;
-}
-
-.search-box {
-    --webkit-appearance: none;
-    border: none;
-    outline: none;
-    width: 250px;
-    box-shadow: 0px 0px 12px rgba(199, 199, 199, 0.25);
-    border-radius: 10px;
-
-    color: #686868;
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 48px;
-    padding-left: 20px;
-}
-
 .bed-bath-filter{
     display: flex;
     flex-direction: row;
@@ -110,7 +77,6 @@
     text-decoration: underline;
     font-size: 14px;
     line-height: 48px;
-    padding: 0px 5%;
     cursor: pointer;
     text-align: left;
 }

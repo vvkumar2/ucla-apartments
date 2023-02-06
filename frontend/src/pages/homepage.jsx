@@ -19,7 +19,7 @@ const Home = () => {
                         A tool for college students to find living spaces near their campus, contact property managers, and track the status of their
                         contracts and applications.
                     </span>
-                    <button className="px-5 py-3 text-white rounded-md bg-blue-500 font-bold" onClick={handleStartSearchingClick}>
+                    <button className="px-5 py-3 text-white rounded-md bg-blue-700 font-bold" onClick={handleStartSearchingClick}>
                         Start Searching
                     </button>
                 </div>
