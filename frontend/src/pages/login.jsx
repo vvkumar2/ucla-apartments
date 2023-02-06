@@ -77,11 +77,7 @@ const Login = () => {
                         <FormInput placeholder="Email" value={email} onChange={changeEmail} />
                         <FormInput placeholder="Password" value={password} onChange={changePassword} password />
                     </div>
-                    <div className="flex justify-between w-full">
-                        <div className="flex items-center gap-3">
-                            <input className="w-4 h-4" type="checkbox" />
-                            <span>Remember me</span>
-                        </div>
+                    <div className="flex justify-end w-full">
                         <span className="text-blue-500 cursor-pointer" onClick={handleForgotPasswordClick}>
                             Forgot password?
                         </span>
