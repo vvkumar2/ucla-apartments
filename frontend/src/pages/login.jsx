@@ -75,7 +75,7 @@ const Login = () => {
                     <h1 className="text-2xl font-bold">Login</h1>
                     <div className="w-full flex flex-col items-center gap-3">
                         <FormInput placeholder="Email" value={email} onChange={changeEmail} />
-                        <FormInput placeholder="Password" value={password} onChange={changePassword} />
+                        <FormInput placeholder="Password" value={password} onChange={changePassword} password />
                     </div>
                     <div className="flex justify-between w-full">
                         <div className="flex items-center gap-3">

@@ -98,8 +98,8 @@ const RegisterPopup = ({ handleClose }) => {
                         <FormInput placeholder="Last Name" value={lastName} onChange={changeLastName} width={"50%"} />
                     </div>
                     <FormInput placeholder="Email" value={email} onChange={changeEmail} />
-                    <FormInput placeholder="Password" value={password} onChange={changePassword} />
-                    <FormInput placeholder="Confirm Password" value={confirmPassword} onChange={changeConfirmPassword} />
+                    <FormInput placeholder="Password" value={password} onChange={changePassword} password />
+                    <FormInput placeholder="Confirm Password" value={confirmPassword} onChange={changeConfirmPassword} password />
                 </div>
                 <div className="flex flex-col gap-3 w-full">
                     <button className="w-full h-[50px] bg-blue-500 rounded-md text-white font-bold" type="submit">

@@ -27,7 +27,7 @@ const Navbar = ({ color_scheme }) => {
                         Liked Items
                     </button>
                     <button onClick={handleProfileClick} className="h-9 flex justify-center items-center">
-                        <img className="h-full" src={ProfileIcon} alt="Profile Icon" />
+                        <img className={`h-full ${color_scheme === "LIGHT" ? "invert" : ""}`} src={ProfileIcon} alt="Profile Icon" />
                     </button>
                 </div>
             ) : (
