@@ -26,8 +26,10 @@ const Navbar = ({ color_scheme, showBackground = false }) => {
 
     return (
         <div
-            className={`fixed z-10 w-full top-0 left-0 h-16 px-32 py-10 flex justify-between items-center ${
-                scrollPosition > 30 || showBackground ? "bg-slate-300 bg-opacity-10 backdrop-blur" : ""
+            className={`fixed z-10 w-full top-0 left-0 px-32 py-4 flex justify-between items-center ${
+                scrollPosition > 30 || showBackground
+                    ? ` bg-opacity-20 backdrop-blur-md ${color_scheme === "LIGHT" ? "bg-black" : "bg-slate-300"}`
+                    : ""
             }`}
         >
             <h1 className={`text-xl ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold cursor-pointer`} onClick={handleWebsiteNameClick}>

@@ -5,6 +5,8 @@ module.exports = {
         extend: {
             backgroundImage: {
                 "homepage-apartments-background": "url('/src/assets/apartments-background.jpg')",
+                "gradient-background": "url('/src/assets/gradient-background.jpeg')",
+                "santa-monica-background": "url('/src/assets/santa-monica-background.jpg')",
             },
             boxShadow: {
                 standard: "0px 0px 12px rgba(199, 199, 199, 0.4)",

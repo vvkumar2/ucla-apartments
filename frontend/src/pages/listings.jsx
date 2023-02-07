@@ -208,7 +208,7 @@ const Listings = () => {
 
     return (
         <div>
-            <Navbar showBackground={mapView} />
+            <Navbar showBackground={mapView} color_scheme={mapView ? "DARK" : "LIGHT"} />
             <div className="switch-view">
                 <button
                     className="fixed right-32 bottom-12 z-10 shadow-standard rounded-md flex items-center justify-center gap-3 px-3 py-2 bg-orange-400 text-white hover:bg-orange-500 cursor-pointer font-bold"
@@ -219,23 +219,27 @@ const Listings = () => {
                 </button>
             </div>
             {!mapView && (
-                <div className="flex flex-col gap-5 mx-32 mt-32">
-                    <h1 className="text-4xl font-bold">Apartments Near UCLA</h1>
-                    <Filters
-                        searchFieldChangeHandler={onSearchChange}
-                        sortByChangeHandler={sortByChangeHandler}
-                        bedFieldChangeHandler={onBedChange}
-                        bathFieldChangeHandler={onBathChange}
-                        minRentChangeHandler={onMinRentChange}
-                        maxRentChangeHandler={onMaxRentChange}
-                        ResetFilters={resetFilters}
-                    />
-                    <ApartmentBoxList
-                        apartmentList={filteredApartments}
-                        dataLimit={listingsPerPage}
-                        pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
-                        maxPagesInput={maxPages}
-                    />
+                <div className="flex flex-col gap-12">
+                    <div className="pt-[150px] pb-6 px-32 bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
+                        <h1 className="text-5xl font-bold text-white">Apartments Near UCLA</h1>
+                    </div>
+                    <div className="flex flex-col gap-5 px-32">
+                        <Filters
+                            searchFieldChangeHandler={onSearchChange}
+                            sortByChangeHandler={sortByChangeHandler}
+                            bedFieldChangeHandler={onBedChange}
+                            bathFieldChangeHandler={onBathChange}
+                            minRentChangeHandler={onMinRentChange}
+                            maxRentChangeHandler={onMaxRentChange}
+                            ResetFilters={resetFilters}
+                        />
+                        <ApartmentBoxList
+                            apartmentList={filteredApartments}
+                            dataLimit={listingsPerPage}
+                            pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
+                            maxPagesInput={maxPages}
+                        />
+                    </div>
                 </div>
             )}
             {mapView && (
