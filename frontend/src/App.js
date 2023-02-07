@@ -7,7 +7,7 @@ import ResetPassword from "./pages/reset-password/reset-password";
 import Profile from "./pages/profile/profile";
 import ResetEmail from "./pages/reset-email/reset-email";
 import LikesPage from "./pages/liked-items/liked-items.component";
-import DetailedListingPage from "./pages/detailed-listing-page/detailed-listing-page";
+import DetailedListingPage from "./pages/detailed-listing-page";
 import { createClient } from "@supabase/supabase-js";
 import useUserContext from "./context/user.context";
 import "./App.css";
