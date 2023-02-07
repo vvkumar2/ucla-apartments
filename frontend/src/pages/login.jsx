@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import RegisterPopup from "../components/register-popup-component";
+import RegisterPopup from "../components/register-popup";
 import Navbar from "../components/navbar";
 import FormInput from "../components/form-input";
 

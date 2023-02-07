@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import FeatureListBox from "../components/feature-list-box/feature-list-box.component";
+import FeatureListBox from "../components/feature-list-box";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMobileAndroid, faBed, faBath, faGlobe, faAngleLeft, faAngleRight, faArrowsToDot } from '@fortawesome/free-solid-svg-icons'
+import { faMobileAndroid, faBed, faBath, faFan, faGlobe, faAngleLeft, faAngleRight, faArrowsToDot } from '@fortawesome/free-solid-svg-icons'
 import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import { createClient } from '@supabase/supabase-js'
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -66,7 +66,7 @@ const DetailedListingPage = () => {
 
 
     return (
-        <div>
+        <div className="mb-16">
             {/* If the apartment id is valid, display the apartment details */}
             { apartmentInfo.length!==0 && !error && <div>
             <Navbar />
@@ -99,7 +99,7 @@ const DetailedListingPage = () => {
                     <div className="flex flex-row">
                         <h2 className="text-2xl">{apartmentInfo.address}</h2>
                         <HeartIcon
-                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto"}
+                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer"}
                             onClick={() => addToLiked()}
                         />
                         {/* <img src={apartmentInfo.seller_logo_url} alt="" style={{maxWidth: "150px", maxHeight: "70px", verticalAlign: "middle"}}/> */}
