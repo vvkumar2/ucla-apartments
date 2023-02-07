@@ -30,7 +30,7 @@ const FeatureListBox = ({ section_header, features_list }) => {
 
     return (
         <div className="flex flex-col gap-4 py-2">
-            <div className="text-xl text-black-500 font-bold text-left backdrop-blur-xl bg-white/50 rounded-xl p-2 shadow-standard">{icon}&emsp;{section_header}</div>
+            <div className="text-xl text-black-500 font-bold text-left backdrop-blur-xl bg-white/50 rounded-xl px-4 py-2 shadow-standard">{icon}&emsp;{section_header}</div>
             <div className="grid grid-cols-3 gap-4 text-left text-base text-slate-600">
                 { features_list.map((feature, index) => {
                     return (
