@@ -68,7 +68,7 @@ const Filters = ({
 
     // rendering all the filters for the user to interact with
     return (
-        <div>
+        <div className="mt-[-100px] w-full mx-auto p-10 bg-white shadow-standard rounded-md">
             <div className="flex justify-between h-12">
                 <div className="flex items-center gap-2 w-[300px] shadow-standard rounded-md text-gray-500 px-4 text-sm bg-white">
                     <svg

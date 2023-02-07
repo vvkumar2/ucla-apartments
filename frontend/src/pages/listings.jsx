@@ -211,7 +211,7 @@ const Listings = () => {
             <Navbar showBackground={mapView} color_scheme={mapView ? "DARK" : "LIGHT"} />
             <div className="switch-view">
                 <button
-                    className="fixed right-32 bottom-12 z-10 shadow-standard rounded-md flex items-center justify-center gap-3 px-3 py-2 bg-orange-400 text-white hover:bg-orange-500 cursor-pointer font-bold"
+                    className="fixed right-8 bottom-8 z-10 shadow-standard rounded-md flex items-center justify-center gap-3 px-3 py-2 bg-orange-400 text-white hover:bg-orange-500 cursor-pointer font-bold"
                     onClick={() => setMapView(!mapView)}
                 >
                     {mapView ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faMap} />}
@@ -220,10 +220,10 @@ const Listings = () => {
             </div>
             {!mapView && (
                 <div className="flex flex-col gap-12">
-                    <div className="pt-[150px] pb-6 px-32 bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
+                    <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
                         <h1 className="text-5xl font-bold text-white">Apartments Near UCLA</h1>
                     </div>
-                    <div className="flex flex-col gap-5 px-32">
+                    <div className="relative flex flex-col gap-20 px-site-standard">
                         <Filters
                             searchFieldChangeHandler={onSearchChange}
                             sortByChangeHandler={sortByChangeHandler}

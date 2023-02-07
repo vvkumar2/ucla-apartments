@@ -11,6 +11,9 @@ module.exports = {
             boxShadow: {
                 standard: "0px 0px 12px rgba(199, 199, 199, 0.4)",
             },
+            padding: {
+                'site-standard': '12rem'
+            }
         },
     },
     plugins: [require("flowbite/plugin")],
