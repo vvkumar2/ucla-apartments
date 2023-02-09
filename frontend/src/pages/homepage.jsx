@@ -15,7 +15,7 @@ const Home = () => {
                 <Navbar color_scheme={"LIGHT"} />
                 <div className="flex flex-col justify-center items-center gap-7 max-w-3xl">
                     <h1 className="text-5xl text-white font-bold">Find your next home.</h1>
-                    <span className="text-xl text-gray-300">
+                    <span className="text-xl text-gray-300 text-center">
                         A tool for college students to find living spaces near their campus, contact property managers, and track the status of their
                         contracts and applications.
                     </span>

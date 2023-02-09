@@ -12,7 +12,13 @@ module.exports = {
                 standard: "0px 0px 12px rgba(199, 199, 199, 0.4)",
             },
             padding: {
-                'site-standard': '12rem'
+                "site-standard": "12rem",
+            },
+            filter: {
+                blue: "invert(29%) sepia(95%) saturate(3547%) hue-rotate(220deg) brightness(84%) contrast(103%);",
+            },
+            colors: {
+                'gray-50': '#F9FAFB',
             }
         },
     },

@@ -5,9 +5,8 @@ import useUserContext from "../context/user.context";
 
 /**
  * @param color_scheme either "LIGHT" or "DARK" to indicate if the text should be white or black. Default is "DARK"
- * @param showBackground boolean to indicate if navbar should have a background. By default, background appears on scroll
  */
-const Navbar = ({ color_scheme, showBackground = false }) => {
+const Navbar = ({ color_scheme }) => {
     const [scrollPosition, setScrollPosition] = useState(false);
 
     const { loggedIn } = useUserContext();
@@ -27,33 +26,32 @@ const Navbar = ({ color_scheme, showBackground = false }) => {
     return (
         <div
             className={`fixed z-10 w-full top-0 left-0 px-site-standard py-4 flex justify-between items-center ${
-                scrollPosition > 30 || showBackground
-                    ? ` bg-opacity-20 backdrop-blur-md ${color_scheme === "LIGHT" ? "bg-black" : "bg-slate-300"}`
-                    : ""
+                scrollPosition > 30 ? ` bg-opacity-70 backdrop-blur-md bg-white` : ""
             }`}
         >
-            <h1 className={`text-xl ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold cursor-pointer`} onClick={handleWebsiteNameClick}>
+            <h1
+                className={`text-xl ${color_scheme === "LIGHT" && scrollPosition <= 30 ? "text-white" : "text-gray-800"} font-bold cursor-pointer`}
+                onClick={handleWebsiteNameClick}
+            >
                 Company Name
             </h1>
-            {loggedIn ? (
-                <div className="flex gap-5">
-                    <button className={`h-9 ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold`} onClick={handleGetStartedClick}>
-                        View Listings
-                    </button>
+            <div className="flex gap-5">
+                <button
+                    className={`h-9 ${color_scheme === "LIGHT" && scrollPosition <= 30 ? "text-white" : "text-gray-800"} font-bold`}
+                    onClick={handleGetStartedClick}
+                >
+                    View Listings
+                </button>
+                {true ? (
                     <button onClick={handleProfileClick} className="h-9 flex justify-center items-center">
-                        <img className={`h-full ${color_scheme === "LIGHT" ? "invert" : ""}`} src={ProfileIcon} alt="Profile Icon" />
+                        <img className=" h-full text-red-500" src={ProfileIcon} alt="Profile Icon" />
                     </button>
-                </div>
-            ) : (
-                <div className="flex gap-5">
-                    <button className={`h-9 ${color_scheme === "LIGHT" ? "text-white" : ""} font-bold`} onClick={handleGetStartedClick}>
-                        View Listings
-                    </button>
+                ) : (
                     <button className="w-20 h-9 bg-blue-700 hover:bg-blue-800 text-white rounded-md font-bold" onClick={handleLoginClick}>
                         Log In
                     </button>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };

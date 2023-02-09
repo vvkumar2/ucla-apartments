@@ -3,10 +3,8 @@ import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faBath } from "@fortawesome/free-solid-svg-icons";
 
-import Dropdown from "../dropdown";
-import FiltersDropdown from "../filters-dropdown";
-
-import "./filters.styles.css";
+import Dropdown from "./dropdown";
+import FiltersDropdown from "./filters-dropdown";
 
 const Filters = ({
     ResetFilters,
@@ -68,9 +66,9 @@ const Filters = ({
 
     // rendering all the filters for the user to interact with
     return (
-        <div className="mt-[-100px] w-full mx-auto p-10 bg-white shadow-standard rounded-md">
+        <div className="mt-[-100px] w-full mx-auto p-10 bg-white shadow-standard rounded-xl">
             <div className="flex justify-between h-12">
-                <div className="flex items-center gap-2 w-[300px] shadow-standard rounded-md text-gray-500 px-4 text-sm bg-white">
+                <div className="flex items-center gap-2 w-[250px] rounded-md text-gray-500 px-4 text-sm bg-gray-50">
                     <svg
                         aria-hidden="true"
                         class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -82,60 +80,17 @@ const Filters = ({
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     <input
-                        className="border-none outline-none focus:outline-none focus:ring-0 w-full"
+                        className="border-none outline-none focus:outline-none focus:ring-0 w-full bg-gray-50 font-medium"
                         type="search"
-                        placeholder="Search for any keyword"
+                        placeholder="Search"
                         onChange={searchFieldChangeHandler}
                         id="search-box"
                     />
                 </div>
-                <div className="flex items-center gap-2 h-full">
-                    <FiltersDropdown />
-                    <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
-                </div>
-                {/* <div className="bed-bath-filter">
-                    <Select
-                        className="bed-bath-search-box"
-                        id="bed-bath-search-box"
-                        isClearable
-                        placeholder={<FontAwesomeIcon icon={faBed} />}
-                        options={bed_bath_options}
-                        onChange={bedFieldChangeHandlerTotal}
-                        value={bedValue}
-                        styles={{
-                            control: (base) => ({
-                                ...base,
-                                border: 0,
-                                boxShadow: "none",
-                            }),
-                        }}
-                    />
-                    <Select
-                        className="bed-bath-search-box"
-                        isClearable
-                        placeholder={<FontAwesomeIcon icon={faBath} />}
-                        options={bed_bath_options}
-                        onChange={bathFieldChangeHandlerTotal}
-                        value={bathValue}
-                        styles={{
-                            control: (base) => ({
-                                ...base,
-                                border: 0,
-                                boxShadow: "none",
-                            }),
-                        }}
-                    />
-                </div>
-                <div className="rent-filter">
-                    <p className="extra">$</p>
-                    <input className="rent-search-box" type="search" placeholder="Min Rent" id="min-rent" onChange={minRentChangeHandler} />
-                    <p className="dash">-</p>
-                    <p className="extra">$</p>
-                    <input className="rent-search-box" type="search" placeholder="Max Rent" id="max-rent" onChange={maxRentChangeHandler} />
-                </div> */}
+                <FiltersDropdown />
+                <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
             </div>
             <div className="filter-container-bottom">
-                {/* reset filter button */}
                 <div className="reset-filter-button" onClick={ResetFilterFields}>
                     Reset Filters
                 </div>

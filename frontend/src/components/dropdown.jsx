@@ -18,11 +18,11 @@ export default function Dropdown({ placeholder, currentLabel, options, onChange 
     return (
         <div className="relative flex flex-col items-center h-full">
             <button
-                className="h-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
+                className="w-[250px] h-full text-gray-600 hover:text-blue-700 bg-gray-50 hover:focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between"
                 type="button"
                 onClick={() => setShowDropdown(!showDropdown)}
             >
-                {currentLabel === null ? placeholder : "Sort By: " + currentLabel}{" "}
+                <span className='whitespace-nowrap overflow-hidden text-ellipsis'>{currentLabel === null ? placeholder : "Sort By: " + currentLabel} </span>
                 <svg
                     className="w-4 h-4 ml-2"
                     aria-hidden="true"
