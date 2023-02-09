@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-import ApartmentBoxList from "../../components/apartment-box-list/apartment-box-list.component";
-import Filters from "../../components/filters/filters.component";
-import Navbar from "../../components/navbar";
-import SectionHeader from "../../components/section-header/section-header.component";
-import CustomMap from "../../components/google-maps/google-maps.component";
+import ApartmentBoxList from "../components/apartment-box-list/apartment-box-list.component";
+import Filters from "../components/filters";
+import Navbar from "../components/navbar";
+import SectionHeader from "../components/section-header/section-header.component";
+import CustomMap from "../components/google-maps/google-maps.component";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faList } from "@fortawesome/free-solid-svg-icons";
-
-import "./listings.styles.css";
 
 // Function to get the minimum value of the range for beds, baths, and sqft
 function getMinValue(inputString) {
@@ -189,12 +187,9 @@ const Listings = () => {
     };
 
     // On search handler for "Sort By" filter
-    const sortByChangeHandler = (event) => {
-        if (event !== null) {
-            setSortBy(event.value);
-        } else {
-            setSortBy("");
-        }
+    const sortByChangeHandler = (newSortByValue) => {
+        console.log(newSortByValue);
+        setSortBy(newSortByValue);
     };
 
     // Reset filters
@@ -212,37 +207,39 @@ const Listings = () => {
     let maxPages = Math.ceil(filteredApartments.length / listingsPerPage);
 
     return (
-        <div className="listings-page-container">
-            <Navbar />
+        <div>
+            <Navbar showBackground={mapView} color_scheme={mapView ? "DARK" : "LIGHT"} />
             <div className="switch-view">
-                {!mapView ? (
-                    <button className="switch-view-button" onClick={() => setMapView(!mapView)}>
-                        <FontAwesomeIcon icon={faMap} /> Map View
-                    </button>
-                ) : (
-                    <button className="switch-view-button" onClick={() => setMapView(!mapView)}>
-                        <FontAwesomeIcon icon={faList} /> Listings View
-                    </button>
-                )}
+                <button
+                    className="fixed right-8 bottom-8 z-10 shadow-standard rounded-md flex items-center justify-center gap-3 px-3 py-2 bg-orange-400 text-white hover:bg-orange-500 cursor-pointer font-bold"
+                    onClick={() => setMapView(!mapView)}
+                >
+                    {mapView ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faMap} />}
+                    {mapView ? "List View" : "Map View"}
+                </button>
             </div>
             {!mapView && (
-                <div className="listings-section" id="listings-section-id">
-                    <SectionHeader locations={[{ lat: 41.41, lng: 2.19 }]} />
-                    <Filters
-                        searchFieldChangeHandler={onSearchChange}
-                        sortByChangeHandler={sortByChangeHandler}
-                        bedFieldChangeHandler={onBedChange}
-                        bathFieldChangeHandler={onBathChange}
-                        minRentChangeHandler={onMinRentChange}
-                        maxRentChangeHandler={onMaxRentChange}
-                        ResetFilters={resetFilters}
-                    />
-                    <ApartmentBoxList
-                        apartmentList={filteredApartments}
-                        dataLimit={listingsPerPage}
-                        pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
-                        maxPagesInput={maxPages}
-                    />
+                <div className="flex flex-col gap-12">
+                    <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
+                        <h1 className="text-4xl font-bold text-white">Apartments Near UCLA</h1>
+                    </div>
+                    <div className="relative flex flex-col gap-20 px-site-standard">
+                        <Filters
+                            searchFieldChangeHandler={onSearchChange}
+                            sortByChangeHandler={sortByChangeHandler}
+                            bedFieldChangeHandler={onBedChange}
+                            bathFieldChangeHandler={onBathChange}
+                            minRentChangeHandler={onMinRentChange}
+                            maxRentChangeHandler={onMaxRentChange}
+                            ResetFilters={resetFilters}
+                        />
+                        <ApartmentBoxList
+                            apartmentList={filteredApartments}
+                            dataLimit={listingsPerPage}
+                            pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
+                            maxPagesInput={maxPages}
+                        />
+                    </div>
                 </div>
             )}
             {mapView && (

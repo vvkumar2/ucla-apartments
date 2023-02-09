@@ -78,12 +78,12 @@ const Login = () => {
                         <FormInput placeholder="Password" value={password} onChange={changePassword} password />
                     </div>
                     <div className="flex justify-end w-full">
-                        <span className="text-blue-500 cursor-pointer" onClick={handleForgotPasswordClick}>
+                        <span className="text-blue-700 cursor-pointer" onClick={handleForgotPasswordClick}>
                             Forgot password?
                         </span>
                     </div>
                     <div className="flex flex-col gap-3 w-full">
-                        <button className="w-full h-[50px] bg-blue-500 rounded-md text-white font-bold" type="submit">
+                        <button className="w-full h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" type="submit">
                             Login
                         </button>
                         <span className="text-md text-gray-400 pointer hover:underline cursor-pointer" onClick={createAccountPopUp}>

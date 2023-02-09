@@ -102,7 +102,7 @@ const RegisterPopup = ({ handleClose }) => {
                     <FormInput placeholder="Confirm Password" value={confirmPassword} onChange={changeConfirmPassword} password />
                 </div>
                 <div className="flex flex-col gap-3 w-full">
-                    <button className="w-full h-[50px] bg-blue-500 rounded-md text-white font-bold" type="submit">
+                    <button className="w-full h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" type="submit">
                         Create Account
                     </button>
                 </div>
