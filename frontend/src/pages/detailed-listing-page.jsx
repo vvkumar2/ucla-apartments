@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
+import Carousel from "../components/carousel/carousel";
+import useUserContext from "../context/user.context";
 import Navbar from "../components/navbar";
 import FeatureListBox from "../components/feature-list-box";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMobileAndroid, faBed, faBath, faFan, faGlobe, faAngleLeft, faAngleRight, faArrowsToDot, faSackDollar } from '@fortawesome/free-solid-svg-icons'
-import { CarouselProvider, Slider, Slide, Image, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import { createClient } from '@supabase/supabase-js'
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import { faBed, faBath, faArrowsToDot, faSackDollar } from '@fortawesome/free-solid-svg-icons'
 import { ReactComponent as HeartIcon } from "../assets/heart-icon.svg";
-import useUserContext from "../context/user.context";
+import { createClient } from '@supabase/supabase-js'
 import { checkIfItemInSupabaseCategory, addItemToSupabaseCategory } from "../utils/supabase-utils";
 import { ToastContainer, toast } from "react-toastify";
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import "react-toastify/dist/ReactToastify.css";
-
-
 
 // Creating a supabase client to access the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -31,7 +29,7 @@ const DetailedListingPage = () => {
 
     // Fetching the apartment details from the database using the id from the url
     useEffect(() => {
-        async function fetchApartmentDetails (event) {
+        async function fetchApartmentDetails () {
             if (id>0) {
                 const { data, error } = await supabase
                     .from('apartment_data')
@@ -53,6 +51,15 @@ const DetailedListingPage = () => {
         fetchApartmentDetails()
     }, [])
 
+    // Checking if the apartment is already in the liked items list
+    useEffect(() => {
+        async function checkIfLiked() {
+            const response = await checkIfItemInSupabaseCategory(email, apartmentInfo, "LIKED");
+            setLiked(response ? true : false);
+        }
+        checkIfLiked();
+    }, [email, apartmentInfo]);
+
     // Function to add the apartment to the liked items list
     async function addToLiked() {
         if (email == "") {
@@ -66,14 +73,6 @@ const DetailedListingPage = () => {
         }
     }
 
-    useEffect(() => {
-        async function checkIfLiked() {
-            const response = await checkIfItemInSupabaseCategory(email, apartmentInfo, "LIKED");
-            setLiked(response ? true : false);
-        }
-        checkIfLiked();
-    }, [email, apartmentInfo]);
-
 
     return (
         <div className="mb-16">
@@ -81,29 +80,7 @@ const DetailedListingPage = () => {
             { apartmentInfo.length!==0 && !error && <div>
             <Navbar />
             {/* Displaying the apartment images in a carousel using pure-react-carousel library */}
-            <div className="mt-16">
-                <CarouselProvider
-                    visibleSlides={2}
-                    naturalSlideWidth={24}
-                    naturalSlideHeight={15}
-                    totalSlides={apartmentInfo.all_image_urls.length+1}
-                    infinite={true}
-                >
-                    <div className="relative">
-                        <Slider className="py-6 pr-24">
-                            { apartmentInfo.all_image_urls.map((image, index) => {
-                                return (
-                                    <Slide classNameVisible="!mx-1" index={index}>
-                                        <Image className="saturate-150 brightness-95" src={image} />
-                                    </Slide>
-                                )
-                            })}
-                        </Slider>
-                        <ButtonBack className="absolute left-2 text-black text-4xl top-1/2 backdrop-blur-lg bg-white/50 rounded-xl p-1"><FontAwesomeIcon icon={faAngleLeft} className="!opacity-none"/></ButtonBack>
-                        <ButtonNext className="absolute right-2 text-black text-4xl top-1/2 backdrop-blur-lg bg-white/50 rounded-xl p-1"><FontAwesomeIcon icon={faAngleRight} /></ButtonNext>
-                    </div>
-                </CarouselProvider>
-            </div>
+            <Carousel apartmentInfo={apartmentInfo}/>
             {/* Displaying the apartment details */}
             <div className="flex flex-row mt-14 px-32">
                 <div className="w-7/12 mr-auto flex flex-col gap-8">
