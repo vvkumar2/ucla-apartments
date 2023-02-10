@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function BedsFilter() {
     return (
@@ -63,7 +63,7 @@ function FiltersDropdownLargeScreen() {
     }
 
     return (
-        <div className="inline-flex items-center h-full bg-gray-50 rounded-lg">
+        <div className="h-10 inline-flex items-center bg-gray-50 rounded-lg">
             {filters.map((filter, index) => {
                 const showCurrentDropdown = filter === "Beds" ? showBedsDropdown : filter === "Baths" ? showBathsDropdown : showRentDropdown;
                 return (
@@ -71,7 +71,7 @@ function FiltersDropdownLargeScreen() {
                         {index > 0 && <span className="h-[50%] w-0 border-r border-gray-300" />}
                         <div className="relative">
                             <button
-                                className="h-full w-[180px] focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-blue-700 hover:text-blue-700"
+                                className="h-full w-[100px] xl:w-[130px] 2xl:w-[150px] focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-blue-700 hover:text-blue-700"
                                 type="button"
                                 onClick={handleFilterDropdownClick}
                                 value={filter}
@@ -111,11 +111,13 @@ function FiltersDropdownLargeScreen() {
 
 function FiltersDropdownSmallScreen() {
     const [showDropdown, setShowDropdown] = useState(false);
+
     return (
-        <div className="relative flex flex-col items-center h-full">
+        <div className="h-10 relative flex flex-col items-center w-full 1000:w-auto">
             <button
-                className="h-full focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center border"
+                className="bg-gray-50 rounded-lg w-full 1000:w-[250px] h-full focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-gray-600"
                 type="button"
+                onClick={() => setShowDropdown(!showDropdown)}
             >
                 Filters{" "}
                 <svg
@@ -130,7 +132,7 @@ function FiltersDropdownSmallScreen() {
                 </svg>
             </button>
             {showDropdown && (
-                <div className="absolute top-14 right-0 z-10 bg-white divide-gray-100 shadow-standard dark:bg-gray-700 w-[300px] p-5 flex border flex-col gap-4">
+                <div className="absolute top-14 right-0 z-10 bg-white shadow-standard w-[300px] p-5 flex rounded-lg flex-col gap-4">
                     <div className="flex justify-between border-b pb-1">
                         <span className="text-sm">Filters</span>
                         <span className="text-sm font-bold text-blue-700 cursor-pointer">Clear all</span>
@@ -146,5 +148,13 @@ function FiltersDropdownSmallScreen() {
 }
 
 export default function FiltersDropdown() {
-    return <FiltersDropdownLargeScreen />;
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        return window.addEventListener("resize", () => {
+            setScreenWidth(window.innerWidth);
+        });
+    }, []);
+
+    return screenWidth > 1050 ? <FiltersDropdownLargeScreen /> : <FiltersDropdownSmallScreen />;
 }

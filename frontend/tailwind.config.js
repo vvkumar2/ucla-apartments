@@ -16,6 +16,7 @@ module.exports = {
                 blue: "0px 0px 12px rgba(29, 78, 216, 0.2)",
             },
             padding: {
+                "site-standard-mobile": "3rem",
                 "site-standard": "12rem",
             },
             invert: {
@@ -25,10 +26,12 @@ module.exports = {
                 "gray-50": "#F9FAFB",
             },
             screens: {
-                'md': '900px',
-                'xl': '1400px',
-                '2xl': '1600px',
-            }
+                md: "900px",
+                1000: "1000px",
+                1300: "1300px",
+                xl: "1400px",
+                "2xl": "1600px",
+            },
         },
     },
     plugins: [require("flowbite/plugin")],

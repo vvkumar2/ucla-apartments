@@ -25,7 +25,7 @@ const Navbar = ({ color_scheme }) => {
 
     return (
         <div
-            className={`fixed z-10 w-full top-0 left-0 px-site-standard py-4 flex justify-between items-center ${
+            className={`fixed z-10 w-full top-0 left-0 px-site-standard-mobile sm:px-site-standard py-4 flex justify-between items-center ${
                 scrollPosition > 30 ? ` bg-opacity-70 backdrop-blur-md bg-white` : ""
             }`}
         >

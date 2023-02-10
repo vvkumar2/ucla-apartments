@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faBath } from "@fortawesome/free-solid-svg-icons";
 
 import Dropdown from "./dropdown";
 import FiltersDropdown from "./filters-dropdown";
+import SearchBar from "./search-bar";
 
 const Filters = ({
     ResetFilters,
@@ -19,6 +20,11 @@ const Filters = ({
     const [bathValue, setBathValue] = useState("");
     const [sortByValue, setSortByValue] = useState("");
     const [sortByLabel, setSortByLabel] = useState("None");
+    const [screenSize, setScreenSize] = useState(window.innerWidth);
+
+    useEffect(() => {
+        return window.addEventListener("resize", () => setScreenSize(window.innerWidth));
+    }, []);
 
     const sort_by_options = [
         { value: "", label: "None" },
@@ -71,29 +77,21 @@ const Filters = ({
                 <span className="text-md text-gray-500">Sort & Filter</span>
                 <span className="font-bold text-md text-blue-700 cursor-pointer hover:underline">Clear All</span>
             </div>
-            <div className="flex justify-between h-12">
-                <div className="flex items-center gap-2 w-[250px] rounded-md text-gray-500 px-4 text-sm bg-gray-50">
-                    <svg
-                        aria-hidden="true"
-                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    <input
-                        className="border-none outline-none focus:outline-none focus:ring-0 w-full bg-gray-50 font-medium"
-                        type="search"
-                        placeholder="Search"
-                        onChange={searchFieldChangeHandler}
-                        id="search-box"
-                    />
+            {screenSize > 1300 ? (
+                <div className="flex justify-between h-10">
+                    <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
+                    <FiltersDropdown />
+                    <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
                 </div>
-                <FiltersDropdown />
-                <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
-            </div>
+            ) : (
+                <div className="flex flex-col gap-5">
+                    <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
+                    <div className="flex flex-col gap-5 1000:flex-row w-full justify-between items-center">
+                        <FiltersDropdown />
+                        <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
