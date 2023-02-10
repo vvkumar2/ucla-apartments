@@ -22,7 +22,7 @@ export default function Dropdown({ placeholder, currentLabel, options, onChange 
                 type="button"
                 onClick={() => setShowDropdown(!showDropdown)}
             >
-                <span className='whitespace-nowrap overflow-hidden text-ellipsis'>{currentLabel === null ? placeholder : "Sort By: " + currentLabel} </span>
+                <span className='text-truncate'>{currentLabel === null ? placeholder : "Sort By: " + currentLabel} </span>
                 <svg
                     className="w-4 h-4 ml-2"
                     aria-hidden="true"

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import RegisterPopup from "../components/register-popup";
+import RegisterPopup from "../components/register-popup.jsx";
 import Navbar from "../components/navbar";
 import FormInput from "../components/form-input";
 
@@ -86,7 +86,7 @@ const Login = () => {
                         <button className="w-full h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" type="submit">
                             Login
                         </button>
-                        <span className="text-md text-gray-400 pointer hover:underline cursor-pointer" onClick={createAccountPopUp}>
+                        <span className="text-md text-gray-400 pointer hover:underline cursor-pointer text-center" onClick={createAccountPopUp}>
                             Create a new account
                         </span>
                     </div>

@@ -66,7 +66,11 @@ const Filters = ({
 
     // rendering all the filters for the user to interact with
     return (
-        <div className="mt-[-100px] w-full mx-auto p-10 bg-white shadow-standard rounded-xl">
+        <div className="mt-[-100px] w-full mx-auto p-10 bg-white shadow-standard rounded-xl flex flex-col gap-3">
+            <div className="w-full flex justify-between">
+                <span className="text-md text-gray-500">Sort & Filter</span>
+                <span className="font-bold text-md text-blue-700 cursor-pointer hover:underline">Clear All</span>
+            </div>
             <div className="flex justify-between h-12">
                 <div className="flex items-center gap-2 w-[250px] rounded-md text-gray-500 px-4 text-sm bg-gray-50">
                     <svg
@@ -89,11 +93,6 @@ const Filters = ({
                 </div>
                 <FiltersDropdown />
                 <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
-            </div>
-            <div className="filter-container-bottom">
-                <div className="reset-filter-button" onClick={ResetFilterFields}>
-                    Reset Filters
-                </div>
             </div>
         </div>
     );

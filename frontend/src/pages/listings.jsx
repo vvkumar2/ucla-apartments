@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-import ApartmentBoxList from "../components/apartment-box-list/apartment-box-list.component";
+import ApartmentBoxList from "../components/apartment-box-list";
 import Filters from "../components/filters";
 import Navbar from "../components/navbar";
-import SectionHeader from "../components/section-header/section-header.component";
 import CustomMap from "../components/google-maps/google-maps.component";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -63,44 +63,46 @@ function FiltersDropdownLargeScreen() {
     }
 
     return (
-        <div className="inline-flex items-center gap-1 h-full bg-gray-50 rounded-lg">
+        <div className="inline-flex items-center h-full bg-gray-50 rounded-lg">
             {filters.map((filter, index) => {
                 const showCurrentDropdown = filter === "Beds" ? showBedsDropdown : filter === "Baths" ? showBathsDropdown : showRentDropdown;
                 return (
-                    <div className="relative">
-                        {index > 0 && <span className="h-[70%] w-px bg-gray-300"></span>}
-                        <button
-                            className="h-full w-[180px] focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-blue-700 hover:text-blue-700"
-                            type="button"
-                            onClick={handleFilterDropdownClick}
-                            value={filter}
-                        >
-                            {filter}{" "}
-                            <svg
-                                className="w-4 h-4 ml-2"
-                                aria-hidden="true"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
+                    <>
+                        {index > 0 && <span className="h-[50%] w-0 border-r border-gray-300" />}
+                        <div className="relative">
+                            <button
+                                className="h-full w-[180px] focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-blue-700 hover:text-blue-700"
+                                type="button"
+                                onClick={handleFilterDropdownClick}
+                                value={filter}
                             >
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        {showCurrentDropdown && (
-                            <div className="absolute top-14 right-0 z-10 dark:bg-gray-700 w-full p-5 flex rounded-lg bg-white border flex-col gap-4">
-                                <div className="flex justify-between border-b pb-1">
-                                    <span className="text-sm">{filter}</span>
-                                    <span className="text-sm font-bold text-blue-700 cursor-pointer">Clear all</span>
+                                {filter}{" "}
+                                <svg
+                                    className="w-4 h-4 ml-2"
+                                    aria-hidden="true"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            {showCurrentDropdown && (
+                                <div className="absolute top-14 right-0 z-10 dark:bg-gray-700 w-full p-5 flex rounded-lg bg-white border flex-col gap-4">
+                                    <div className="flex justify-between border-b pb-1">
+                                        <span className="text-sm">{filter}</span>
+                                        <span className="text-sm font-bold text-blue-700 cursor-pointer">Clear all</span>
+                                    </div>
+                                    <div className="flex flex-col w-full gap-2">
+                                        <input className="w-full h-10 border rounded-md flex text-center" placeholder={"Min"} />
+                                        <input className="w-full h-10 border rounded-md flex text-center" placeholder={"Max"} />
+                                    </div>
+                                    <button className="h-10 rounded-md bg-blue-700 hover:bg-blue-800 text-white">Apply</button>
                                 </div>
-                                <div className="flex flex-col w-full gap-2">
-                                    <input className="w-full h-10 border rounded-md flex text-center" placeholder={"Min"} />
-                                    <input className="w-full h-10 border rounded-md flex text-center" placeholder={"Max"} />
-                                </div>
-                                <button className="h-10 rounded-md bg-blue-700 hover:bg-blue-800 text-white">Apply</button>
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
+                    </>
                 );
             })}
         </div>

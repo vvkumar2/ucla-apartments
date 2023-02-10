@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ApartmentBox from "../apartment-box/apartment-box.component";
+import ApartmentBox from "./apartment-box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import "./apartment-box-list.styles.css";
 
 const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }) => {
     const [maxPages, setMaxPages] = useState(5);
@@ -18,22 +17,19 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
         window.scrollTo({ behavior: "smooth", top: "0px" });
     }, [currentPage]);
 
-    // Go to the next page
     function goToNextPage() {
         if (currentPage < maxPages) {
             setCurrentPage((page) => page + 1);
         }
     }
 
-    // Go to the previous page
     function goToPreviousPage() {
         if (currentPage > 1) {
             setCurrentPage((page) => page - 1);
         }
     }
 
-    // Change the current page
-    function changePage(event) {
+    function updateCurrentPage(event) {
         const pageNumber = Number(event.target.textContent);
         setCurrentPage(pageNumber);
     }
@@ -52,33 +48,33 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
     };
 
     return (
-        <div className="card-list">
-            <div>
-                <div className="listings-pages-info">
-                    <p className="num-listings">Showing {apartmentList.length} Results</p>
-                    <p className="num-pages">
-                        {" "}
-                        Page {currentPage} of {maxPages}
-                    </p>
-                </div>
-
+        <div className="flex flex-col gap-5 mb-20">
+            <div className="flex justify-between text-gray-400 text-sm">
+                <p>Showing {apartmentList.length} Results</p>
+                <p>
+                    {" "}
+                    Page {currentPage} of {maxPages}
+                </p>
+            </div>
+            <div className="flex gap-5 flex-wrap">
                 {getPaginatedData().map((apartment) => (apartment ? <ApartmentBox apartment={apartment} /> : null))}
             </div>
-            <div className="pagination">
-                {/* previous button */}
-                <button onClick={goToPreviousPage} className={`prev ${currentPage === 1 ? "disabled" : ""}`}>
+            <div className="flex items-center justify-center gap-2">
+                <button onClick={goToPreviousPage} className="bg-gray-50 h-[30px] w-[30px] flex items-center justify-center">
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
-
-                {/* show page numbers */}
                 {getPaginationGroup().map((item, index) => (
-                    <button key={index} onClick={changePage} className={`paginationItem ${currentPage === item ? "active" : null}`}>
+                    <button
+                        key={index}
+                        onClick={updateCurrentPage}
+                        className={`bg-gray-50 h-[30px] w-[30px] flex items-center justify-center ${
+                            currentPage === item ? "text-blue-700" : "text-gray-600"
+                        }`}
+                    >
                         <span>{item}</span>
                     </button>
                 ))}
-
-                {/* next button */}
-                <button onClick={goToNextPage} className={`next ${currentPage === maxPages ? "disabled" : ""}`}>
+                <button onClick={goToNextPage} className="bg-gray-50 h-[30px] w-[30px] flex items-center justify-center">
                     <FontAwesomeIcon icon={faAngleRight} />
                 </button>
             </div>
