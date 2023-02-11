@@ -36,6 +36,8 @@ const PageIndicator = styled.span`
   white-space: nowrap;
   min-width: 60px;
   text-align: center;
+  margin-right: 10px;
+  font-size: 18px;
 `;
 
 const RightSideContainer = styled.div`
@@ -51,7 +53,7 @@ const CloseButton = styled(ButtonControl)`
   height: 100%;
   display: flex;
   color: inherit;
-  border-left: 3px solid ${({ theme }) => theme.pageContentFontColor};
+  border-left: 2px solid ${({ theme }) => theme.pageContentFontColor};
 `;
 
 const TopHeaderBar = styled.header`

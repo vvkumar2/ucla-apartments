@@ -26,7 +26,10 @@ module.exports = {
             },
             saturate: {
                 '130': '1.30',
-            }
+            },
+            width: {
+                '30': '30%'
+            },
         },
     },
     plugins: [require("flowbite/plugin")],

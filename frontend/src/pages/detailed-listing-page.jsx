@@ -92,10 +92,10 @@ const DetailedListingPage = () => {
                         />
                     </div>
                     <div className="flex flex-row gap-7 text-black-500 text-base">
-                        <h1><FontAwesomeIcon icon={faBed} className="text-xl text-blue-500"/>&nbsp;{apartmentInfo.beds} Beds</h1>
-                        <h1><FontAwesomeIcon icon={faBath} className="text-xl text-blue-500"/>&nbsp;{apartmentInfo.baths} Baths</h1>
-                        <h1><FontAwesomeIcon icon={faArrowsToDot} className="text-xl text-blue-500"/>&nbsp;{apartmentInfo.sqft}sqft</h1>
-                        <h1><FontAwesomeIcon icon={faSackDollar} className="text-xl text-blue-500"/>&nbsp;{apartmentInfo.rent}/Month</h1>
+                        <h1><FontAwesomeIcon icon={faBed} className="text-xl text-blue-700"/>&nbsp;{apartmentInfo.beds} Beds</h1>
+                        <h1><FontAwesomeIcon icon={faBath} className="text-xl text-blue-700"/>&nbsp;{apartmentInfo.baths} Baths</h1>
+                        <h1><FontAwesomeIcon icon={faArrowsToDot} className="text-xl text-blue-700"/>&nbsp;{apartmentInfo.sqft}sqft</h1>
+                        <h1><FontAwesomeIcon icon={faSackDollar} className="text-xl text-blue-700"/>&nbsp;{apartmentInfo.rent}/Month</h1>
                     </div>
 
                     { apartmentInfo.about_text!=="" && 
@@ -113,12 +113,12 @@ const DetailedListingPage = () => {
                 </div>
 
                 {/* Displaying the contact information for the apartment */}
-                <div className="sticky self-start top-44 ml-auto w-4/12 h-max">
+                <div className="sticky self-start top-44 ml-auto w-30 h-max text-center">
                     <div className= "bg-white shadow-standard rounded-xl p-6 divide-y divide-slate-400">
-                            <div className="flex flex-col gap-3 pb-6">
+                            <div className="flex flex-col gap-3 pb-6 ">
                                 <h1 className="text-2xl font-bold">Contact</h1>
-                                { apartmentInfo.phone_number_href!==null && <h1><a href={apartmentInfo.phone_number_href} className="hover:text-blue-500"> {apartmentInfo.phone_number}</a></h1> }
-                                { apartmentInfo.website_url!==null && <h1><a href={apartmentInfo.website_url} className="text-blue-500"> Visit Property Website</a></h1> }
+                                { apartmentInfo.phone_number_href!==null && <h1><a href={apartmentInfo.phone_number_href} className="hover:text-blue-700"> {apartmentInfo.phone_number}</a></h1> }
+                                { apartmentInfo.website_url!==null && <h1><a href={apartmentInfo.website_url} className="text-blue-700"> Visit Property Website</a></h1> }
                             </div>
                             {/* Displaying the office hours if they exist */}
                             {apartmentInfo.office_hours.length!==0 &&

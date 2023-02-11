@@ -8,25 +8,25 @@ const FeatureListBox = ({ section_header, features_list }) => {
     let icon = null;
     switch(section_header) {
         case "Unique Features":
-            icon = <FontAwesomeIcon icon={faPlugCircleBolt} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faPlugCircleBolt} className="text-xl text-blue-700"/>
             break;
         case "Amenities":
-            icon = <FontAwesomeIcon icon={faDumbbell} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faDumbbell} className="text-xl text-blue-700"/>
             break;
         case "Property Services":
-            icon = <FontAwesomeIcon icon={faTruckFast} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faTruckFast} className="text-xl text-blue-700"/>
             break;
         case "Apartment Highlights":
-            icon = <FontAwesomeIcon icon={faWifi} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faWifi} className="text-xl text-blue-700"/>
             break;
         case "Kitchen Features":
-            icon = <FontAwesomeIcon icon={faKitchenSet} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faKitchenSet} className="text-xl text-blue-700"/>
             break;
         case "Floor Plan Features":
-            icon = <FontAwesomeIcon icon={faRug} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faRug} className="text-xl text-blue-700"/>
             break;
         case "Utilities":
-            icon = <FontAwesomeIcon icon={faLightbulb} className="text-xl text-blue-500"/>
+            icon = <FontAwesomeIcon icon={faLightbulb} className="text-xl text-blue-700"/>
             break;
     }
 
