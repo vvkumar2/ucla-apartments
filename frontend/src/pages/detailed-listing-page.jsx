@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "../components/carousel/carousel";
+import Carousel from "../components/carousel-components/carousel/carousel";
 import useUserContext from "../context/user.context";
 import Navbar from "../components/navbar";
 import FeatureListBox from "../components/feature-list-box";
@@ -113,7 +113,7 @@ const DetailedListingPage = () => {
                 </div>
 
                 {/* Displaying the contact information for the apartment */}
-                <div className="sticky self-start top-52 ml-auto w-4/12 h-max">
+                <div className="sticky self-start top-44 ml-auto w-4/12 h-max">
                     <div className= "bg-white shadow-standard rounded-xl p-6 divide-y divide-slate-400">
                             <div className="flex flex-col gap-3 pb-6">
                                 <h1 className="text-2xl font-bold">Contact</h1>
