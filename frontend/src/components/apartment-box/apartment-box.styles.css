@@ -1,7 +1,6 @@
 .apartment-box {
     display: flex;
     flex-direction: row;
-    width: 90%;
     height: 50%;
     max-height: 375px;
     margin: 0px auto 30px auto;
