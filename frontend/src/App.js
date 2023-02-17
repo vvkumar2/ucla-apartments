@@ -22,23 +22,22 @@ function App() {
     const { login, logout } = useUserContext();
 
     // Initialize the user based on the stored session
-    const initUser = useCallback(async () => {
-        const {
-            data: { session },
-        } = await supabase.auth.getSession();
-        if (session) {
-            await login(session.user.email, session.user.user_metadata.first_name, session.user.user_metadata.last_name);
-            console.log("Session exists");
-            console.log(session);
-        } else {
-            logout();
-            console.log("No session");
-        }
-    }, [login, logout]);
-
     useEffect(() => {
-        initUser();
-    }, [initUser]);
+        async function initUser() {
+            const {
+                data: { session }
+            } = await supabase.auth.getSession();
+            if (session) {
+                await login(session.user.email, session.user.user_metadata.first_name, session.user.user_metadata.last_name);
+                console.log("Session exists");
+                console.log(session);
+            } else {
+                logout();
+                console.log("No session");
+            }
+        };
+        initUser()
+    }, [login, logout]);
 
     return (
         <div className="App">

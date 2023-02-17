@@ -34,8 +34,8 @@ const Profile = () => {
     // Log out button
     async function onClickLogout() {
         logout();
-        const {error} = await supabase.auth.signOut();
-        console.log(error);
+        await supabase.auth.signOut();
+        window.location.reload(false);
     }
 
     // Function that handles the reset email button
@@ -76,13 +76,14 @@ const Profile = () => {
     // On page load, fetch the user's name and other info from the database and set the state
     useEffect(() => {
         async function fetchName() {
-            if (firstName === "" && lastName === "" && loggedIn) {
+            if ((firstName === "" || lastName === "" || dateRegistered === "") && loggedIn) {
                 const { data, error } = await supabase.from("users").select("first_name, last_name, time_registered").eq("email", email);
 
                 if (error) {
                     setFirstName("");
                     setLastName("");
                 } else {
+                    console.log(data);
                     setFirstName(data[0].first_name);
                     setLastName(data[0].last_name);
 
