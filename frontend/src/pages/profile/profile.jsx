@@ -29,7 +29,8 @@ const Profile = () => {
     // Log out button
     async function onClickLogout() {
         logout();
-        await supabase.auth.signOut();
+        const {error} = await supabase.auth.signOut();
+        console.log(error);
     }
 
     // Function that handles the reset email button
