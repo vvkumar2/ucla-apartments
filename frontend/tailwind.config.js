@@ -22,7 +22,8 @@ module.exports = {
             },
             spacing: {
                 '3px': '3px',
-                '45/100': '45%'
+                '45/100': '45%',
+                'profile': 'calc(56px + 5vh)',
             },
             saturate: {
                 '130': '1.30',

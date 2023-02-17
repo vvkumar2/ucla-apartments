@@ -3,7 +3,12 @@ import Navbar from "../../components/navbar";
 import useUserContext from "../../context/user.context";
 import { createClient } from "@supabase/supabase-js";
 import { Navigate } from "react-router-dom";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./profile.styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
+import FormInput from "../../components/form-input";
 
 // Creating a client for the supabase database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -18,8 +23,8 @@ const Profile = () => {
     const [dateRegistered, setDateRegistered] = useState("");
     const [changingEmail, setChangingEmail] = useState(false);
     const [newEmail, setNewEmail] = useState("");
-    const [error, setError] = useState("");
     const { login, loggedIn, logout } = useUserContext();
+    const [showDropdown, setShowDropdown] = useState(false);
 
     function emailChangeHandler(event) {
         const searchFieldString = event.target.value.toLocaleLowerCase();
@@ -35,10 +40,8 @@ const Profile = () => {
 
     // Function that handles the reset email button
     async function onClickResetEmail() {
-        setError("");
-
         if (newEmail === "") {
-            setError("There was an error initiating email change: reload page and try again.");
+            toast.error("There was an error initiating email change: reload page and try again.");
         } else {
             const { error } = await supabase.auth.updateUser(
                 { email: String(newEmail) },
@@ -47,9 +50,9 @@ const Profile = () => {
                 }
             );
             if (error) {
-                setError(error);
+                toast.error(error.message);
             } else {
-                setError("Confirmation email sent to new email address! Must confirm email or else you will not be able to sign in again.");
+                toast.success("Confirmation sent to new email address! Confirm email to reset email.");
             }
         }
     }
@@ -57,22 +60,22 @@ const Profile = () => {
     // Function that handles the reset password button
     async function onClickResetPassword() {
         setChangingEmail(false);
-        setError("");
         if (email === "") {
-            setError("There was an error initiating password change: reload page and try again.");
+            toast.error("There was an error initiating password change: reload page and try again.");
         } else {
             const { error } = await supabase.auth.resetPasswordForEmail(String(email), { redirectTo: "http://localhost:3000/reset-password" });
             if (error) {
-                setError(error);
+                console.log(error);
+                toast.error(error.message);
             } else {
-                setError("Email sent! Follow link in email to continue.");
+                toast.success("Confirmation sent to email address!");
             }
         }
     }
 
     // On page load, fetch the user's name and other info from the database and set the state
     useEffect(() => {
-        async function fetchName(event) {
+        async function fetchName() {
             if (firstName === "" && lastName === "" && loggedIn) {
                 const { data, error } = await supabase.from("users").select("first_name, last_name, time_registered").eq("email", email);
 
@@ -107,45 +110,54 @@ const Profile = () => {
     return (
         <div className="profile-container">
             <Navbar />
-            <div className="profile-content-container">
-                <div className="profile-header-container">
-                    <div className="profile-first-row">
-                        <h1 className="profile-name">
+            <div className="w-full px-site-standard">
+                <div className="flex flex-col bg-white shadow-standard gap-4 py-4 px-6 rounded-xl mt-profile">
+                    <div className="flex flex-row">
+                        <h1 className="my-auto text-2xl">
                             {firstName} {lastName}
                         </h1>
-                        <div className="profile-logout" onClick={onClickLogout}>
-                            Logout
+                        {/* Make settings button */}
+                        <div className="my-auto ml-auto text-xl hover:cursor-pointer" onClick={() => {setShowDropdown(!showDropdown)}} ><FontAwesomeIcon icon={faCog} />
+                        {showDropdown &&
+                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl">
+                                <div className="px-4 py-2 hover:bg-slate-100" onClick={onClickLogout}>
+                                    Log Out
+                                </div>
+                                <div className="px-4 py-2 hover:bg-slate-100" onClick={() => setChangingEmail(!changingEmail)}>
+                                    Change Email
+                                </div>
+                                <div className="px-4 py-2 hover:bg-slate-100" onClick={onClickResetPassword}>
+                                    Change Password
+                                </div> 
+                            </div>
+                        }
                         </div>
                     </div>
-                    <div className="profile-second-row">
-                        <h2 className="profile-email-registered">{email}</h2>
-                        {dateRegistered !== "" && <h2 className="profile-date-registered">Member since: {dateRegistered}</h2>}
+                    <div className="flex flex-row text-md text-slate-500">
+                        <h2 className="my-auto">{email}</h2>
+                        {dateRegistered !== "" && <h2 className="my-auto ml-auto">Member since: {dateRegistered}</h2>}
                     </div>
                 </div>
-                <div className="profile-info-change">
-                    <h2
-                        className="profile-change-email"
-                        onClick={() => {
-                            setChangingEmail(!changingEmail);
-                            setError("");
-                        }}
-                    >
-                        Change Email
-                    </h2>
-                    <h2 className="profile-change-password" onClick={onClickResetPassword}>
-                        Change Password
-                    </h2>
-                </div>
                 {changingEmail && (
-                    <div className="email-box">
-                        <input className="enter-email-box" type="email" placeholder="Enter New Email" onChange={emailChangeHandler} />
-                        <div className="submit-email-box" onClick={onClickResetEmail}>
-                            Submit
+                    <div className="fixed bg-slate-300 bg-opacity-50 w-screen h-screen top-0 left-0 flex flex-col gap-4 justify-center items-centerbox">
+                        <div className="mx-auto rounded-xl bg-white shadow-standard px-10 py-6 flex flex-col gap-6">
+                            <div className="flex flex-row">
+                                <h2 className="text-center text-2xl font-bold">Email Change</h2>
+                                <div className="ml-auto text-xl hover:cursor-pointer" onClick={() => {setChangingEmail(!changingEmail)}} ><FontAwesomeIcon icon={faTimes} /></div>
+                            </div>
+
+                            <div className="flex flex-row gap-4 pb-2">
+                                <FormInput type="email" placeholder="Enter New Email" onChange={emailChangeHandler} />
+                                {/* <input className="h-min w-min rounded-xl border-none shadow-standard" type="email" placeholder="Enter New Email" onChange={emailChangeHandler} /> */}
+                                <button className="px-8 h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" onClick={onClickResetEmail}>
+                                    Submit
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
-                {error && <p style={{ marginBottom: "30px", color: "#FF6961", fontWeight: "bold" }}>{String(error)}</p>}
             </div>
+            <ToastContainer hideProgressBar={true} />
         </div>
     );
 };
