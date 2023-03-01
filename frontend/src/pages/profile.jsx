@@ -67,6 +67,11 @@ const Profile = () => {
         }
     }
 
+    // On page load, scroll to the top of the page
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
+
     // On page load, fetch the user's name and other info from the database and set the state
     useEffect(() => {
         async function fetchName() {
@@ -105,7 +110,7 @@ const Profile = () => {
     return (
         <div className="">
             <Navbar />
-            <div className="w-full px-site-standard-mobile sm:px-site-standard py-4">
+            <div className="w-full px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard py-4 my-24">
                 <div className="flex flex-col bg-white shadow-standard gap-4 py-4 px-6 rounded-xl mt-profile">
                     <div className="flex flex-row">
                         <h1 className="my-auto text-2xl">
@@ -114,7 +119,7 @@ const Profile = () => {
                         {/* Make settings button */}
                         <div className="my-auto ml-auto text-xl hover:cursor-pointer" onClick={() => {setShowDropdown(!showDropdown)}} ><FontAwesomeIcon icon={faCog} />
                         {showDropdown &&
-                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl right-16 top-[155px]">
+                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl right-16 sm:right-52 top-[160px]">
                                 <div className="px-4 py-2 hover:bg-slate-100" onClick={() => setChangingEmail(!changingEmail)}>
                                     Change Email
                                 </div>

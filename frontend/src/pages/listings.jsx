@@ -209,24 +209,19 @@ const Listings = () => {
 
     return (
         <div>
-            <Navbar showBackground={mapView} color_scheme={mapView ? "DARK" : "LIGHT"} />
-            <div className="switch-view">
-                <button
-                    className="fixed right-8 bottom-8 z-10 shadow-standard rounded-md flex items-center justify-center gap-3 px-3 py-2 bg-orange-400 text-white hover:bg-orange-500 cursor-pointer font-bold"
-                    onClick={() => setMapView(!mapView)}
-                >
-                    {mapView ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faMap} />}
-                    {mapView ? "List View" : "Map View"}
-                </button>
-            </div>
-            {!mapView && (
+            <Navbar showBackground={mapView} color_scheme={"LIGHT"} />
                 <div className="flex flex-col gap-12">
                     <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
-                        <h1 className="text-4xl font-bold text-white px-site-standard-mobile sm:px-site-standard text-center">
+                        <h1 className="text-4xl font-bold text-white px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard text-center">
                             Apartments Near UCLA
                         </h1>
                     </div>
-                    <div className="relative flex flex-col gap-20 px-site-standard-mobile sm:px-site-standard">
+                    <div className="relative flex flex-col gap-10 px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard">
+                        <div className="flex flex-row gap-4 mb-16 ml-2">
+                            <button onClick={() => setMapView(false)} className={`text-md font-medium ${!mapView ? "text-blue-700 font-semibold" : ""}`}>List View</button>
+                            <h1>|</h1>
+                            <button onClick={() => setMapView(true)} className={`text-md font-medium ${mapView ? "text-blue-700 font-semibold" : ""}`}>Map View</button>
+                        </div>
                         <Filters
                             searchFieldChangeHandler={onSearchChange}
                             sortByChangeHandler={sortByChangeHandler}
@@ -236,20 +231,21 @@ const Listings = () => {
                             maxRentChangeHandler={onMaxRentChange}
                             ResetFilters={resetFilters}
                         />
-                        <ApartmentBoxList
-                            apartmentList={filteredApartments}
-                            dataLimit={listingsPerPage}
-                            pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
-                            maxPagesInput={maxPages}
-                        />
+                        {!mapView && 
+                            <ApartmentBoxList
+                                apartmentList={filteredApartments}
+                                dataLimit={listingsPerPage}
+                                pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
+                                maxPagesInput={maxPages}
+                            />
+                        }
+                        {mapView && 
+                            <div className="">
+                                <CustomMap apartmentList={filteredApartments} />
+                            </div>
+                        }
                     </div>
                 </div>
-            )}
-            {mapView && (
-                <div className="map-section">
-                    <CustomMap apartmentList={filteredApartments} />
-                </div>
-            )}
             <Footer />
         </div>
     );

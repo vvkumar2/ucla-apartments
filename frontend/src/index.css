@@ -12,19 +12,19 @@ body {
   background-color: #f9fafe;
 }
 
-@screen xl {
-  .apartment-card-details-layout {
-    @apply grid;
-    @apply grid-cols-2;
-    @apply gap-y-2;
-  }
+.gm-style-iw.gm-style-iw-c {
+  width: 270px !important;
+  max-width: none !important;
+  min-width: none !important;
+  top: 15px !important;
+  left: 0px !important;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  border: 1px solid rgba(72, 181, 233, 0.6);
+  border-radius: 2px 2px 10px 10px;
 }
-
-@screen 2xl {
-  .apartment-card-details-layout {
+.apartment-card-details-layout {
     @apply flex;
     @apply justify-between;
     @apply items-center;
   }
-}
-

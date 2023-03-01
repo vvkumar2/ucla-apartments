@@ -78,17 +78,23 @@ const Filters = ({
                 <span className="font-bold text-md text-blue-700 cursor-pointer hover:underline">Clear All</span>
             </div>
             {screenSize > 1300 ? (
-                <div className="flex justify-between h-10">
+                <div className="flex flex-row h-10">
                     <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-                    <FiltersDropdown />
-                    <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
+                    <div className="ml-auto">
+                        <FiltersDropdown />
+                    </div>
+                    <div className="ml-auto">
+                        <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
+                    </div>
                 </div>
             ) : (
                 <div className="flex flex-col gap-5">
                     <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-                    <div className="flex flex-col gap-5 1000:flex-row w-full justify-between items-center">
+                    <div className="flex flex-col w-full gap-5 1000:flex-row">
                         <FiltersDropdown />
-                        <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
+                        <div className="1000:ml-auto">
+                            <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
+                        </div>
                     </div>
                 </div>
             )}

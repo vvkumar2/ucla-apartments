@@ -51,7 +51,7 @@ export default function SavedApartmentBox({ apartment, category, tooltip=false }
                     </select>
                 }
             </div>
-            <div className="w-full py-3 px-8 flex flex-col gap-1">
+            <div className="w-full py-3 px-8 flex flex-col gap-3">
                 <div className="flex flex-col">
                     <Link to={`/apartment-listing?id=${id}`} className="text-lg font-bold tracking-wide text-ellipsis hover:text-blue-700 cursor-pointer">{name}</Link>
                     <div className="flex items-center gap-1 overflow-hidden">
@@ -59,24 +59,18 @@ export default function SavedApartmentBox({ apartment, category, tooltip=false }
                     </div>
                 </div>
                 <hr />
-                <div className="apartment-card-details-layout text-gray-500 text-sm">
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate" >Sqft</span>
-                        <div className="flex items-center gap-1 overflow-hidden">
-                            <span className="text-truncate text-md text-blue-700 font-bold">{sqft}</span>
-                        </div>
+                <div className="apartment-card-details-layout text-gray-500 text-sm flex flex-row gap-2">
+                    <div className="flex flex-col overflow-hidden w-fit">
+                        <div className="text-sm text-gray-500 text-truncate" >Sqft</div>
+                        <div className="text-truncate text-md text-blue-700 font-bold">{sqft}</div>
                     </div>
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Beds</span>
-                        <div className="flex items-center gap-1 overflow-hidden">
-                            <span className="text-truncate text-md text-blue-700 font-bold">{beds}</span>
-                        </div>
+                    <div className="flex flex-col overflow-hidden w-fit">
+                        <div className="text-sm text-gray-500 text-truncate">Beds</div>
+                        <div className="text-truncate text-md text-blue-700 font-bold">{beds}</div>
                     </div>
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Baths</span>
-                        <div className="flex items-center gap-1 overflow-hidden">
-                            <span className="text-truncate text-md text-blue-700 font-bold">{baths}</span>
-                        </div>
+                    <div className="flex flex-col overflow-hidden w-fit">
+                        <div className="text-sm text-gray-500 text-truncate">Baths</div>
+                        <div className="text-truncate text-md text-blue-700 font-bold">{baths}</div>
                     </div>
                 </div>
             </div>

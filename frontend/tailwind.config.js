@@ -17,8 +17,8 @@ module.exports = {
             },
             padding: {
                 "site-standard-mobile": "3rem",
+                "site-standard-medium": "8rem",
                 "site-standard": "12rem",
-                "site-standard-mobile": "3rem",
             },
             invert: {
                 blue: "invert(29%) sepia(95%) saturate(3547%) hue-rotate(220deg) brightness(84%) contrast(103%);",

@@ -8,7 +8,7 @@ export default function MapsApartmentBox({ address, image_url, name, rent, sqft,
     const abbreviatedAddress = address.indexOf("Los Angeles") > 10 ? address.substring(0, address.indexOf("Los Angeles")) : address;
 
     return (
-        <div className="h-[300px] w-[300px] rounded-lg border-2 border-slate-100 flex flex-col">
+        <div className="h-[300px] w-min-[300px] rounded-lg border-2 border-slate-100 flex flex-col">
             <div className="w-full h-[200px] relative overflow-hidden">
                 <img className="w-full rounded-md overflow-hidden object-cover" src={image_url} alt="Apartment" />
             </div>

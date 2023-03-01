@@ -30,9 +30,9 @@ const ApartmentBox = ({ apartment }) => {
             <div className="h-[200px] w-full rounded-t-lg flex items-center justify-center overflow-hidden">
                 <img className="object-cover min-h-full min-w-full w-auto" src={image_url} alt="" />
             </div>
-            <div className="w-full py-5 px-8 flex flex-col gap-4">
-                <div className="flex flex-col">
-                    <h1 className="text-lg font-bold tracking-wide text-truncate hover:text-blue-700 cursor-pointer">{name}</h1>
+            <div className="w-full py-4 px-8 flex flex-col gap-4">
+                <div className="flex flex-col md:h-[95px] gap-2">
+                    <h1 className="text-lg leading-6 font-bold tracking-wide text-truncate hover:text-blue-700 cursor-pointer">{name}</h1>
                     <span className="text-sm text-gray-500 text-truncate">{address}</span>
                 </div>
                 <hr />
