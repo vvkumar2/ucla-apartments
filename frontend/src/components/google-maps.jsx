@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { createClient } from '@supabase/supabase-js'
-import './google-maps.styles.css'
-import SavedApartmentBox from '../saved-apartment-box/saved-apartment-box.component';
-import MapsApartmentBox from '../maps-apartment-box/maps-apartment-box.component';
+import MapsApartmentBox from './maps-apartment-box';
 
 // Creating a supabase client to connect to the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
@@ -16,7 +14,7 @@ const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 function CustomMap({ google }) {
   const [locations, setLocations] = useState([])
   const [showingInfoWindow, setShowingInfoWindow] = useState(false)
-  const [activeMarker, setActiveMarker] = useState({props: {id: 0, name: "", image_url: "", address: "", latitude: 0, longitude: 0, rent: "", sqft: ""}})
+  const [activeMarker, setActiveMarker] = useState({props: {id: 0, name: "", address: "", image_url: "", latitude: 0, longitude: 0, rent: "", sqft: "", beds: "", baths: ""}})
 
   function onMarkerClick (props, marker, e) {
     if (showingInfoWindow && activeMarker.props.id === marker.props.id) {
@@ -74,6 +72,8 @@ function CustomMap({ google }) {
             onClose={onClose}
           >
             <MapsApartmentBox address={activeMarker.props.address} image_url={activeMarker.props.image_url} name={activeMarker.props.name} rent={activeMarker.props.rent} sqft={activeMarker.props.sqft} id={activeMarker.props.id} />
+            {console.log(activeMarker.props)}
+            {/* <SavedApartmentBox apartment={activeMarker.props} tooltip={true} /> */}
           </InfoWindow>
         </Map>
     )

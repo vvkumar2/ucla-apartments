@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar";
-import useUserContext from "../../context/user.context";
+import Navbar from "../components/navbar";
+import useUserContext from "../context/user.context";
 import { createClient } from "@supabase/supabase-js";
 import { Navigate } from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "./profile.styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
-import FormInput from "../../components/form-input";
+import FormInput from "../components/form-input";
+import Footer from "../components/footer";
+import LikesPage from "./liked-items";
 
 // Creating a client for the supabase database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -31,13 +32,6 @@ const Profile = () => {
         setNewEmail(searchFieldString);
     }
 
-    // Log out button
-    async function onClickLogout() {
-        logout();
-        await supabase.auth.signOut();
-        window.location.reload(false);
-    }
-
     // Function that handles the reset email button
     async function onClickResetEmail() {
         if (newEmail === "") {
@@ -52,7 +46,7 @@ const Profile = () => {
             if (error) {
                 toast.error(error.message);
             } else {
-                toast.success("Confirmation sent to new email address! Confirm email to reset email.");
+                toast.success("Confirmation sent to new email address! Make sure to check your spam folder!");
             }
         }
     }
@@ -68,7 +62,7 @@ const Profile = () => {
                 console.log(error);
                 toast.error(error.message);
             } else {
-                toast.success("Confirmation sent to email address!");
+                toast.success("Confirmation sent to email address! Make sure to check your spam folder!");
             }
         }
     }
@@ -109,9 +103,9 @@ const Profile = () => {
     }
 
     return (
-        <div className="profile-container">
+        <div className="">
             <Navbar />
-            <div className="w-full px-site-standard">
+            <div className="w-full px-site-standard-mobile sm:px-site-standard py-4">
                 <div className="flex flex-col bg-white shadow-standard gap-4 py-4 px-6 rounded-xl mt-profile">
                     <div className="flex flex-row">
                         <h1 className="my-auto text-2xl">
@@ -120,10 +114,7 @@ const Profile = () => {
                         {/* Make settings button */}
                         <div className="my-auto ml-auto text-xl hover:cursor-pointer" onClick={() => {setShowDropdown(!showDropdown)}} ><FontAwesomeIcon icon={faCog} />
                         {showDropdown &&
-                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl">
-                                <div className="px-4 py-2 hover:bg-slate-100" onClick={onClickLogout}>
-                                    Log Out
-                                </div>
+                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl right-16 top-[155px]">
                                 <div className="px-4 py-2 hover:bg-slate-100" onClick={() => setChangingEmail(!changingEmail)}>
                                     Change Email
                                 </div>
@@ -134,31 +125,34 @@ const Profile = () => {
                         }
                         </div>
                     </div>
-                    <div className="flex flex-row text-md text-slate-500">
+                    <div className="flex lg:flex-row flex-col text-md text-slate-500">
                         <h2 className="my-auto">{email}</h2>
-                        {dateRegistered !== "" && <h2 className="my-auto ml-auto">Member since: {dateRegistered}</h2>}
+                        {dateRegistered !== "" && <h2 className="my-auto lg:ml-auto">Member since: {dateRegistered}</h2>}
                     </div>
                 </div>
                 {changingEmail && (
-                    <div className="fixed bg-slate-300 bg-opacity-50 w-screen h-screen top-0 left-0 flex flex-col gap-4 justify-center items-centerbox">
-                        <div className="mx-auto rounded-xl bg-white shadow-standard px-10 py-6 flex flex-col gap-6">
+                    <div className="fixed bg-slate-300 bg-opacity-50 w-screen h-screen top-0 left-0 flex flex-col gap-4 justify-center items-centerbox z-10">
+                        <div className="mx-site-standard-mobile sm:mx-auto rounded-xl bg-white shadow-standard px-6 sm:px-10 py-4 sm:py-6 flex flex-col gap-6">
                             <div className="flex flex-row">
-                                <h2 className="text-center text-2xl font-bold">Email Change</h2>
+                                <h2 className="text-center text-xl sm:text-2xl font-bold">Email Change</h2>
                                 <div className="ml-auto text-xl hover:cursor-pointer" onClick={() => {setChangingEmail(!changingEmail)}} ><FontAwesomeIcon icon={faTimes} /></div>
                             </div>
 
-                            <div className="flex flex-row gap-4 pb-2">
-                                <FormInput type="email" placeholder="Enter New Email" onChange={emailChangeHandler} />
+                            <div className="flex flex-row gap-2 sm:gap-4 pb-2">
+                                <FormInput type="email" placeholder="New Email" onChange={emailChangeHandler} />
                                 {/* <input className="h-min w-min rounded-xl border-none shadow-standard" type="email" placeholder="Enter New Email" onChange={emailChangeHandler} /> */}
-                                <button className="px-8 h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" onClick={onClickResetEmail}>
+                                <button className="px-2 sm:px-8 h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" onClick={onClickResetEmail}>
                                     Submit
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
+                <LikesPage />
             </div>
+            
             <ToastContainer hideProgressBar={true} />
+            <Footer />
         </div>
     );
 };

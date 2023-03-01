@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navbar";
-import useUserContext from "../../context/user.context";
-import SectionHeader from "../../components/section-header/section-header.component";
-import SavedApartmentBox from "../../components/saved-apartment-box/saved-apartment-box.component";
-import { fetchSavedItemFromSupabaseCategory } from "../../utils/supabase-utils";
-import "./liked-items.styles.css";
+import Navbar from "../components/navbar";
+import useUserContext from "../context/user.context";
+import SectionHeader from "../components/section-header";
+import SavedApartmentBox from "../components/saved-apartment-box";
+import { fetchSavedItemFromSupabaseCategory } from "../utils/supabase-utils";
 
 const LikesPage = () => {
     const { email } = useUserContext();
@@ -40,16 +39,16 @@ const LikesPage = () => {
     }, [email]);
 
     return (
-        <div>
-            <Navbar />
+        <div >
             {error === "" && (
                 <>
-                    <SectionHeader header_name="Saved Apartments" />
-                    <div className="apartment-categories">
-                        <div className="apartment-category">
-                            <h2 className="apartment-category-header">Saved for later</h2>
+                    <div className="flex flex-col gap-8 py-8">
+                        <div className="flex flex-col gap-4">
+                            <div className="font-medium border-b-2 border-slate-300 py-2">
+                                <SectionHeader  header_name="Liked Items" />
+                            </div>
                             {savedForLaterItems.length > 0 ? (
-                                <div className="saved-apartment-cards">
+                                <div className="flex flex-row gap-6 flex-wrap">
                                     {savedForLaterItems.map((apt) => (
                                         <SavedApartmentBox apartment={apt} category={"SAVED_FOR_LATER"} />
                                     ))}
@@ -58,10 +57,12 @@ const LikesPage = () => {
                                 <span>No apartments in this category</span>
                             )}
                         </div>
-                        <div className="apartment-category">
-                            <h2 className="apartment-category-header">Contacting Owner</h2>
+                        <div className="flex flex-col gap-4">
+                            <div className="font-medium border-b-2 border-slate-300 py-2">
+                                <SectionHeader  header_name="Contacting Owner" />
+                            </div>
                             {contactingOwnerItems.length > 0 ? (
-                                <div className="saved-apartment-cards">
+                                <div className="flex flex-row gap-6 flex-wrap">
                                     {contactingOwnerItems.map((apt) => (
                                         <SavedApartmentBox apartment={apt} category={"CONTACTING_OWNER"} />
                                     ))}
@@ -70,10 +71,12 @@ const LikesPage = () => {
                                 <span>No apartments in this category</span>
                             )}
                         </div>
-                        <div className="apartment-category">
-                            <h2 className="apartment-category-header">Applications in Progress</h2>
+                        <div className="flex flex-col gap-4">
+                            <div className="font-medium border-b-2 border-slate-300 py-2">
+                                <SectionHeader  header_name="Application in Progress" />
+                            </div>
                             {applicationsInProgressItems.length > 0 ? (
-                                <div className="saved-apartment-cards">
+                                <div className="flex flex-row gap-6 flex-wrap">
                                     {applicationsInProgressItems.map((apt) => (
                                         <SavedApartmentBox apartment={apt} category={"APPLICATIONS_IN_PROGRESS"} />
                                     ))}
@@ -82,10 +85,12 @@ const LikesPage = () => {
                                 <span>No apartments in this category</span>
                             )}
                         </div>
-                        <div className="apartment-category">
-                            <h2 className="apartment-category-header">Completed</h2>
+                        <div className="flex flex-col gap-4">
+                            <div className="font-medium border-b-2 border-slate-300 py-2">
+                                <SectionHeader  header_name="Completed" />
+                            </div>
                             {completedItems.length > 0 ? (
-                                <div className="saved-apartment-cards">
+                                <div className="flex flex-row gap-6 flex-wrap">
                                     {completedItems.map((apt) => (
                                         <SavedApartmentBox apartment={apt} category={"COMPLETED"} />
                                     ))}
@@ -98,7 +103,7 @@ const LikesPage = () => {
                 </>
             )}
 
-            {error !== "" && <h1 className="liked-items-error-message">{error}</h1>}
+            {error !== "" && <h1 className="mt-[10vh] text-xl">{error}</h1>}
         </div>
     );
 };

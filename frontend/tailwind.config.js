@@ -6,13 +6,14 @@ module.exports = {
             backgroundImage: {
                 "homepage-apartments-background": "url('/src/assets/apartments-background.jpg')",
                 "gradient-background": "url('/src/assets/gradient-background.jpeg')",
-                "santa-monica-background": "url('/src/assets/santa-monica-background.jpg')",
+                "santa-monica-background": "url('/src/assets/santa-monica-bg.jpeg')",
             },
             boxShadow: {
                 standard: "0px 0px 12px rgba(199, 199, 199, 0.4)",
             },
             padding: {
                 "site-standard": "12rem",
+                "site-standard-mobile": "3rem",
             },
             filter: {
                 blue: "invert(29%) sepia(95%) saturate(3547%) hue-rotate(220deg) brightness(84%) contrast(103%);",
@@ -24,6 +25,8 @@ module.exports = {
                 '3px': '3px',
                 '45/100': '45%',
                 'profile': 'calc(56px + 5vh)',
+                'footer': '100vh',
+                "site-standard-mobile": "3rem",
             },
             saturate: {
                 '130': '1.30',

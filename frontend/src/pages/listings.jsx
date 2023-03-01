@@ -4,8 +4,9 @@ import { createClient } from "@supabase/supabase-js";
 import ApartmentBoxList from "../components/apartment-box-list/apartment-box-list.component";
 import Filters from "../components/filters";
 import Navbar from "../components/navbar";
-import SectionHeader from "../components/section-header/section-header.component";
-import CustomMap from "../components/google-maps/google-maps.component";
+import SectionHeader from "../components/section-header";
+import CustomMap from "../components/google-maps";
+import Footer from "../components/footer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faList } from "@fortawesome/free-solid-svg-icons";
@@ -247,6 +248,7 @@ const Listings = () => {
                     <CustomMap apartmentList={filteredApartments} />
                 </div>
             )}
+            <Footer />
         </div>
     );
 };

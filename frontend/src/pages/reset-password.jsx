@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import { createClient } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Footer from "../components/footer";
 import "react-toastify/dist/ReactToastify.css";
 
 import FormInput from "../components/form-input";
@@ -63,6 +64,7 @@ const ResetPassword = () => {
                 </form>
             </div>
             <ToastContainer hideProgressBar={true} />
+            <Footer />
         </div>
     );
 };

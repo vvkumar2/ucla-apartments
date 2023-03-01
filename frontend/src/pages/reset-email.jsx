@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import { createClient } from "@supabase/supabase-js";
 import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Footer from "../components/footer";
 import "react-toastify/dist/ReactToastify.css";
 
 //Creating a client for the supabase database
@@ -43,6 +44,7 @@ const ResetEmail = () => {
                 <h1 className="text-md text-gray-400 pointer hover:underline cursor-pointer text-center" onClick={() => { return <Navigate to={{ pathname: "/login" }} /> } }>Back to Login Page</h1>
             </div>
             <ToastContainer hideProgressBar={true} />
+            <Footer />
         </div>
     );
 };

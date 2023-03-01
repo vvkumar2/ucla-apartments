@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "../components/carousel-components/carousel/carousel";
 import useUserContext from "../context/user.context";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 import FeatureListBox from "../components/feature-list-box";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed, faBath, faArrowsToDot, faSackDollar } from '@fortawesome/free-solid-svg-icons'
@@ -75,19 +76,19 @@ const DetailedListingPage = () => {
 
 
     return (
-        <div className="mb-16">
+        <div className="">
             {/* If the apartment id is valid, display the apartment details */}
             { apartmentInfo.length!==0 && !error && <div>
             <Navbar />
             {/* Displaying the apartment images in a carousel using pure-react-carousel library */}
             <Carousel apartmentInfo={apartmentInfo}/>
             {/* Displaying the apartment details */}
-            <div className="flex flex-row mt-14 px-32">
+            <div className="flex flex-row mt-14 px-48">
                 <div className="w-7/12 mr-auto flex flex-col gap-8">
                     <div className="flex flex-row">
                         <h2 className="text-3xl text-left">{apartmentInfo.address}</h2>
                         <HeartIcon
-                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer hover:fill-red-100"}
+                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto max-w-[45px] min-w-[30px] hover:cursor-pointer" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer hover:fill-red-100"}
                             onClick={() => addToLiked()}
                         />
                     </div>
@@ -138,6 +139,7 @@ const DetailedListingPage = () => {
                     </div>
                 </div>
             </div> 
+            <Footer />
             <ToastContainer hideProgressBar={true} />
         </div> }
         { apartmentInfo.length!==0 || error && 
@@ -146,6 +148,7 @@ const DetailedListingPage = () => {
                 <h1 className="text-3xl text-slate-600 mt-64">Listing not found</h1>
             </div> 
         }
+
         </div>
     );
 };

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import RegisterPopup from "../components/register-popup";
 import Navbar from "../components/navbar";
 import FormInput from "../components/form-input";
+import Footer from "../components/footer";
 
 import useUserContext from "../context/user.context";
 import { createClient } from "@supabase/supabase-js";
@@ -53,8 +54,8 @@ const Login = () => {
         if (email === "") {
             toast.error("To reset your password, first enter your email address.");
         } else {
-            // await supabase.auth.resetPasswordForEmail(String(email), { redirectTo: "http://localhost:3000/reset-password" });
-            toast.success("Check your email for a password reset link!");
+            await supabase.auth.resetPasswordForEmail(String(email), { redirectTo: "http://localhost:3000/reset-password" });
+            toast.success("Check your email for a password reset link! Make sure to check your spam folder!");
         }
     }
 
@@ -70,7 +71,7 @@ const Login = () => {
     return (
         <div>
             <Navbar />
-            <div className="h-screen flex justify-center items-center">
+            <div className="h-screen flex justify-center items-center min-h-[100vh]">
                 <form onSubmit={LoginHandler} className="flex flex-col items-center bg-white rounded-xl p-10 shadow-standard gap-6 w-[550px]">
                     <h1 className="text-2xl font-bold">Login</h1>
                     <div className="w-full flex flex-col items-center gap-3">
@@ -94,6 +95,7 @@ const Login = () => {
                 {isOpen && <RegisterPopup handleClose={createAccountPopUp} />}
                 <ToastContainer hideProgressBar={true} />
             </div>
+            <Footer />
         </div>
     );
 };
