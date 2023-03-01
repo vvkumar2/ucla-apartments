@@ -16,13 +16,13 @@ export default function Dropdown({ placeholder, currentLabel, options, onChange 
     }
 
     return (
-        <div className="relative flex flex-col items-center h-full">
+        <div className="relative flex flex-col items-center h-10 w-full 1000:w-full">
             <button
-                className="w-[250px] h-full text-gray-600 hover:text-blue-700 bg-gray-50 hover:focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between"
+                className="w-full 1000:w-[250px] h-full text-gray-600 hover:text-blue-700 bg-gray-50 hover:focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between"
                 type="button"
                 onClick={() => setShowDropdown(!showDropdown)}
             >
-                <span className='whitespace-nowrap overflow-hidden text-ellipsis'>{currentLabel === null ? placeholder : "Sort By: " + currentLabel} </span>
+                <span className="text-truncate">{currentLabel === null ? placeholder : "Sort By: " + currentLabel} </span>
                 <svg
                     className="w-4 h-4 ml-2"
                     aria-hidden="true"

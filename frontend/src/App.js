@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {  useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from "./pages/listings";
 import Home from "./pages/homepage";
@@ -10,7 +10,6 @@ import LikesPage from "./pages/liked-items";
 import DetailedListingPage from "./pages/detailed-listing-page";
 import { createClient } from "@supabase/supabase-js";
 import useUserContext from "./context/user.context";
-import "./App.css";
 
 // Creating a supabase client to connect to the database
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;

@@ -59,8 +59,9 @@ const Navbar = ({ color_scheme }) => {
 
     return (
         <div
-            className={`fixed z-10 w-full top-0 left-0 px-site-standard py-3 flex justify-between items-center duration-300 transition-all ${
-                scrollPosition > 30 ? ` bg-opacity-70 backdrop-blur-md bg-white` : "" } ${visible ? "" : "top-[-70px]"}`}
+            className={`fixed z-10 w-full top-0 left-0 px-site-standard-mobile sm:px-site-standard py-4 flex justify-between items-center ${
+                scrollPosition > 30 ? ` bg-opacity-70 backdrop-blur-md bg-white` : ""
+            }`}
         >
             <h1
                 className={`text-xl ${color_scheme === "LIGHT" && scrollPosition <= 30 ? "text-white" : "text-gray-800"} font-bold cursor-pointer`}
