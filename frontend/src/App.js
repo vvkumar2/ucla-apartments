@@ -1,4 +1,3 @@
-import React, {  useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Listings from "./pages/listings";
 import Home from "./pages/homepage";
@@ -8,36 +7,8 @@ import Profile from "./pages/profile";
 import ResetEmail from "./pages/reset-email";
 import LikesPage from "./pages/liked-items";
 import DetailedListingPage from "./pages/detailed-listing-page";
-import { createClient } from "@supabase/supabase-js";
-import useUserContext from "./context/user.context";
-
-// Creating a supabase client to connect to the database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 function App() {
-    // Retrieve the user context
-    const { login, logout } = useUserContext();
-
-    // Initialize the user based on the stored session
-    useEffect(() => {
-        async function initUser() {
-            const {
-                data: { session }
-            } = await supabase.auth.getSession();
-            if (session) {
-                await login(session.user.email, session.user.user_metadata.first_name, session.user.user_metadata.last_name);
-                console.log("Session exists");
-                console.log(session);
-            } else {
-                logout();
-                console.log("No session");
-            }
-        };
-        initUser()
-    }, [login, logout]);
-
     return (
         <div className="App">
             <Router>

@@ -68,8 +68,8 @@ function FiltersDropdownLargeScreen() {
                 const showCurrentDropdown = filter === "Beds" ? showBedsDropdown : filter === "Baths" ? showBathsDropdown : showRentDropdown;
                 return (
                     <>
-                        {index > 0 && <span className="h-[50%] w-0 border-r border-gray-300" />}
-                        <div className="relative">
+                        {index > 0 && <span className="h-[50%] w-0 border-r border-gray-300" key={`dropdown_span_${index}`} />}
+                        <div className="relative" key={`dropdown_div_${index}`}>
                             <button
                                 className="h-full w-[100px] xl:w-[130px] 2xl:w-[150px] focus:outline-none focus:ring-blue-300 font-medium text-sm px-4 py-2.5 text-center inline-flex items-center justify-between text-blue-700 hover:text-blue-700"
                                 type="button"
@@ -85,7 +85,7 @@ function FiltersDropdownLargeScreen() {
                                     viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </button>
                             {showCurrentDropdown && (
@@ -128,7 +128,7 @@ function FiltersDropdownSmallScreen() {
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
             {showDropdown && (

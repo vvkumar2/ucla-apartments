@@ -2,16 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useUserContext from "../context/user.context";
 import { debounce } from "../utils/helpers";
-import { createClient } from "@supabase/supabase-js";
 import { slide as Menu } from "react-burger-menu";
 
 import ProfileIcon from "../assets/profile-icon.svg";
 import { ReactComponent as MenuIcon } from "../assets/menu-icon.svg";
-
-// Creating a client for the supabase database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
  * @param color_scheme either "LIGHT" or "DARK" to indicate if the text should be white or black. Default is "DARK"
@@ -96,9 +90,9 @@ const Navbar = ({ color_scheme }) => {
 
     const handleProfileClick = () => navigate("/profile");
     const handleLoginClick = () => navigate("/login");
+
     async function handleLogoutClick() {
         logout();
-        await supabase.auth.signOut();
         navigate("/");
         window.location.reload(false);
     }
@@ -106,7 +100,6 @@ const Navbar = ({ color_scheme }) => {
 
     const handleScroll = debounce(() => {
         const currentScrollPos = window.pageYOffset;
-        console.log(currentScrollPos < 10);
         setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 150);
         setPrevScrollPos(currentScrollPos);
     }, 100);

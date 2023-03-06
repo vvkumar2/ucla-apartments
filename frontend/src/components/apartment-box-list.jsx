@@ -57,7 +57,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
                 </p>
             </div>
             <div className="flex gap-10 flex-wrap">
-                {getPaginatedData().map((apartment) => (apartment ? <ApartmentBox apartment={apartment} /> : null))}
+                {getPaginatedData().map((apartment, index) => (apartment ? <ApartmentBox key={index} apartment={apartment} /> : null))}
             </div>
             <div className="flex items-center justify-center gap-2">
                 <button onClick={goToPreviousPage} className="bg-gray-50 h-[30px] w-[30px] flex items-center justify-center">
