@@ -1,6 +1,6 @@
 export default function SearchBar({ searchFieldChangeHandler }) {
     return (
-        <div className="h-10 flex items-center gap-2 w-full 1300:w-[250px] rounded-md text-gray-600 px-4 text-sm bg-gray-50 h-full">
+        <div className="flex items-center gap-2 w-full 1300:w-[250px] rounded-md text-gray-600 px-4 text-sm bg-gray-50 h-full">
             <svg
                 aria-hidden="true"
                 class="w-5 h-5 text-gray-500 dark:text-gray-400"

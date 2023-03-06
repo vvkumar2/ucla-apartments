@@ -3,8 +3,8 @@ import Navbar from "../components/navbar";
 import useUserContext from "../context/user.context";
 import { createClient } from "@supabase/supabase-js";
 import { Navigate } from "react-router-dom";
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
 import FormInput from "../components/form-input";
@@ -69,8 +69,8 @@ const Profile = () => {
 
     // On page load, scroll to the top of the page
     useEffect(() => {
-        window.scrollTo(0, 0)
-      }, [])
+        window.scrollTo(0, 0);
+    }, []);
 
     // On page load, fetch the user's name and other info from the database and set the state
     useEffect(() => {
@@ -110,24 +110,30 @@ const Profile = () => {
     return (
         <div className="">
             <Navbar />
-            <div className="w-full px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard py-4 my-24">
+            <div className="w-full px-site-standard py-4 my-24">
                 <div className="flex flex-col bg-white shadow-standard gap-4 py-4 px-6 rounded-xl mt-profile">
                     <div className="flex flex-row">
                         <h1 className="my-auto text-2xl">
                             {firstName} {lastName}
                         </h1>
                         {/* Make settings button */}
-                        <div className="my-auto ml-auto text-xl hover:cursor-pointer" onClick={() => {setShowDropdown(!showDropdown)}} ><FontAwesomeIcon icon={faCog} />
-                        {showDropdown &&
-                            <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl right-16 sm:right-52 top-[160px]">
-                                <div className="px-4 py-2 hover:bg-slate-100" onClick={() => setChangingEmail(!changingEmail)}>
-                                    Change Email
+                        <div
+                            className="my-auto ml-auto text-xl hover:cursor-pointer"
+                            onClick={() => {
+                                setShowDropdown(!showDropdown);
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faCog} />
+                            {showDropdown && (
+                                <div className="absolute flex flex-col bg-white shadow-standard text-sm rounded-xl right-16 sm:right-52 top-[160px]">
+                                    <div className="px-4 py-2 hover:bg-slate-100" onClick={() => setChangingEmail(!changingEmail)}>
+                                        Change Email
+                                    </div>
+                                    <div className="px-4 py-2 hover:bg-slate-100" onClick={onClickResetPassword}>
+                                        Change Password
+                                    </div>
                                 </div>
-                                <div className="px-4 py-2 hover:bg-slate-100" onClick={onClickResetPassword}>
-                                    Change Password
-                                </div> 
-                            </div>
-                        }
+                            )}
                         </div>
                     </div>
                     <div className="flex lg:flex-row flex-col text-md text-slate-500">
@@ -140,13 +146,23 @@ const Profile = () => {
                         <div className="mx-site-standard-mobile sm:mx-auto rounded-xl bg-white shadow-standard px-6 sm:px-10 py-4 sm:py-6 flex flex-col gap-6">
                             <div className="flex flex-row">
                                 <h2 className="text-center text-xl sm:text-2xl font-bold">Email Change</h2>
-                                <div className="ml-auto text-xl hover:cursor-pointer" onClick={() => {setChangingEmail(!changingEmail)}} ><FontAwesomeIcon icon={faTimes} /></div>
+                                <div
+                                    className="ml-auto text-xl hover:cursor-pointer"
+                                    onClick={() => {
+                                        setChangingEmail(!changingEmail);
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </div>
                             </div>
 
                             <div className="flex flex-row gap-2 sm:gap-4 pb-2">
                                 <FormInput type="email" placeholder="New Email" onChange={emailChangeHandler} />
                                 {/* <input className="h-min w-min rounded-xl border-none shadow-standard" type="email" placeholder="Enter New Email" onChange={emailChangeHandler} /> */}
-                                <button className="px-2 sm:px-8 h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold" onClick={onClickResetEmail}>
+                                <button
+                                    className="px-2 sm:px-8 h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold"
+                                    onClick={onClickResetEmail}
+                                >
                                     Submit
                                 </button>
                             </div>
@@ -155,7 +171,7 @@ const Profile = () => {
                 )}
                 <LikesPage />
             </div>
-            
+
             <ToastContainer hideProgressBar={true} />
             <Footer />
         </div>

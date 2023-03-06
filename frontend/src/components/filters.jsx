@@ -3,9 +3,9 @@ import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faBath } from "@fortawesome/free-solid-svg-icons";
 
-import Dropdown from "./dropdown";
 import FiltersDropdown from "./filters-dropdown";
 import SearchBar from "./search-bar";
+import SortByDropdown from "./sort-by-dropdown";
 
 const Filters = ({
     ResetFilters,
@@ -78,23 +78,27 @@ const Filters = ({
                 <span className="font-bold text-md text-blue-700 cursor-pointer hover:underline">Clear All</span>
             </div>
             {screenSize > 1300 ? (
-                <div className="flex flex-row h-10">
+                <div className="flex justify-between h-10">
                     <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-                    <div className="ml-auto">
-                        <FiltersDropdown />
-                    </div>
-                    <div className="ml-auto">
-                        <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
-                    </div>
+                    <FiltersDropdown />
+                    <SortByDropdown
+                        placeholder={"Sort By"}
+                        currentLabel={sortByLabel}
+                        options={sort_by_options}
+                        onChange={sortByChangeHandlerTotal}
+                    />
                 </div>
             ) : (
                 <div className="flex flex-col gap-5">
                     <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-                    <div className="flex flex-col w-full gap-5 1000:flex-row">
+                    <div className="flex flex-col w-full gap-5 1000:flex-row justify-between">
                         <FiltersDropdown />
-                        <div className="1000:ml-auto">
-                            <Dropdown placeholder={"Sort By"} currentLabel={sortByLabel} options={sort_by_options} onChange={sortByChangeHandlerTotal} />
-                        </div>
+                        <SortByDropdown
+                            placeholder={"Sort By"}
+                            currentLabel={sortByLabel}
+                            options={sort_by_options}
+                            onChange={sortByChangeHandlerTotal}
+                        />
                     </div>
                 </div>
             )}

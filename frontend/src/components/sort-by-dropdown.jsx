@@ -8,7 +8,7 @@ import React, { useState } from "react";
  * @param onChange: A function that takes in the value and label of the selected option
  * @returns
  */
-export default function Dropdown({ placeholder, currentLabel, options, onChange }) {
+export default function SortByDropdown({ placeholder, currentLabel, options, onChange }) {
     const [showDropdown, setShowDropdown] = useState(false);
 
     function handleOptionClick(value, label) {
@@ -16,7 +16,7 @@ export default function Dropdown({ placeholder, currentLabel, options, onChange 
     }
 
     return (
-        <div className="relative flex flex-col items-center h-10 w-full 1000:w-full">
+        <div className="relative flex flex-col items-center h-10 w-full 1000:w-[250px]">
             <button
                 className="w-full 1000:w-[250px] h-full text-gray-600 hover:text-blue-700 bg-gray-50 hover:focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between"
                 type="button"

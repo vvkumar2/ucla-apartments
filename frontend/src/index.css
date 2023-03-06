@@ -23,8 +23,48 @@ body {
   border: 1px solid rgba(72, 181, 233, 0.6);
   border-radius: 2px 2px 10px 10px;
 }
-.apartment-card-details-layout {
-    @apply flex;
-    @apply justify-between;
-    @apply items-center;
+
+@screen md {
+  .px-site-standard {
+    @apply px-[8rem];
   }
+}
+
+@screen lg {
+  .px-site-standard {
+    @apply px-[12rem];
+  }
+}
+
+.apartment-card-details-layout {
+  @apply flex;
+  @apply justify-between;
+  @apply gap-3;
+  @apply w-full;
+  @apply max-w-[300px];
+  @apply mx-auto;
+}
+
+@screen md {
+  .apartment-card-details-layout {
+    @apply grid-cols-2;
+  }
+}
+
+@screen lg {
+  .apartment-card-details-layout {
+    @apply grid-cols-4;
+  }
+}
+
+@screen xl {
+  .apartment-card-details-layout {
+    @apply grid-cols-2;
+  }
+}
+
+@screen 2xl {
+  .apartment-card-details-layout {
+    @apply grid-cols-4;
+  }
+} 

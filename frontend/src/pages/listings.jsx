@@ -4,12 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 import ApartmentBoxList from "../components/apartment-box-list";
 import Filters from "../components/filters";
 import Navbar from "../components/navbar";
-import SectionHeader from "../components/section-header";
 import CustomMap from "../components/google-maps";
 import Footer from "../components/footer";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMap, faList } from "@fortawesome/free-solid-svg-icons";
 
 // Function to get the minimum value of the range for beds, baths, and sqft
 function getMinValue(inputString) {
@@ -210,42 +206,47 @@ const Listings = () => {
     return (
         <div>
             <Navbar showBackground={mapView} color_scheme={"LIGHT"} />
-                <div className="flex flex-col gap-12">
-                    <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
-                        <h1 className="text-4xl font-bold text-white px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard text-center">
-                            Apartments Near UCLA
-                        </h1>
-                    </div>
-                    <div className="relative flex flex-col gap-10 px-site-standard-mobile sm:px-site-standard-medium lg:px-site-standard">
-                        <div className="flex flex-row gap-4 mb-16 ml-2">
-                            <button onClick={() => setMapView(false)} className={`text-md font-medium ${!mapView ? "text-blue-700 font-semibold" : ""}`}>List View</button>
-                            <h1>|</h1>
-                            <button onClick={() => setMapView(true)} className={`text-md font-medium ${mapView ? "text-blue-700 font-semibold" : ""}`}>Map View</button>
-                        </div>
-                        <Filters
-                            searchFieldChangeHandler={onSearchChange}
-                            sortByChangeHandler={sortByChangeHandler}
-                            bedFieldChangeHandler={onBedChange}
-                            bathFieldChangeHandler={onBathChange}
-                            minRentChangeHandler={onMinRentChange}
-                            maxRentChangeHandler={onMaxRentChange}
-                            ResetFilters={resetFilters}
-                        />
-                        {!mapView && 
-                            <ApartmentBoxList
-                                apartmentList={filteredApartments}
-                                dataLimit={listingsPerPage}
-                                pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
-                                maxPagesInput={maxPages}
-                            />
-                        }
-                        {mapView && 
-                            <div className="">
-                                <CustomMap apartmentList={filteredApartments} />
-                            </div>
-                        }
-                    </div>
+            <div className="flex flex-col gap-12">
+                <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
+                    <h1 className="text-4xl font-bold text-white px-site-standard text-center">Apartments Near UCLA</h1>
                 </div>
+                <div className="relative flex flex-col gap-10 px-site-standard">
+                    <div className="flex flex-row gap-4 mb-16 ml-2">
+                        <button
+                            onClick={() => setMapView(false)}
+                            className={`text-md  ${!mapView ? "text-blue-700 font-semibold" : "text-gray-500"}`}
+                        >
+                            List View
+                        </button>
+                        <h1 className="text-gray-500">|</h1>
+                        <button onClick={() => setMapView(true)} className={`text-md  ${mapView ? "text-blue-700 font-semibold" : "text-gray-500"}`}>
+                            Map View
+                        </button>
+                    </div>
+                    <Filters
+                        searchFieldChangeHandler={onSearchChange}
+                        sortByChangeHandler={sortByChangeHandler}
+                        bedFieldChangeHandler={onBedChange}
+                        bathFieldChangeHandler={onBathChange}
+                        minRentChangeHandler={onMinRentChange}
+                        maxRentChangeHandler={onMaxRentChange}
+                        ResetFilters={resetFilters}
+                    />
+                    {!mapView && (
+                        <ApartmentBoxList
+                            apartmentList={filteredApartments}
+                            dataLimit={listingsPerPage}
+                            pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
+                            maxPagesInput={maxPages}
+                        />
+                    )}
+                    {mapView && (
+                        <div className="">
+                            <CustomMap apartmentList={filteredApartments} />
+                        </div>
+                    )}
+                </div>
+            </div>
             <Footer />
         </div>
     );
