@@ -26,46 +26,57 @@ const ApartmentBox = ({ apartment }) => {
     }, [email, apartment]);
 
     return (
-        <div className="flex flex-col w-full md:w-[calc((100%-20px)/2)] xl:w-[calc((100%-40px)/3)] bg-white shadow-standard rounded-lg">
+        <div className="flex flex-col w-full sm:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)] bg-white shadow-standard rounded-lg">
             <div className="h-[200px] w-full rounded-t-lg flex items-center justify-center overflow-hidden">
                 <img className="object-cover min-h-full min-w-full w-auto" src={image_url} alt="" />
             </div>
             <div className="w-full py-5 px-8 flex flex-col gap-4">
                 <div className="flex flex-col">
-                    <h1 className="text-lg font-bold tracking-wide text-truncate hover:text-blue-700 cursor-pointer">{name}</h1>
-                    <span className="text-sm text-gray-500 text-truncate">{address}</span>
+                    <h1 className="text-lg font-bold tracking-wide text-truncate hover:text-blue-800 cursor-pointer">
+                        <Link to={"/apartment-listing?id=" + String(id)}>{name}</Link>
+                    </h1>
+                    {rent.toLowerCase() !== "call for rent" ? (
+                        <div className="flex items-center">
+                            <span className="text-truncate text-md text-blue-700 font-bold">{rent}</span>
+                            <span className="text-truncate text-sm text-gray-500">/month</span>
+                        </div>
+                    ) : (
+                        <span className="text-truncate text-sm text-gray-500">Call for rent</span>
+                    )}
                 </div>
+                <hr />
+                <span className="text-sm text-gray-500 text-truncate">{address}</span>
                 <hr />
                 <div className="apartment-card-details-layout text-gray-500 text-sm">
                     <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Square feet</span>
-                        <div className="flex items-center gap-1 overflow-hidden">
-                            <span className="text-truncate text-md text-blue-700 font-bold">{sqft}</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Beds</span>
+                        <span className="text-sm text-gray-400 text-truncate">Beds</span>
                         <div className="flex items-center gap-1 overflow-hidden">
                             <span className="text-truncate text-md text-blue-700 font-bold">{beds}</span>
                         </div>
                     </div>
                     <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Baths</span>
+                        <span className="text-sm text-gray-400 text-truncate">Baths</span>
                         <div className="flex items-center gap-1 overflow-hidden">
                             <span className="text-truncate text-md text-blue-700 font-bold">{baths}</span>
                         </div>
                     </div>
                     <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm text-gray-500 text-truncate">Rent</span>
+                        <span className="text-sm text-gray-400 text-truncate">Square feet</span>
+                        <div className="flex items-center gap-1 overflow-hidden">
+                            <span className="text-truncate text-md text-blue-700 font-bold">{sqft}</span>
+                        </div>
+                    </div>
+                    {/* <div className="flex flex-col overflow-hidden">
+                        <span className="text-sm text-gray-400 text-truncate">Rent</span>
                         <div className="flex items-center gap-1 overflow-hidden">
                             <span className="text-truncate text-md text-blue-700 font-bold">{rent}</span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <hr />
                 <div className="flex justify-between items-center h-6">
                     <HeartIcon
-                        className={`cursor-pointer  ${liked ? "fill-red-500 hover:fill-red-700" : " stroke-red-500 fill-none hover:fill-gray-200"}`}
+                        className={`cursor-pointer  ${liked ? "fill-red-500 hover:fill-red-700" : " stroke-red-500 fill-none hover:fill-red-500"}`}
                         onClick={() => addToLiked(apartment)}
                     />
                     <div className="flex items-center gap-1">

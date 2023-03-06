@@ -14,41 +14,46 @@
   @apply text-ellipsis;
 }
 
+.px-site-standard {
+  @apply px-[10%];
+}
+
+@screen lg {
+  .px-site-standard {
+    @apply px-[13%];
+  }
+}
+
 .apartment-card-details-layout {
   @apply flex;
   @apply justify-between;
-  @apply items-center;
+  @apply gap-3;
+  @apply w-full;
+  @apply max-w-[300px];
+  @apply mx-auto;
 }
 
-@screen md {
+/* @screen md {
   .apartment-card-details-layout {
-    @apply grid;
     @apply grid-cols-2;
-    @apply gap-y-2;
   }
 }
 
 @screen lg {
   .apartment-card-details-layout {
-    @apply flex;
-    @apply justify-between;
-    @apply items-center;
+    @apply grid-cols-4;
   }
 }
 
 @screen xl {
   .apartment-card-details-layout {
-    @apply grid;
     @apply grid-cols-2;
-    @apply gap-y-2;
   }
 }
 
 @screen 2xl {
   .apartment-card-details-layout {
-    @apply flex;
-    @apply justify-between;
-    @apply items-center;
+    @apply grid-cols-4;
   }
-}
+} */
 

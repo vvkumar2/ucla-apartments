@@ -220,11 +220,9 @@ const Listings = () => {
             {!mapView && (
                 <div className="flex flex-col gap-12">
                     <div className="h-[400px] flex justify-center items-center bg-santa-monica-background bg-cover bg-black bg-opacity-80 bg-blend-darken">
-                        <h1 className="text-4xl font-bold text-white px-site-standard-mobile sm:px-site-standard text-center">
-                            Apartments Near UCLA
-                        </h1>
+                        <h1 className="text-4xl font-bold text-white px-site-standard text-center">Apartments Near UCLA</h1>
                     </div>
-                    <div className="relative flex flex-col gap-20 px-site-standard-mobile sm:px-site-standard">
+                    <div className="relative flex flex-col gap-20 px-site-standard">
                         <Filters
                             searchFieldChangeHandler={onSearchChange}
                             sortByChangeHandler={sortByChangeHandler}

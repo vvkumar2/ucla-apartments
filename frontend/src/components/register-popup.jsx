@@ -93,7 +93,7 @@ const RegisterPopup = ({ handleClose }) => {
                 </div>
                 <h1 className="text-2xl font-bold">Create an account</h1>
                 <div className="w-full flex flex-col items-center gap-3">
-                    <div className="flex w-full justify-between gap-3">
+                    <div className="flex w-full gap-3">
                         <FormInput placeholder="First Name" value={firstName} onChange={changeFirstName} width="50%" />
                         <FormInput placeholder="Last Name" value={lastName} onChange={changeLastName} width="50%" />
                     </div>
