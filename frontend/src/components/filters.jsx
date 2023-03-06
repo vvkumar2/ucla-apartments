@@ -91,7 +91,7 @@ const Filters = ({
             ) : (
                 <div className="flex flex-col gap-5">
                     <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-                    <div className="flex flex-col gap-5 1000:flex-row w-full justify-between items-center">
+                    <div className="flex flex-col w-full gap-5 1000:flex-row justify-between">
                         <FiltersDropdown />
                         <SortByDropdown
                             placeholder={"Sort By"}

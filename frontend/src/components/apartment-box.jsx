@@ -26,7 +26,7 @@ const ApartmentBox = ({ apartment }) => {
     }, [email, apartment]);
 
     return (
-        <div className="flex flex-col w-full sm:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)] bg-white shadow-standard rounded-lg">
+        <div className="flex flex-col w-full md:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)] bg-white shadow-standard rounded-lg">
             <div className="h-[200px] w-full rounded-t-lg flex items-center justify-center overflow-hidden">
                 <img className="object-cover min-h-full min-w-full w-auto" src={image_url} alt="" />
             </div>
