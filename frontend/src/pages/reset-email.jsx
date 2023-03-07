@@ -1,52 +1,52 @@
-import React, { useEffect } from "react";
-import Navbar from "../components/navbar";
-import { createClient } from "@supabase/supabase-js";
-import { Navigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import Footer from "../components/footer";
-import "react-toastify/dist/ReactToastify.css";
-
-//Creating a client for the supabase database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../components/footer';
+import Navbar from '../components/navbar';
+import useUserContext from '../context/user.context';
 
 const ResetEmail = () => {
-    // Get the emails from the url parameters and split them
-    const queryParameters = new URLSearchParams(window.location.search);
-    const emails = queryParameters.get("emails").split("?");
-    const oldEmail = emails[0];
-    const newEmail = emails[1];
+  const { updateEmail } = useUserContext();
+  // Get the emails from the url parameters and split them
+  const queryParameters = new URLSearchParams(window.location.search);
+  const emails = queryParameters.get('emails').split('?');
+  const oldEmail = emails[0];
+  const newEmail = emails[1];
 
-    const [ranOnce, setRanOnce] = React.useState(false);
+  // Update the user's email in the database to the new email
+  useEffect(() => {
+    async function resetEmail() {
+      const resp = await updateEmail(newEmail, oldEmail);
 
-    // Update the user's email in the database to the new email
-    useEffect(() => {
-        resetToLogin();
-    }, []);
-
-    async function resetToLogin() {
-        const { error } = await supabase.from("users").update({ email: newEmail }).eq("email", oldEmail);
-        console.log(error);
-        if (error) {
-            toast.error(error.message);
-        }
-        else {
-            toast.success("Email successfully updated!");
-        }
+      if (resp !== 'Success') {
+        toast.error(resp);
+      } else {
+        toast.success('Email successfully updated!');
+      }
     }
 
-    return (
-        <div>
-            <Navbar />
-            <div className="h-screen flex flex-col gap-8 justify-center items-center">
-                <h1 className="text-2xl font-bold">New Email Confirmed</h1>
-                <h1 className="text-md text-gray-400 pointer hover:underline cursor-pointer text-center" onClick={() => { return <Navigate to={{ pathname: "/login" }} /> } }>Back to Login Page</h1>
-            </div>
-            <ToastContainer hideProgressBar={true} />
-            <Footer />
-        </div>
-    );
+    resetEmail();
+  }, [newEmail, oldEmail, updateEmail]);
+
+  return (
+    <div>
+      <Navbar />
+      <div className="flex h-screen flex-col items-center justify-center gap-8">
+        <h1 className="text-2xl font-bold">New Email Confirmed</h1>
+        <h1
+          className="text-md pointer cursor-pointer text-center text-gray-400 hover:underline"
+          onClick={() => {
+            return <Navigate to={{ pathname: '/login' }} />;
+          }}
+        >
+          Back to Login Page
+        </h1>
+      </div>
+      <ToastContainer hideProgressBar={true} />
+      <Footer />
+    </div>
+  );
 };
 
 export default ResetEmail;

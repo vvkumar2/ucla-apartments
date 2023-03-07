@@ -1,9 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { IoIosClose } from "react-icons/io";
+import PropTypes from 'prop-types';
+import { IoIosClose } from 'react-icons/io';
+import styled from 'styled-components';
 // import Color from "color";
-import ButtonControl from "./ButtonControl";
+import ButtonControl from './ButtonControl';
 
 const LightboxHeader = ({ images, currentIndex, onClose }) => (
   <TopHeaderBar>
@@ -25,9 +24,9 @@ LightboxHeader.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       src: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired
-    })
-  ).isRequired
+      alt: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default LightboxHeader;
@@ -46,7 +45,6 @@ const RightSideContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 `;
 
 const CloseButton = styled(ButtonControl)`
