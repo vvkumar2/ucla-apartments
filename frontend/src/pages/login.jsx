@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import RegisterPopup from "../components/register-popup.jsx";
-import Navbar from "../components/navbar";
-import FormInput from "../components/form-input";
-import Footer from "../components/footer";
+import Footer from '../components/footer';
+import FormInput from '../components/form-input';
+import Navbar from '../components/navbar';
+import RegisterPopup from '../components/register-popup.jsx';
 
-import useUserContext from "../context/user.context";
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import useUserContext from '../context/user.context';
 
 // This is the Login page component that renders the login form and allows user to login to their account.
 const Login = () => {
   const { login, loggedIn, sendResetPasswordLink } = useUserContext();
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [isOpen, setIsOpen] = useState(false);
 
   function changeEmail(event) {
@@ -31,27 +31,27 @@ const Login = () => {
     event.preventDefault();
     const resp = await login(email, password);
 
-    if (resp !== "Success") {
+    if (resp !== 'Success') {
       toast.error(resp);
     }
   }
 
   async function handleForgotPasswordClick() {
-    if (email === "") {
-      toast.error("To reset your password, first enter your email address.");
+    if (email === '') {
+      toast.error('To reset your password, first enter your email address.');
     } else {
       const resp = await sendResetPasswordLink(email);
 
-      resp === "Success"
+      resp === 'Success'
         ? toast.success(
-            "If there is an account associated with this email, a password reset link has been sent to your email. Please wait up to 5 minutes."
+            'If there is an account associated with this email, a password reset link has been sent to your email. Please wait up to 5 minutes.',
           )
         : toast.error(resp);
     }
   }
 
   if (loggedIn) {
-    return <Navigate to={{ pathname: "/profile" }} />;
+    return <Navigate to={{ pathname: '/profile' }} />;
   }
 
   function createAccountPopUp() {
@@ -61,42 +61,30 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="h-screen flex justify-center items-center min-h-[100vh]">
+      <div className="flex h-screen min-h-[100vh] items-center justify-center">
         <form
           onSubmit={handleLogin}
-          className="flex flex-col items-center bg-white rounded-xl p-10 shadow-standard gap-6 w-[550px]"
+          className="flex w-[550px] flex-col items-center gap-6 rounded-xl bg-white p-10 shadow-standard"
         >
           <h1 className="text-2xl font-bold">Login</h1>
-          <div className="w-full flex flex-col items-center gap-3">
-            <FormInput
-              placeholder="Email"
-              value={email}
-              onChange={changeEmail}
-            />
-            <FormInput
-              placeholder="Password"
-              value={password}
-              onChange={changePassword}
-              password
-            />
+          <div className="flex w-full flex-col items-center gap-3">
+            <FormInput placeholder="Email" value={email} onChange={changeEmail} />
+            <FormInput placeholder="Password" value={password} onChange={changePassword} password />
           </div>
-          <div className="flex justify-end w-full">
-            <span
-              className="text-blue-700 cursor-pointer"
-              onClick={handleForgotPasswordClick}
-            >
+          <div className="flex w-full justify-end">
+            <span className="cursor-pointer text-blue-700" onClick={handleForgotPasswordClick}>
               Forgot password?
             </span>
           </div>
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex w-full flex-col gap-3">
             <button
-              className="w-full h-[50px] bg-blue-700 hover:bg-blue-800 rounded-md text-white font-bold"
+              className="h-[50px] w-full rounded-md bg-blue-700 font-bold text-white hover:bg-blue-800"
               type="submit"
             >
               Login
             </button>
             <span
-              className="text-md text-gray-400 pointer hover:underline cursor-pointer text-center"
+              className="text-md pointer cursor-pointer text-center text-gray-400 hover:underline"
               onClick={createAccountPopUp}
             >
               Create a new account
