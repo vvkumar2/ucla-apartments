@@ -1,31 +1,33 @@
-import React from "react";
-import Navbar from "../components/navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/navbar';
 
 const Home = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    function handleStartSearchingClick() {
-        navigate("/ucla-listings");
-    }
+  function handleStartSearchingClick() {
+    navigate('/ucla-listings');
+  }
 
-    return (
-        <div className="relative flex flex-col">
-            <Navbar color_scheme={"LIGHT"} />
-            <div className="flex flex-col min-h-screen justify-center items-center w-full px-site-standard py-8 bg-homepage-apartments-background bg-black bg-opacity-60 bg-blend-darken bg-cover">
-                <div className="flex flex-col justify-center items-center gap-7 max-w-3xl">
-                    <h1 className="text-5xl text-white font-bold text-center">Find your next home.</h1>
-                    <span className="text-xl text-gray-200 text-center">
-                        A tool for college students to find living spaces near their campus, contact property managers, and track the status of their
-                        contracts and applications.
-                    </span>
-                    <button className="px-5 py-3 text-white rounded-md bg-blue-700 font-bold" onClick={handleStartSearchingClick}>
-                        Start Searching
-                    </button>
-                </div>
-            </div>
+  return (
+    <div className="relative flex flex-col">
+      <Navbar color_scheme={'LIGHT'} />
+      <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black bg-opacity-60 bg-homepage-apartments-background bg-cover px-site-standard py-8 bg-blend-darken">
+        <div className="flex max-w-3xl flex-col items-center justify-center gap-7">
+          <h1 className="text-center text-5xl font-bold text-white">Find your next home.</h1>
+          <span className="text-center text-xl text-gray-200">
+            A tool for college students to find living spaces near their campus, contact property
+            managers, and track the status of their contracts and applications.
+          </span>
+          <button
+            className="rounded-md bg-blue-700 px-5 py-3 font-bold text-white"
+            onClick={handleStartSearchingClick}
+          >
+            Start Searching
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Home;
