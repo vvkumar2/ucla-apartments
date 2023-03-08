@@ -70,7 +70,7 @@ const DetailedListingPage = () => {
         else {
             const response = await addItemToSupabaseCategory(email, "LIKED", apartmentInfo);
             setLiked(response ? true : false);
-            toast.success("Added to liked items")
+            if (!liked) toast.success("Added to liked items")
         }
     }
 
@@ -86,9 +86,10 @@ const DetailedListingPage = () => {
             <div className="flex flex-row mt-14 px-48">
                 <div className="w-7/12 mr-auto flex flex-col gap-8">
                     <div className="flex flex-row">
-                        <h2 className="text-3xl text-left">{apartmentInfo.address}</h2>
+                        <h2 className="text-3xl text-left w-fit">{apartmentInfo.address}</h2>
                         <HeartIcon
-                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto max-w-[45px] min-w-[30px] hover:cursor-pointer" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer hover:fill-red-100"}
+                            // className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto h-10 w-auto max-w-[45px] max-w-[30px] hover:cursor-pointer" : "fill-none stroke-red-400 stroke-1 ml-auto h-10 w-auto hover:cursor-pointer hover:fill-red-100"}
+                            className={liked ? "fill-red-400 stroke-red-400 stroke-1 ml-auto mt-2 w-auto h-6 w-8" : "fill-none stroke-red-400 stroke-1 ml-auto mt-2 w-auto h-6 w-8"}
                             onClick={() => addToLiked()}
                         />
                     </div>
@@ -114,7 +115,7 @@ const DetailedListingPage = () => {
                 </div>
 
                 {/* Displaying the contact information for the apartment */}
-                <div className="sticky self-start top-44 ml-auto w-30 h-max text-center">
+                <div className="sticky self-start top-44 ml-auto w-4/12 h-max text-center">
                     <div className= "bg-white shadow-standard rounded-xl p-6 divide-y divide-slate-400">
                             <div className="flex flex-col gap-3 pb-6 ">
                                 <h1 className="text-2xl font-bold">Contact</h1>

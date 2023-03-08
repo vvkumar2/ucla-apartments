@@ -51,8 +51,8 @@ const Carousel = ({apartmentInfo}) => {
                         )
                     })}
                 </Slider>
-                <ButtonBack className="absolute left-10 text-black text-4xl top-45/100 backdrop-blur-md bg-white/50 shadow-standard rounded-xl p-1"><FontAwesomeIcon icon={faAngleLeft} className="!opacity-none"/></ButtonBack>
-                <ButtonNext className="absolute right-10 text-black text-4xl top-45/100 backdrop-blur-md bg-white/50 shadow-standard rounded-xl p-1"><FontAwesomeIcon icon={faAngleRight} /></ButtonNext>
+                <ButtonBack className="absolute left-10 !bottom-[160px] text-4xl backdrop-blur-md bg-white/50 shadow-standard rounded-xl p-1"><FontAwesomeIcon icon={faAngleLeft} /></ButtonBack>
+                <ButtonNext className="absolute right-10 !bottom-[160px] text-4xl backdrop-blur-md bg-white/50 shadow-standard rounded-xl p-1"><FontAwesomeIcon icon={faAngleRight} /></ButtonNext>
                 <DotGroup className="w-fit relative -top-4 mx-auto px-5 pb-2.5 bg-white rounded-full shadow-standard"/>
             </div>
             </CarouselProvider>
