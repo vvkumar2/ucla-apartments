@@ -24,7 +24,7 @@ const ApartmentBox = ({ apartment }) => {
   async function addToLiked() {
     setLiked(!liked); // Optimistic update that will be reverted by updateLikedState() if the request fails
     if (!loggedIn) return toast.error('Please log in to like an apartment.');
-    if (!liked) await likeItem(apartment);
+    else if (!liked) await likeItem(apartment);
     else await dislikeItem(apartment);
     await updateLikedState();
   }
@@ -37,38 +37,38 @@ const ApartmentBox = ({ apartment }) => {
       </div>
       <div className="flex w-full flex-col gap-4 py-5 px-8">
         <div className="flex flex-col">
-          <h1 className="text-truncate cursor-pointer text-lg font-bold tracking-wide hover:text-blue-800">
+          <h1 className="truncate cursor-pointer text-lg font-bold tracking-wide hover:text-blue-800">
             <Link to={'/apartment-listing?id=' + String(id)}>{name}</Link>
           </h1>
           {rent.toLowerCase() !== 'call for rent' ? (
             <div className="flex items-center">
-              <span className="text-truncate text-md font-bold text-blue-700">{rent}</span>
-              <span className="text-truncate text-sm text-gray-500">/month</span>
+              <span className="truncate text-md font-bold text-blue-700">{rent}</span>
+              <span className="truncate text-sm text-gray-500">/month</span>
             </div>
           ) : (
-            <span className="text-truncate text-sm text-gray-500">Call for rent</span>
+            <span className="truncate text-sm text-gray-500">Call for rent</span>
           )}
         </div>
         <hr />
-        <span className="text-truncate text-sm text-gray-500">{address}</span>
+        <span className="truncate text-sm text-gray-500">{address}</span>
         <hr />
         <div className="apartment-card-details-layout text-sm text-gray-500">
           <div className="flex flex-col overflow-hidden">
-            <span className="text-truncate text-sm text-gray-400">Beds</span>
+            <span className="truncate text-sm text-gray-400">Beds</span>
             <div className="flex items-center gap-1 overflow-hidden">
-              <span className="text-truncate text-md font-bold text-blue-700">{beds}</span>
+              <span className="truncate text-md font-bold text-blue-700">{beds}</span>
             </div>
           </div>
           <div className="flex flex-col overflow-hidden">
-            <span className="text-truncate text-sm text-gray-400">Baths</span>
+            <span className="truncate text-sm text-gray-400">Baths</span>
             <div className="flex items-center gap-1 overflow-hidden">
-              <span className="text-truncate text-md font-bold text-blue-700">{baths}</span>
+              <span className="truncate text-md font-bold text-blue-700">{baths}</span>
             </div>
           </div>
           <div className="flex flex-col overflow-hidden">
-            <span className="text-truncate text-sm text-gray-400">Square feet</span>
+            <span className="truncate text-sm text-gray-400">Square feet</span>
             <div className="flex items-center gap-1 overflow-hidden">
-              <span className="text-truncate text-md font-bold text-blue-700">{sqft}</span>
+              <span className="truncate text-md font-bold text-blue-700">{sqft}</span>
             </div>
           </div>
         </div>

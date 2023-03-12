@@ -5,18 +5,26 @@ import SearchBar from './search-bar';
 import SortByDropdown from './sort-by-dropdown';
 
 const Filters = ({
-  ResetFilters,
+  resetFilters,
+  resetBaths,
+  resetBeds,
+  resetRent,
   searchFieldChangeHandler,
   sortByChangeHandler,
-  bedFieldChangeHandler,
-  bathFieldChangeHandler,
-  minRentChangeHandler,
-  maxRentChangeHandler,
+  minBedFieldChangeHandler,
+  maxBedFieldChangeHandler,
+  minBathFieldChangeHandler,
+  maxBathFieldChangeHandler,
+  minRentFieldChangeHandler,
+  maxRentFieldChangeHandler,
+  minBathField,
+  maxBathField,
+  minBedField,
+  maxBedField,
+  minRentField,
+  maxRentField,
+  sortByField
 }) => {
-  const [bedValue, setBedValue] = useState('');
-  const [bathValue, setBathValue] = useState('');
-  const [sortByValue, setSortByValue] = useState('');
-  const [sortByLabel, setSortByLabel] = useState('None');
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -40,63 +48,68 @@ const Filters = ({
     { value: '5', label: '5+' },
   ];
 
-  function ResetFilterFields() {
-    ResetFilters();
-    document.getElementById('search-box').value = '';
-    document.getElementById('min-rent').value = '';
-    document.getElementById('max-rent').value = '';
-    setBedValue('');
-    setBathValue('');
-    setSortByValue('');
-    setSortByLabel('None');
-  }
-
-  function bedFieldChangeHandlerTotal(event) {
-    setBedValue(event);
-    bedFieldChangeHandler(event);
-  }
-
-  function bathFieldChangeHandlerTotal(event) {
-    setBathValue(event);
-    bathFieldChangeHandler(event);
-  }
-
-  function sortByChangeHandlerTotal(newSortByValue, newSortByLabel) {
-    setSortByValue(newSortByValue);
-    setSortByLabel(newSortByLabel);
-    sortByChangeHandler(newSortByValue);
-  }
-
   // rendering all the filters for the user to interact with
   return (
     <div className="mx-auto mt-[-100px] flex w-full flex-col gap-3 rounded-xl bg-white p-10 shadow-standard">
       <div className="flex w-full justify-between">
         <span className="text-md text-gray-500">Sort & Filter</span>
-        <span className="text-md cursor-pointer font-bold text-blue-700 hover:underline">
+        <span className="text-md cursor-pointer font-bold text-blue-700 hover:underline" onClick={resetFilters}>
           Clear All
         </span>
       </div>
       {screenSize > 1300 ? (
         <div className="flex h-10 justify-between">
           <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
-          <FiltersDropdown />
+          <FiltersDropdown
+            minRentFieldChangeHandler={minRentFieldChangeHandler}
+            maxRentFieldChangeHandler={maxRentFieldChangeHandler}
+            minBedFieldChangeHandler={minBedFieldChangeHandler}
+            maxBedFieldChangeHandler={maxBedFieldChangeHandler}
+            minBathFieldChangeHandler={minBathFieldChangeHandler}
+            maxBathFieldChangeHandler={maxBathFieldChangeHandler}
+            minBathField={minBathField}
+            maxBathField={maxBathField}
+            minBedField={minBedField}
+            maxBedField={maxBedField}
+            minRentField={minRentField}
+            maxRentField={maxRentField}
+            resetBaths={resetBaths}
+            resetBeds={resetBeds}
+            resetRent={resetRent}
+          />
           <SortByDropdown
             placeholder={'Sort By'}
-            currentLabel={sortByLabel}
+            currentLabel={sortByField}
             options={sort_by_options}
-            onChange={sortByChangeHandlerTotal}
+            onChange={sortByChangeHandler}
           />
         </div>
       ) : (
         <div className="flex flex-col gap-5">
           <SearchBar searchFieldChangeHandler={searchFieldChangeHandler} />
           <div className="flex w-full flex-col justify-between gap-5 1000:flex-row">
-            <FiltersDropdown />
+            <FiltersDropdown 
+              minRentFieldChangeHandler={minRentFieldChangeHandler}
+              maxRentFieldChangeHandler={maxRentFieldChangeHandler}
+              minBedFieldChangeHandler={minBedFieldChangeHandler}
+              maxBedFieldChangeHandler={maxBedFieldChangeHandler}
+              minBathFieldChangeHandler={minBathFieldChangeHandler}
+              maxBathFieldChangeHandler={maxBathFieldChangeHandler}
+              minBathField={minBathField}
+              maxBathField={maxBathField}
+              minBedField={minBedField}
+              maxBedField={maxBedField}
+              minRentField={minRentField}
+              maxRentField={maxRentField}
+              resetBaths={resetBaths}
+              resetBeds={resetBeds}
+              resetRent={resetRent}
+            />
             <SortByDropdown
               placeholder={'Sort By'}
-              currentLabel={sortByLabel}
+              currentLabel={sortByField}
               options={sort_by_options}
-              onChange={sortByChangeHandlerTotal}
+              onChange={sortByChangeHandler}
             />
           </div>
         </div>

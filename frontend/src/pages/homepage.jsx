@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div className="relative flex flex-col">
-      <Navbar color_scheme={'LIGHT'} />
+      <Navbar color_scheme={'LIGHT'} homepage />
       <div className="flex min-h-screen w-full flex-col items-center justify-center bg-black bg-opacity-60 bg-homepage-apartments-background bg-cover px-site-standard py-8 bg-blend-darken">
         <div className="flex max-w-3xl flex-col items-center justify-center gap-7">
           <h1 className="text-center text-5xl font-bold text-white">Find your next home.</h1>

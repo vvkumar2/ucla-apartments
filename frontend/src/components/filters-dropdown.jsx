@@ -1,45 +1,69 @@
 import { useEffect, useState } from 'react';
 
-function BedsFilter() {
+function BedsFilter({ minBedFieldChangeHandler, maxBedFieldChangeHandler, minBedField, maxBedField }) {
+  minBedField = 
+    isNaN(minBedField) 
+    ? null 
+    : minBedField;
+  maxBedField = 
+    isNaN(maxBedField) 
+    ? null 
+    : maxBedField;
   return (
     <div className="flex w-full flex-col">
       <span className="text-sm text-gray-500">Beds</span>
       <div className="flex h-10 w-full items-center gap-3">
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} onChange={minBedFieldChangeHandler} value={minBedField} />
         <span className="text-gray-500">-</span>
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} onChange={maxBedFieldChangeHandler} value={maxBedField} />
       </div>
     </div>
   );
 }
 
-function BathFilter() {
+function BathFilter({ minBathFieldChangeHandler, maxBathFieldChangeHandler, minBathField, maxBathField }) {
+  minBathField = 
+    isNaN(minBathField) 
+    ? null 
+    : minBathField;
+  maxBathField = 
+    isNaN(maxBathField) 
+    ? null 
+    : maxBathField;
   return (
     <div className="flex w-full flex-col">
       <span className="text-sm text-gray-500">Baths</span>
       <div className="flex h-10 w-full items-center gap-3">
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} onChange={minBathFieldChangeHandler} value={minBathField} />
         <span className="text-gray-500">-</span>
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} onChange={maxBathFieldChangeHandler} value={maxBathField} />
       </div>
     </div>
   );
 }
 
-function RentFilter() {
+function RentFilter({ minRentFieldChangeHandler, maxRentFieldChangeHandler, minRentField, maxRentField }) {
+  minRentField = 
+    isNaN(minRentField) 
+    ? null 
+    : minRentField;
+  maxRentField = 
+    isNaN(maxRentField) 
+    ? null 
+    : maxRentField;
   return (
     <div className="flex w-full flex-col">
       <span className="text-sm text-gray-500">Rent</span>
       <div className="flex h-10 w-full items-center gap-3">
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Min'} onChange={minRentFieldChangeHandler} value={minRentField} />
         <span className="text-gray-500">-</span>
-        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} />
+        <input className="flex h-full w-full rounded-md border text-center" placeholder={'Max'} onChange={maxRentFieldChangeHandler} value={maxRentField} />
       </div>
     </div>
   );
 }
 
-function FiltersDropdownLargeScreen() {
+function FiltersDropdownLargeScreen({ minBedFieldChangeHandler, maxBedFieldChangeHandler, minBathFieldChangeHandler, maxBathFieldChangeHandler, minRentFieldChangeHandler, maxRentFieldChangeHandler, resetBaths, resetBeds, resetRent, minBathField, maxBathField, minBedField, maxBedField, minRentField, maxRentField }) {
   const [showBedsDropdown, setShowBedsDropdown] = useState(false);
   const [showBathsDropdown, setShowBathsDropdown] = useState(false);
   const [showRentDropdown, setShowRentDropdown] = useState(false);
@@ -71,6 +95,28 @@ function FiltersDropdownLargeScreen() {
             : filter === 'Baths'
             ? showBathsDropdown
             : showRentDropdown;
+
+        let minimum = 
+          filter === 'Beds' 
+          ? minBedField 
+          : filter === 'Baths' 
+          ? minBathField 
+          : minRentField;
+        minimum = 
+          isNaN(minimum) 
+          ? null 
+          : minimum
+        let maximum = 
+          filter === 'Beds' 
+          ? maxBedField 
+          : filter === 'Baths' 
+          ? maxBathField 
+          : maxRentField;
+        maximum = 
+          isNaN(maximum) 
+          ? null 
+          : maximum;
+        
         return (
           <>
             {index > 0 && (
@@ -105,25 +151,29 @@ function FiltersDropdownLargeScreen() {
               </button>
               {showCurrentDropdown && (
                 <div className="absolute top-14 right-0 z-10 flex w-full flex-col gap-4 rounded-lg border bg-white p-5 dark:bg-gray-700">
-                  <div className="flex justify-between border-b pb-1">
+                  <div className="flex flex-col justify-between border-b pb-1">
                     <span className="text-sm">{filter}</span>
-                    <span className="cursor-pointer text-sm font-bold text-blue-700">
-                      Clear all
+                    <span className="cursor-pointer text-sm font-bold text-blue-700" onClick={filter === 'Beds' ? resetBeds : filter === 'Baths' ? resetBaths : resetRent}>
+                      Clear
                     </span>
                   </div>
                   <div className="flex w-full flex-col gap-2">
                     <input
                       className="flex h-10 w-full rounded-md border text-center"
                       placeholder={'Min'}
+                      value={minimum}
+                      onChange={filter === 'Beds' ? minBedFieldChangeHandler : filter === 'Baths' ? minBathFieldChangeHandler : minRentFieldChangeHandler}
                     />
                     <input
                       className="flex h-10 w-full rounded-md border text-center"
                       placeholder={'Max'}
+                      value={maximum}
+                      onChange={filter === 'Beds' ? maxBedFieldChangeHandler : filter === 'Baths' ? maxBathFieldChangeHandler : maxRentFieldChangeHandler}
                     />
                   </div>
-                  <button className="h-10 rounded-md bg-blue-700 text-white hover:bg-blue-800">
+                  {/* <button className="h-10 rounded-md bg-blue-700 text-white hover:bg-blue-800">
                     Apply
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
@@ -134,7 +184,7 @@ function FiltersDropdownLargeScreen() {
   );
 }
 
-function FiltersDropdownSmallScreen() {
+function FiltersDropdownSmallScreen({ minBedFieldChangeHandler, maxBedFieldChangeHandler, minBathFieldChangeHandler, maxBathFieldChangeHandler, minRentFieldChangeHandler, maxRentFieldChangeHandler, resetBaths, resetBeds, resetRent, minBathField, maxBathField, minBedField, maxBedField, minRentField, maxRentField }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
@@ -165,21 +215,35 @@ function FiltersDropdownSmallScreen() {
         <div className="absolute top-14 right-0 z-10 flex w-[300px] flex-col gap-4 rounded-lg bg-white p-5 shadow-standard">
           <div className="flex justify-between border-b pb-1">
             <span className="text-sm">Filters</span>
-            <span className="cursor-pointer text-sm font-bold text-blue-700">Clear all</span>
           </div>
-          <BedsFilter />
-          <BathFilter />
-          <RentFilter />
-          <button className="h-10 rounded-md bg-blue-700 text-white hover:bg-blue-800">
+          <BedsFilter 
+            minBedFieldChangeHandler={minBedFieldChangeHandler}
+            maxBedFieldChangeHandler={maxBedFieldChangeHandler}
+            minBedField={minBedField}
+            maxBedField={maxBedField}
+          />
+          <BathFilter 
+            minBathFieldChangeHandler={minBathFieldChangeHandler}
+            maxBathFieldChangeHandler={maxBathFieldChangeHandler}
+            minBathField={minBathField}
+            maxBathField={maxBathField}
+          />
+          <RentFilter 
+            minRentFieldChangeHandler={minRentFieldChangeHandler}
+            maxRentFieldChangeHandler={maxRentFieldChangeHandler}
+            minRentField={minRentField}
+            maxRentField={maxRentField}
+          />
+          {/* <button className="h-10 rounded-md bg-blue-700 text-white hover:bg-blue-800">
             Apply Filters
-          </button>
+          </button> */}
         </div>
       )}
     </div>
   );
 }
 
-export default function FiltersDropdown() {
+export default function FiltersDropdown({ minBedFieldChangeHandler, maxBedFieldChangeHandler, minBathFieldChangeHandler, maxBathFieldChangeHandler, minRentFieldChangeHandler, maxRentFieldChangeHandler, minBathField, maxBathField, minBedField, maxBedField, minRentField, maxRentField, resetBaths, resetBeds, resetRent }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -188,5 +252,40 @@ export default function FiltersDropdown() {
     });
   }, []);
 
-  return screenWidth > 1050 ? <FiltersDropdownLargeScreen /> : <FiltersDropdownSmallScreen />;
+  return screenWidth > 1050 ? 
+  <FiltersDropdownLargeScreen 
+    minBedFieldChangeHandler={minBedFieldChangeHandler}
+    maxBedFieldChangeHandler={maxBedFieldChangeHandler}
+    minBathFieldChangeHandler={minBathFieldChangeHandler}
+    maxBathFieldChangeHandler={maxBathFieldChangeHandler}
+    minRentFieldChangeHandler={minRentFieldChangeHandler}
+    maxRentFieldChangeHandler={maxRentFieldChangeHandler}
+    minBathField={minBathField}
+    maxBathField={maxBathField}
+    minBedField={minBedField}
+    maxBedField={maxBedField}
+    minRentField={minRentField}
+    maxRentField={maxRentField}
+    resetBaths={resetBaths}
+    resetBeds={resetBeds}
+    resetRent={resetRent}
+/> 
+  : 
+  <FiltersDropdownSmallScreen 
+    minBedFieldChangeHandler={minBedFieldChangeHandler}
+    maxBedFieldChangeHandler={maxBedFieldChangeHandler}
+    minBathFieldChangeHandler={minBathFieldChangeHandler}
+    maxBathFieldChangeHandler={maxBathFieldChangeHandler}
+    minRentFieldChangeHandler={minRentFieldChangeHandler}
+    maxRentFieldChangeHandler={maxRentFieldChangeHandler}
+    minBathField={minBathField}
+    maxBathField={maxBathField}
+    minBedField={minBedField}
+    maxBedField={maxBedField}
+    minRentField={minRentField}
+    maxRentField={maxRentField}
+    resetBaths={resetBaths}
+    resetBeds={resetBeds}
+    resetRent={resetRent}
+  />;
 }

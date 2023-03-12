@@ -1,87 +1,38 @@
 import { useEffect, useState } from 'react';
-import { slide as Menu } from 'react-burger-menu';
 import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as MenuIcon } from '../assets/menu-icon.svg';
 import ProfileIcon from '../assets/profile-icon.svg';
 import useUserContext from '../context/user.context';
 import { debounce } from '../utils/helpers';
+import {useRef} from "react"
+
 
 /**
  * @param color_scheme either "LIGHT" or "DARK" to indicate if the text should be white or black. Default is "DARK"
- */
-const Navbar = ({ color_scheme }) => {
+ * @param homepage either true or false to indicate if the navbar should include "View Listings"
+*/
+const Navbar = ({ color_scheme, homepage=false }) => {
+  const catMenuLarge = useRef(null)
+  const catMenuSmall = useRef(null)
+
+  const closeOpenMenus = (e) => {
+    if(catMenuLarge.current && showDropdownLarge && !catMenuLarge.current.contains(e.target)){
+      setShowDropdownLarge(false)
+    }
+    if(catMenuSmall.current && showDropdownSmall && !catMenuSmall.current.contains(e.target)){
+      setShowDropdownSmall(false)
+    }
+  }
+  document.addEventListener('mousedown',closeOpenMenus)
+
   const { loggedIn, logout } = useUserContext();
   const [scrollPosition, setScrollPosition] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdownLarge, setShowDropdownLarge] = useState(false);
+  const [showDropdownSmall, setShowDropdownSmall] = useState(false);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
-  var styles = {
-    bmBurgerButton: {
-      position: 'fixed',
-      width: '23px',
-      height: '18px',
-      right: '36px',
-      top: '18px',
-    },
-    bmBurgerBars: {
-      background: scrollPosition > 30 ? '#000000' : '#FFFFFF',
-    },
-    screensizbmBurgerBarsHover: {
-      background: '#a90000',
-    },
-    bmCrossButton: {
-      height: '24px',
-      width: '24px',
-    },
-    bmCross: {
-      background: '#000000',
-    },
-    bmMenuWrap: {
-      position: 'fixed',
-      top: '0',
-      right: '0',
-      height: '100%',
-    },
-    bmMenu: {
-      background: '#FFFFFF',
-      padding: '2.5em 0.5em 0 0',
-      fontSize: '1.15em',
-    },
-    bmMorphShape: {
-      fill: '#373a47',
-    },
-    bmItemList: {
-      color: '#b8b7ad',
-      padding: '0.4em',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100%',
-      width: 'fit-content',
-      margin: '0 auto',
-    },
-    bmItem: {
-      display: 'inline-block',
-      color: '#000000',
-      fontSize: '1.2rem',
-      fontWeight: '600',
-      textDecoration: 'none',
-      padding: '0.5rem 1rem',
-      borderRadius: '0.5rem',
-      transition: 'all 0.3s ease-in-out',
-      '&:hover': {
-        background: '#000000',
-        color: '#FFFFFF',
-      },
-    },
-    bmOverlay: {
-      background: 'rgba(0, 0, 0, 0.3)',
-    },
-  };
 
   const navigate = useNavigate();
   const handleWebsiteNameClick = () => navigate('/');
@@ -95,7 +46,7 @@ const Navbar = ({ color_scheme }) => {
     navigate('/');
     window.location.reload(false);
   }
-  const handleDropdownClick = () => setShowDropdown(!showDropdown);
+  const handleDropdownClickLarge = () => setShowDropdownLarge(!showDropdownLarge);
 
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
@@ -124,32 +75,6 @@ const Navbar = ({ color_scheme }) => {
         scrollPosition > 30 ? `bg-white bg-opacity-70 backdrop-blur-md` : ''
       } ${visible ? '' : 'top-[-70px]'}`}
     >
-      <div className="relative flex flex-col sm:hidden">
-        <MenuIcon
-          className={`h-5 w-auto ${
-            color_scheme === 'LIGHT' && scrollPosition < 30 ? 'invert' : ''
-          }`}
-          onClick={() => setShowDropdown(!showDropdown)}
-        />
-        <div
-          className={`absolute top-10 left-0 z-10 flex w-[150px] flex-col items-center gap-4 rounded-lg border bg-white px-5 py-2 shadow-standard ${
-            showDropdown ? '' : 'hidden'
-          }`}
-        >
-          <Link className="text-gray-500 hover:text-blue-700" to="/ucla-listings">
-            Listings
-          </Link>
-          {loggedIn ? (
-            <Link className="text-gray-500 hover:text-blue-700" to="/profile">
-              Profile
-            </Link>
-          ) : (
-            <Link className="text-gray-500 hover:text-blue-700" to="/login">
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
       <h1
         className={`text-xl ${
           color_scheme === 'LIGHT' && scrollPosition <= 30 ? 'text-white' : 'text-gray-800'
@@ -158,53 +83,87 @@ const Navbar = ({ color_scheme }) => {
       >
         Company Name
       </h1>
-      {screenSize > 500 ? (
-        <div className="flex gap-5">
+      <div className={`flex gap-5 invisible sm:visible`}>
+        { !homepage && 
+        <button
+          className={`h-9 ${
+            color_scheme === 'LIGHT' && scrollPosition <= 30 ? 'text-white' : 'text-gray-800'
+          } font-bold`}
+          onClick={handleGetStartedClick}
+        >
+          View Listings
+        </button>
+        }
+        <button onClick={handleDropdownClickLarge} className="flex h-9 items-center justify-center">
+          <img className="h-full" src={ProfileIcon} alt="Profile Icon" />
+        </button>
+        {showDropdownLarge && loggedIn && (
+          <div ref={catMenuLarge} className="absolute sm:right-[3rem] md:right-[8rem] lg:right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
+            <button
+              onClick={handleProfileClick}
+              className="rounded-xl px-6 py-3 hover:bg-slate-100"
+            >
+              Profile
+            </button>
+            <button
+              onClick={handleLogoutClick}
+              className="rounded-xl px-6 py-3 hover:bg-slate-100"
+            >
+              Logout
+            </button>
+          </div>
+        )}
+        {showDropdownLarge && !loggedIn && (
+          <div ref={catMenuLarge} className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
+            <button
+              onClick={handleLoginClick}
+              className="rounded-xl px-6 py-3 hover:bg-slate-100"
+            >
+              Login
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="relative flex flex-col sm:hidden">
+        <MenuIcon
+          className={`h-5 w-auto ${
+            color_scheme === 'LIGHT' && scrollPosition < 30 ? 'invert' : ''
+          }`}
+          onClick={() => setShowDropdownSmall(!showDropdownSmall)}
+        />
+        {showDropdownSmall && loggedIn && (
+        <div ref={catMenuSmall} className="absolute right-0 top-8 flex flex-col rounded-xl bg-white text-sm shadow-standard">
           <button
-            className={`h-9 ${
-              color_scheme === 'LIGHT' && scrollPosition <= 30 ? 'text-white' : 'text-gray-800'
-            } font-bold`}
             onClick={handleGetStartedClick}
+            className="rounded-xl px-6 py-3 hover:bg-slate-100"
           >
-            View Listings
+            Listings
           </button>
-          <button onClick={handleDropdownClick} className="flex h-9 items-center justify-center">
-            <img className="h-full" src={ProfileIcon} alt="Profile Icon" />
+          <button
+            onClick={handleProfileClick}
+            className="rounded-xl px-6 py-3 hover:bg-slate-100"
+          >
+            Profile
           </button>
-          {showDropdown && loggedIn && (
-            <div className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
-              <button
-                onClick={handleProfileClick}
-                className="rounded-xl px-6 py-3 hover:bg-slate-100"
-              >
-                Profile
-              </button>
-              <button
-                onClick={handleLogoutClick}
-                className="rounded-xl px-6 py-3 hover:bg-slate-100"
-              >
-                Logout
-              </button>
-            </div>
-          )}
-          {showDropdown && !loggedIn && (
-            <div className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
-              <button
-                onClick={handleLoginClick}
-                className="rounded-xl px-6 py-3 hover:bg-slate-100"
-              >
-                Login
-              </button>
-            </div>
-          )}
+          <button
+            onClick={handleLogoutClick}
+            className="rounded-xl px-6 py-3 hover:bg-slate-100"
+          >
+            Logout
+          </button>
         </div>
-      ) : (
-        <Menu right styles={styles} width={230}>
-          <button onClick={handleGetStartedClick}>Listings</button>
-          <button onClick={handleProfileClick}>Profile</button>
-          {loggedIn && <button onClick={handleLogoutClick}>Logout</button>}
-        </Menu>
-      )}
+        )}
+        {showDropdownSmall && !loggedIn && (
+          <div ref={catMenuSmall} className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
+            <button
+              onClick={handleLoginClick}
+              className="rounded-xl px-6 py-3 hover:bg-slate-100"
+            >
+              Login
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

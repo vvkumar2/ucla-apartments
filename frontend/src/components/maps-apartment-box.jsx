@@ -1,7 +1,5 @@
-export default function MapsApartmentBox({ address, image_url, name, rent, sqft, id }) {
-  const beds = 3;
-  const baths = 2;
-  // const { address, image_url, name, rent, sqft, id } = apartment;
+export default function MapsApartmentBox({ address, image_url, name, rent, sqft, beds, baths, id }) {
+  
   // remove city and zip code for address
   const abbreviatedAddress =
     address.indexOf('Los Angeles') > 10
@@ -19,23 +17,17 @@ export default function MapsApartmentBox({ address, image_url, name, rent, sqft,
       </div>
       <div className="flex w-full flex-col gap-1 py-2 px-4">
         <div className="flex flex-col">
-          <a
-            href={`/apartment-listing?id=${id}`}
-            className="cursor-pointer text-ellipsis text-lg font-bold leading-5 tracking-wide hover:underline"
-          >
-            {name}
-          </a>
-          <div className="flex items-center gap-1 overflow-hidden">
-            {rent !== 'Call for Rent' && (
-              <span className="text-truncate py-1 text-sm font-bold text-blue-700">
-                {rent}
-                <p className="float-right ">/month</p>
-              </span>
-            )}
-            {rent === 'Call for Rent' && (
-              <span className="text-truncate py-1 text-sm font-bold text-blue-700">{rent}</span>
-            )}
-          </div>
+          <h1 className="truncate cursor-pointer text-lg font-bold tracking-wide hover:text-blue-800">
+            <a href={`/apartment-listing?id=${id}`}>{name}</a>
+          </h1>
+          {rent.toLowerCase() !== 'call for rent' ? (
+            <div className="flex items-center">
+              <span className="truncate text-md font-bold text-blue-700">{rent}</span>
+              <span className="truncate text-sm text-gray-500">/month</span>
+            </div>
+          ) : (
+            <span className="truncate text-sm font-bold text-gray-500">Call for rent</span>
+          )}
         </div>
         <hr />
         <div className="apartment-card-details-layout text-sm text-gray-500">

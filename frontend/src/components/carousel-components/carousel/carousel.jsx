@@ -65,10 +65,10 @@ const Carousel = ({ apartmentInfo }) => {
               );
             })}
           </Slider>
-          <ButtonBack className="top-45/100 absolute left-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
+          <ButtonBack className="top-[45%] absolute left-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
             <FontAwesomeIcon icon={faAngleLeft} className="!opacity-none" />
           </ButtonBack>
-          <ButtonNext className="top-45/100 absolute right-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
+          <ButtonNext className="top-[45%] absolute right-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
             <FontAwesomeIcon icon={faAngleRight} />
           </ButtonNext>
           <DotGroup className="relative -top-4 mx-auto w-fit rounded-full bg-white px-5 pb-2.5 shadow-standard" />

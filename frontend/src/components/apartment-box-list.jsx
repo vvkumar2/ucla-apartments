@@ -37,7 +37,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
   // Get the data for the current page
   const getPaginatedData = () => {
     const startIndex = currentPage * dataLimit - dataLimit;
-    const endIndex = startIndex + dataLimit;
+    const endIndex = startIndex + dataLimit - 1;
     return apartmentList.slice(startIndex, endIndex);
   };
 

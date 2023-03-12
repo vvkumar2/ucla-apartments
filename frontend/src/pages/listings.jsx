@@ -52,8 +52,10 @@ const Listings = () => {
   // search/sort/filter states
   const [sortBy, setSortBy] = useState('');
   const [searchField, setSearchField] = useState('');
-  const [bedField, setBedField] = useState(NaN);
-  const [bathField, setBathField] = useState(NaN);
+  const [minBedField, setMinBedField] = useState(NaN);
+  const [maxBedField, setMaxBedField] = useState(NaN);
+  const [minBathField, setMinBathField] = useState(NaN);
+  const [maxBathField, setMaxBathField] = useState(NaN);
   const [minRentField, setMinRentField] = useState(NaN);
   const [maxRentField, setMaxRentField] = useState(NaN);
 
@@ -109,28 +111,30 @@ const Listings = () => {
     }
 
     // Filter apartments based on bed field
-    if (!isNaN(bedField) && bedField !== '') {
+    if (!isNaN(minBedField) && minBedField !== '') {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        const min_beds = getMinValue(apartment.beds);
-        const max_beds = getMaxValue(apartment.beds);
-        if (bedField === '5') {
-          return !(max_beds < 5) && apartment.beds !== 'Studio';
-        } else {
-          return bedField >= min_beds && bedField <= max_beds;
-        }
+        let beds = getMaxValue(apartment.beds);
+        return beds >= minBedField;
+      });
+    }
+    if (!isNaN(maxBedField) && maxBedField !== '') {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        let beds = getMinValue(apartment.beds);
+        return beds <= maxBedField;
       });
     }
 
     // Filter apartments based on bath field
-    if (!isNaN(bathField) && bathField !== '') {
+    if (!isNaN(minBathField) && minBathField !== '') {
       newFilteredApartments = newFilteredApartments.filter((apartment) => {
-        const min_baths = getMinValue(apartment.baths);
-        const max_baths = getMaxValue(apartment.baths);
-        if (bathField === '5') {
-          return !(max_baths < 5);
-        } else {
-          return bathField >= min_baths && bathField <= max_baths;
-        }
+        let baths = getMaxValue(apartment.baths);
+        return baths >= minBathField;
+      });
+    }
+    if (!isNaN(maxBathField) && maxBathField !== '') {
+      newFilteredApartments = newFilteredApartments.filter((apartment) => {
+        let baths = getMinValue(apartment.baths);
+        return baths <= maxBathField;
       });
     }
 
@@ -157,8 +161,10 @@ const Listings = () => {
     apartments,
     sortBy,
     searchField,
-    bedField,
-    bathField,
+    minBedField,
+    maxBedField,
+    minBathField,
+    maxBathField,
     minRentField,
     maxRentField,
     setFilteredApartments,
@@ -169,41 +175,77 @@ const Listings = () => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   };
-  const onBedChange = (event) => {
+  const onMinBedChange = (event) => {
+    console.log("Min bed: " + event.target.value)
     if (event !== null) {
-      setBedField(event.value);
+      setMinBedField(event.target.value);
     } else {
-      setBedField('');
+      setMinBedField('');
     }
   };
-  const onBathChange = (event) => {
+  const onMaxBedChange = (event) => {
+    console.log("Max bed: " + event.target.value)
     if (event !== null) {
-      setBathField(event.value);
+      setMaxBedField(event.target.value);
     } else {
-      setBathField('');
+      setMaxBedField('');
+    }
+  };
+  const onMinBathChange = (event) => {
+    console.log("Min bath: " + event.target.value)
+    if (event !== null) {
+      setMinBathField(event.target.value);
+    } else {
+      setMinBathField('');
+    }
+  };
+  const onMaxBathChange = (event) => {
+    console.log("Max bath: " + event.target.value)
+    if (event !== null) {
+      setMaxBathField(event.target.value);
+    } else {
+      setMaxBathField('');
     }
   };
   const onMinRentChange = (event) => {
+    console.log("Min rent: " + event.target.value)
     const minRent = event.target.value;
     setMinRentField(parseFloat(minRent, 10));
   };
   const onMaxRentChange = (event) => {
+    console.log("Max rent: " + event.target.value)
     const maxRent = event.target.value;
     setMaxRentField(parseFloat(maxRent, 10));
   };
 
   // On search handler for "Sort By" filter
-  const sortByChangeHandler = (newSortByValue) => {
-    console.log(newSortByValue);
-    setSortBy(newSortByValue);
+  const sortByChangeHandler = (newSortByValue, newSortByLabel) => {
+    setSortBy(newSortByLabel);
   };
 
   // Reset filters
   const resetFilters = () => {
-    setSortBy('');
+    setSortBy('None');
     setSearchField('');
-    setBedField(NaN);
-    setBathField(NaN);
+    setMinBedField(NaN);
+    setMaxBedField(NaN);
+    setMinBathField(NaN);
+    setMaxBathField(NaN);
+    setMinRentField(NaN);
+    setMaxRentField(NaN);
+  };
+
+  const resetBaths = () => {
+    setMinBathField(NaN);
+    setMaxBathField(NaN);
+  };
+
+  const resetBeds = () => {
+    setMinBedField(NaN);
+    setMaxBedField(NaN);
+  };
+
+  const resetRent = () => {
     setMinRentField(NaN);
     setMaxRentField(NaN);
   };
@@ -240,11 +282,23 @@ const Listings = () => {
           <Filters
             searchFieldChangeHandler={onSearchChange}
             sortByChangeHandler={sortByChangeHandler}
-            bedFieldChangeHandler={onBedChange}
-            bathFieldChangeHandler={onBathChange}
-            minRentChangeHandler={onMinRentChange}
-            maxRentChangeHandler={onMaxRentChange}
-            ResetFilters={resetFilters}
+            minBedFieldChangeHandler={onMinBedChange}
+            maxBedFieldChangeHandler={onMaxBedChange}
+            minBathFieldChangeHandler={onMinBathChange}
+            maxBathFieldChangeHandler={onMaxBathChange}
+            minRentFieldChangeHandler={onMinRentChange}
+            maxRentFieldChangeHandler={onMaxRentChange}
+            resetFilters={resetFilters}
+            resetBaths={resetBaths}
+            resetBeds={resetBeds}
+            resetRent={resetRent}
+            minBathField={minBathField}
+            maxBathField={maxBathField}
+            minBedField={minBedField}
+            maxBedField={maxBedField}
+            minRentField={minRentField}
+            maxRentField={maxRentField}
+            sortByField={sortBy}
           />
           {!mapView && (
             <ApartmentBoxList

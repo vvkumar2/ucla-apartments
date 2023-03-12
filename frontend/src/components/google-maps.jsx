@@ -97,6 +97,8 @@ function CustomMap({ google, apartmentList }) {
           name={activeMarker.props.name}
           rent={activeMarker.props.rent}
           sqft={activeMarker.props.sqft}
+          beds={activeMarker.props.beds}
+          baths={activeMarker.props.baths}
           id={activeMarker.props.id}
         />
         {/* {console.log(activeMarker.props)} */}

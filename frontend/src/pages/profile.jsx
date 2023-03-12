@@ -9,9 +9,19 @@ import FormInput from '../components/form-input';
 import Navbar from '../components/navbar';
 import useUserContext from '../context/user.context';
 import LikedItems from './liked-items';
+import {useRef} from "react"
 
 // Profile page component that displays user information
 const Profile = () => {
+  const catMenu = useRef(null)
+
+  const closeOpenMenus = (e) => {
+    if(catMenu.current && showDropdown && !catMenu.current.contains(e.target)){
+      setShowDropdown(false)
+    }
+  }
+  document.addEventListener('mousedown',closeOpenMenus)
+
   const {
     firstName,
     lastName,
@@ -96,7 +106,7 @@ const Profile = () => {
             >
               <FontAwesomeIcon icon={faCog} />
               {showDropdown && (
-                <div className="absolute right-16 top-[160px] flex flex-col rounded-xl bg-white text-sm shadow-standard sm:right-52">
+                <div ref={catMenu} className="absolute right-16 md:right-[9rem] lg:right-[13rem] top-[160px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
                   <div
                     className="px-4 py-2 hover:bg-slate-100"
                     onClick={() => setChangingEmail(!changingEmail)}

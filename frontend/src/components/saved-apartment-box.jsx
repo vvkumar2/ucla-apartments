@@ -17,7 +17,7 @@ export default function SavedApartmentBox({ apartment, category, tooltip = false
   }
 
   return (
-    <div className="flex h-min w-80 flex-col rounded-lg bg-white shadow-standard">
+    <div className="flex w-full flex-col rounded-lg bg-white shadow-standard sm:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)]">
       <div className="relative h-[175px] w-full items-center justify-center overflow-hidden rounded-t-lg">
         <img className="min-h-full w-auto min-w-full object-cover" src={image_url} alt="" />
         {!tooltip && (
@@ -59,18 +59,17 @@ export default function SavedApartmentBox({ apartment, category, tooltip = false
       </div>
       <div className="flex w-full flex-col gap-3 py-3 px-8">
         <div className="flex flex-col">
-          <Link
-            to={`/apartment-listing?id=${id}`}
-            className="cursor-pointer text-ellipsis text-lg font-bold tracking-wide hover:text-blue-700"
-          >
-            {name}
-          </Link>
-          <div className="flex items-center gap-1 overflow-hidden">
-            <span className="text-truncate py-1 text-sm font-bold text-blue-700">
-              {rent}
-              <p className="float-right ">/month</p>
-            </span>
-          </div>
+          <h1 className="truncate cursor-pointer text-lg font-bold tracking-wide hover:text-blue-800">
+            <Link to={'/apartment-listing?id=' + String(id)}>{name}</Link>
+          </h1>
+          {rent.toLowerCase() !== 'call for rent' ? (
+            <div className="flex items-center">
+              <span className="truncate text-md font-bold text-blue-700">{rent}</span>
+              <span className="truncate text-sm text-gray-500">/month</span>
+            </div>
+          ) : (
+            <span className="truncate text-sm text-gray-500">Call for rent</span>
+          )}
         </div>
         <hr />
         <div className="apartment-card-details-layout flex flex-row gap-2 text-sm text-gray-500">
