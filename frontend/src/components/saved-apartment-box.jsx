@@ -19,7 +19,7 @@ export default function SavedApartmentBox({ apartment, category, tooltip = false
   return (
     <div className="flex w-full flex-col rounded-lg bg-white shadow-standard sm:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)]">
       <div className="relative h-[175px] w-full items-center justify-center overflow-hidden rounded-t-lg">
-        <img className="min-h-full w-auto min-w-full object-cover" src={image_url} alt="" />
+        <img className="min-h-full w-auto min-w-full object-cover image-bright" src={image_url} alt="" />
         {!tooltip && (
           <div className="absolute top-0 right-0 p-1">
             <FontAwesomeIcon

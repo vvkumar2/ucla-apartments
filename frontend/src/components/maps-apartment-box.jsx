@@ -10,7 +10,7 @@ export default function MapsApartmentBox({ address, image_url, name, rent, sqft,
     <div className="w-min-[300px] flex h-[300px] flex-col rounded-lg border-2 border-slate-100">
       <div className="relative h-[200px] w-full overflow-hidden">
         <img
-          className="w-full overflow-hidden rounded-md object-cover"
+          className="w-full overflow-hidden rounded-md object-cover image-bright"
           src={image_url}
           alt="Apartment"
         />

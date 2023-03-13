@@ -16,7 +16,7 @@ import ArrowButton from '../ArrowButton';
 import LightboxHeader from '../Header';
 import './carousel.styles.css';
 
-const Carousel = ({ apartmentInfo }) => {
+const Carousel = ({ apartmentInfo, numSlides }) => {
   const [lightboxIsOpen, setLightboxIsOpen] = React.useState(false);
   const [lightboxCurrentIndex, setLightboxCurrentIndex] = React.useState(0);
 
@@ -41,10 +41,10 @@ const Carousel = ({ apartmentInfo }) => {
   return (
     <div className="mt-16">
       <CarouselProvider
-        visibleSlides={3}
-        naturalSlideWidth={24}
+        visibleSlides={numSlides}
+        naturalSlideWidth={22}
         naturalSlideHeight={18}
-        step={3}
+        step={numSlides===.75 ? 1 : numSlides}
         totalSlides={apartmentInfo.all_image_urls.length}
         infinite={true}
       >
@@ -65,13 +65,13 @@ const Carousel = ({ apartmentInfo }) => {
               );
             })}
           </Slider>
-          <ButtonBack className="top-[45%] absolute left-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
+          <ButtonBack className="top-[45%] absolute left-4 md:left-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
             <FontAwesomeIcon icon={faAngleLeft} className="!opacity-none" />
           </ButtonBack>
-          <ButtonNext className="top-[45%] absolute right-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
+          <ButtonNext className="top-[45%] absolute right-4 md:right-10 rounded-xl bg-white/50 p-1 text-4xl text-black shadow-standard backdrop-blur-md">
             <FontAwesomeIcon icon={faAngleRight} />
           </ButtonNext>
-          <DotGroup className="relative -top-4 mx-auto w-fit rounded-full bg-white px-5 pb-2.5 shadow-standard" />
+          <DotGroup className="invisible md:visible relative -top-4 mx-auto w-fit rounded-full bg-white px-5 pb-2.5 shadow-standard" />
         </div>
       </CarouselProvider>
       <div>

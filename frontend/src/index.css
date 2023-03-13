@@ -44,6 +44,12 @@ body {
   @apply mx-auto;
 }
 
+.image-bright {
+  @apply saturate-[1.25];
+  @apply contrast-[1.05];
+  @apply brightness-[1.02];
+}
+
 @screen md {
   .apartment-card-details-layout {
     @apply grid-cols-2;

@@ -26,6 +26,13 @@ const DetailedListingPage = () => {
   const [error, setError] = useState(false);
   const [liked, setLiked] = useState(false);
   const { email } = useUserContext();
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+console.log(screenSize)
+
+  // Updating the screen size when the window is resized
+  useEffect(() => {
+    return window.addEventListener('resize', () => setScreenSize(window.innerWidth));
+  }, []);
 
   // Fetching the apartment details from the database using the id from the url
   useEffect(() => {
@@ -59,8 +66,11 @@ const DetailedListingPage = () => {
       return;
     } else {
       const response = await addItemToSupabaseCategory(email, 'LIKED', apartmentInfo);
+      if (!liked)
+        toast.success('Added to liked items');
+      else
+        toast.error('Removed from liked items');
       setLiked(response ? true : false);
-      toast.success('Added to liked items');
     }
   }
 
@@ -71,40 +81,44 @@ const DetailedListingPage = () => {
         <div>
           <Navbar />
           {/* Displaying the apartment images in a carousel using pure-react-carousel library */}
-          <Carousel apartmentInfo={apartmentInfo} />
+          <Carousel apartmentInfo={apartmentInfo} numSlides={screenSize>950 ? 3 : screenSize > 700 ? 2 : screenSize > 400 ? 1 : .75}/>
           {/* Displaying the apartment details */}
-          <div className="mt-14 flex flex-row px-48">
-            <div className="mr-auto flex w-7/12 flex-col gap-8">
+          <div className="mt-14 flex flex-col md:flex-row md:px-[8rem] lg:px-[12rem]">
+            <div className="mx-[48px] md:mr-auto md:ml-0 flex md:w-7/12 flex-col gap-8">
               <div className="flex flex-row">
                 <h2 className="text-left text-3xl">{apartmentInfo.address}</h2>
                 <HeartIcon
                   className={
                     liked
-                      ? 'ml-auto h-10 w-auto min-w-[30px] max-w-[45px] fill-red-400 stroke-red-400 stroke-1 hover:cursor-pointer'
-                      : 'ml-auto h-10 w-auto fill-none stroke-red-400 stroke-1 hover:cursor-pointer hover:fill-red-100'
+                      ? 'ml-auto mt-2 w-16 fill-red-400 stroke-red-400 stroke-1 hover:cursor-pointer'
+                      : 'ml-auto mt-2 w-16 fill-none stroke-red-400 stroke-1 hover:cursor-pointer hover:fill-red-100'
                   }
                   onClick={() => addToLiked()}
                 />
               </div>
-              <div className="text-black-500 flex flex-row gap-7 text-base">
-                <h1>
-                  <FontAwesomeIcon icon={faBed} className="text-xl text-blue-700" />
-                  &nbsp;{apartmentInfo.beds} Beds
-                </h1>
-                <h1>
-                  <FontAwesomeIcon icon={faBath} className="text-xl text-blue-700" />
-                  &nbsp;{apartmentInfo.baths} Baths
-                </h1>
-                <h1>
-                  <FontAwesomeIcon icon={faArrowsToDot} className="text-xl text-blue-700" />
-                  &nbsp;{apartmentInfo.sqft}
-                  sqft
-                </h1>
-                <h1>
-                  <FontAwesomeIcon icon={faSackDollar} className="text-xl text-blue-700" />
-                  &nbsp;{apartmentInfo.rent}
-                  /Month
-                </h1>
+              <div>
+                <div className="text-black-500 flex flex-row gap-7 text-base">
+                  <h1>
+                    <FontAwesomeIcon icon={faBed} className="text-xl text-blue-700" />
+                    &nbsp;{apartmentInfo.beds} Beds
+                  </h1>
+                  <h1>
+                    <FontAwesomeIcon icon={faBath} className="text-xl text-blue-700" />
+                    &nbsp;{apartmentInfo.baths} Baths
+                  </h1>
+                </div>
+                <div className="text-black-500 flex flex-row gap-7 text-base mt-8">
+                  <h1>
+                    <FontAwesomeIcon icon={faArrowsToDot} className="text-xl text-blue-700" />
+                    &nbsp;{apartmentInfo.sqft}
+                    sqft
+                  </h1>
+                  <h1>
+                    <FontAwesomeIcon icon={faSackDollar} className="text-xl text-blue-700" />
+                    &nbsp;{apartmentInfo.rent}
+                    /Month
+                  </h1>
+                </div>
               </div>
 
               {apartmentInfo.about_text !== '' && (
@@ -158,7 +172,7 @@ const DetailedListingPage = () => {
             </div>
 
             {/* Displaying the contact information for the apartment */}
-            <div className="w-30 sticky top-44 ml-auto h-max self-start text-center">
+            <div className="w-[75%] mx-auto mt-8 md:w-1/3 md:ml-auto md:mr-0 md:mt-0 h-max sticky top-44 self-start text-center">
               <div className="divide-y divide-slate-400 rounded-xl bg-white p-6 shadow-standard">
                 <div className="flex flex-col gap-3 pb-6 ">
                   <h1 className="text-2xl font-bold">Contact</h1>
@@ -194,6 +208,8 @@ const DetailedListingPage = () => {
                   </div>
                 )}
               </div>
+              { /* Displaying the apartment's logo if it exists */ }
+              {apartmentInfo.seller_logo_url !== "https://www.apartments.com/a/775e0d/content/images/fallbackimage.png" &&
               <div>
                 <img
                   className="mx-auto mt-8 rounded-xl bg-white p-2 shadow-standard"
@@ -206,6 +222,7 @@ const DetailedListingPage = () => {
                   }}
                 />
               </div>
+              }
             </div>
           </div>
           <Footer />

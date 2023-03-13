@@ -33,7 +33,7 @@ const ApartmentBox = ({ apartment }) => {
     <div className="flex w-full flex-col rounded-lg bg-white shadow-standard md:w-[calc((100%-40px)/2)] xl:w-[calc((100%-80px)/3)]">
       <ToastContainer hideProgressBar={true} />
       <div className="flex h-[200px] w-full items-center justify-center overflow-hidden rounded-t-lg">
-        <img className="min-h-full w-auto min-w-full object-cover saturate-[1.25] contrast-[1.05] brightness-[1.02]" src={image_url} alt="" />
+        <img className="min-h-full w-auto min-w-full object-cover image-bright" src={image_url} alt="" />
       </div>
       <div className="flex w-full flex-col gap-4 py-5 px-8">
         <div className="flex flex-col">
