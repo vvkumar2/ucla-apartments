@@ -129,7 +129,7 @@ export const UserProvider = ({ children }) => {
 
   async function likeItem(item) {
     if (email !== '') {
-      const resp = await addItemToSupabaseCategory(email, 'LIKED', item);
+      const resp = await addItemToSupabaseCategory(email, 'SAVED_FOR_LATER', item);
       if (resp === 'Success') await updateStateFromSupabase();
       return resp;
     }
@@ -137,7 +137,7 @@ export const UserProvider = ({ children }) => {
 
   async function dislikeItem(item) {
     if (email !== '') {
-      const resp = await addItemToSupabaseCategory(email, 'LIKED', item);
+      const resp = await addItemToSupabaseCategory(email, 'SAVED_FOR_LATER', item);
       if (resp === 'Success') await updateStateFromSupabase();
       return resp;
     }

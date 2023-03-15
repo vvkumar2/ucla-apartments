@@ -83,12 +83,12 @@ const Navbar = ({ color_scheme, homepage=false }) => {
       >
         Company Name
       </h1>
-      <div className={`flex gap-5 invisible sm:visible`}>
+      <div className={`flex gap-12 invisible sm:visible`}>
         { !homepage && 
         <button
-          className={`h-9 ${
+          className={`h-9 text-sm ${
             color_scheme === 'LIGHT' && scrollPosition <= 30 ? 'text-white' : 'text-gray-800'
-          } font-bold`}
+          } font-semibold`}
           onClick={handleGetStartedClick}
         >
           View Listings
