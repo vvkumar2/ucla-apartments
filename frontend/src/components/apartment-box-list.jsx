@@ -58,7 +58,7 @@ const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }
       </div>
       <div className="flex flex-wrap gap-10">
         {getPaginatedData().map((apartment, index) =>
-          apartment ? <ApartmentBox key={index} apartment={apartment} /> : null,
+          apartment ? <ApartmentBox key={Math.random()} apartment={apartment} /> : null,
       )}
       </div>
       <div className="flex items-center justify-center gap-2">
