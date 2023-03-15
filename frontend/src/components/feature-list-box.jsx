@@ -37,6 +37,8 @@ const FeatureListBox = ({ section_header, features_list }) => {
     case 'Utilities':
       icon = <FontAwesomeIcon icon={faLightbulb} className="text-xl text-blue-700" />;
       break;
+    default:
+      icon = <FontAwesomeIcon icon={faRug} className="text-xl text-blue-700" />;
   }
 
   return (

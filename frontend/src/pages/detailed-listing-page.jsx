@@ -48,7 +48,7 @@ console.log(screenSize)
       } else setError(true);
     }
     fetchApartmentDetails();
-  }, []);
+  }, [id]);
 
   // Checking if the apartment is already in the liked items list
   useEffect(() => {
@@ -61,7 +61,7 @@ console.log(screenSize)
 
   // Function to add the apartment to the liked items list
   async function addToLiked() {
-    if (email == '') {
+    if (email === '') {
       toast.error('Please login to add to liked items');
       return;
     } else {

@@ -7,7 +7,7 @@ import { ReactComponent as HeartIcon } from '../assets/heart-icon.svg';
 import useUserContext from '../context/user.context';
 
 const ApartmentBox = ({ apartment }) => {
-  const { loggedIn, likeItem, dislikeItem, checkItemCategory, isItemLiked } = useUserContext();
+  const { loggedIn, likeItem, dislikeItem, isItemLiked } = useUserContext();
   const [liked, setLiked] = useState(false);
 
   const { id, name, address, image_url, beds, baths, sqft, rent, distance } = apartment;

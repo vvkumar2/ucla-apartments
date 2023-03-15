@@ -151,7 +151,7 @@ export async function checkIfItemInSupabaseCategory(email, apartment, category) 
   console.log(`Checking if ${apartment.id} is in ${category} with email ${email}`);
   if (email !== '') {
     const fieldName = `apartments_${category.toLowerCase()}`;
-    const { data, error } = await supabase.from('users').select(fieldName).eq('email', email);
+    const { data } = await supabase.from('users').select(fieldName).eq('email', email);
 
     const res = data[0][fieldName] ?? [];
 

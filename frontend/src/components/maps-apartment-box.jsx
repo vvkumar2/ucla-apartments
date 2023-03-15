@@ -1,10 +1,8 @@
 export default function MapsApartmentBox({ address, image_url, name, rent, sqft, beds, baths, id }) {
   
   // remove city and zip code for address
-  const abbreviatedAddress =
-    address.indexOf('Los Angeles') > 10
-      ? address.substring(0, address.indexOf('Los Angeles'))
-      : address;
+  // const abbreviatedAddress =
+  //   address.indexOf('Los Angeles') > 10 ? address.substring(0, address.indexOf('Los Angeles')) : address;
 
   return (
     <div className="w-min-[300px] flex h-[300px] flex-col rounded-lg border-2 border-slate-100">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as MenuIcon } from '../assets/menu-icon.svg';
 import ProfileIcon from '../assets/profile-icon.svg';
 import useUserContext from '../context/user.context';
@@ -31,7 +31,6 @@ const Navbar = ({ color_scheme, homepage=false }) => {
   const [visible, setVisible] = useState(true);
   const [showDropdownLarge, setShowDropdownLarge] = useState(false);
   const [showDropdownSmall, setShowDropdownSmall] = useState(false);
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
 
   const navigate = useNavigate();
@@ -65,9 +64,6 @@ const Navbar = ({ color_scheme, homepage=false }) => {
     };
   }, []);
 
-  useEffect(() => {
-    return window.addEventListener('resize', () => setScreenSize(window.innerWidth));
-  }, []);
 
   return (
     <div
