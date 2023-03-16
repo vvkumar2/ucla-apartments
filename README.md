@@ -2,6 +2,9 @@
 
 A website for college students to find apartments.
 
+## Available Now!
+https://ucla-apartments.netlify.app/
+
 ## Running the application locally:
 1. Clone the repository
 2. In the frontend directory, run `npm install` to download all dependencies.
