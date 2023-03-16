@@ -110,7 +110,7 @@ const Navbar = ({ color_scheme, homepage=false }) => {
           </div>
         )}
         {showDropdownLarge && !loggedIn && (
-          <div ref={catMenuLarge} className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
+          <div ref={catMenuLarge} className="absolute sm:right-[3rem] md:right-[8rem] lg:right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
             <button
               onClick={handleLoginClick}
               className="rounded-xl px-6 py-3 hover:bg-slate-100"
@@ -150,7 +150,7 @@ const Navbar = ({ color_scheme, homepage=false }) => {
         </div>
         )}
         {showDropdownSmall && !loggedIn && (
-          <div ref={catMenuSmall} className="absolute right-[12rem] top-[60px] flex flex-col rounded-xl bg-white text-sm shadow-standard">
+          <div ref={catMenuSmall} className="absolute right-0 top-8 flex flex-col rounded-xl bg-white text-sm shadow-standard">
             <button
               onClick={handleLoginClick}
               className="rounded-xl px-6 py-3 hover:bg-slate-100"

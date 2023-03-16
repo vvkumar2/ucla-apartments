@@ -21,11 +21,11 @@ export default function SavedApartmentBox({ apartment, category, tooltip = false
       <div className="relative h-[175px] w-full items-center justify-center overflow-hidden rounded-t-lg">
         <img className="min-h-full w-auto min-w-full object-cover image-bright" src={image_url} alt="" />
         {!tooltip && (
-          <div className="absolute top-0 right-0 p-1">
+          <div className="absolute top-0 right-0 p-1 w-content">
             <FontAwesomeIcon
               onClick={handleRemoveClick}
               icon={faX}
-              className="w-1/3 cursor-pointer rounded bg-white/80 py-1 px-2 text-xs font-semibold text-gray-700 shadow-standard backdrop-blur-sm hover:bg-gray-100"
+              className="w-content cursor-pointer rounded bg-white/80 py-1 px-2 text-xs font-semibold text-gray-700 shadow-standard backdrop-blur-sm hover:bg-gray-100"
             />
           </div>
         )}

@@ -60,7 +60,7 @@ const FeatureListBox = ({ section_header, features_list }) => {
       {show && (
         <ul
           id="dropdownId"
-          className="grid list-outside list-disc grid-cols-3 gap-x-14 gap-y-2 pl-6 pr-[48px] md:pl-8 text-left text-base text-slate-600 duration-200"
+          className="grid list-outside list-disc grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-2 pl-6 pr-[48px] md:pl-8 text-left text-base text-slate-600 duration-200"
         >
           {features_list.map((feature, index) => {
             return (
