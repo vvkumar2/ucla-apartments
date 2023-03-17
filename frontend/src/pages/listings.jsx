@@ -81,27 +81,27 @@ const Listings = ({hideLoader, showLoader}) => {
     });
 
     if (sortBy !== '') {
-      if (sortBy === 'price_asc') {
+      if (sortBy === 'Price Ascending') {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
           return getMinValue(a['rent']) - getMinValue(b['rent']);
         });
       }
-      if (sortBy === 'sqft_asc') {
+      if (sortBy === 'Sqft: Ascending') {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
           return getMinValue(a['sqft']) - getMinValue(b['sqft']);
         });
       }
-      if (sortBy === 'price_desc') {
+      if (sortBy === 'Price Descending') {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
           return getMaxValue(b['rent']) - getMaxValue(a['rent']);
         });
       }
-      if (sortBy === 'sqft_desc') {
+      if (sortBy === 'Sqft: Descending') {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
           return getMaxValue(b['sqft']) - getMaxValue(a['sqft']);
         });
       }
-      if (sortBy === 'distance') {
+      if (sortBy === 'Distance to UCLA') {
         newFilteredApartments = newFilteredApartments.sort((a, b) => {
           let dista = a['distance'];
           let distb = b['distance'];
