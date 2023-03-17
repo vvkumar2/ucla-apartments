@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as MenuIcon } from '../assets/menu-icon.svg';
 import ProfileIcon from '../assets/profile-icon.svg';
+// import CompanyLogo from '../assets/logo.png';
 import useUserContext from '../context/user.context';
 import { debounce } from '../utils/helpers';
 import {useRef} from "react"
@@ -79,6 +80,14 @@ const Navbar = ({ color_scheme, homepage=false }) => {
       >
         Company Name
       </h1>
+      {/* <img
+        className={`h-8 cursor-pointer ${
+          color_scheme === 'LIGHT'
+        }`}
+        src={CompanyLogo}
+        alt="Company Logo"
+        onClick={handleWebsiteNameClick}
+      /> */}
       <div className={`flex gap-12 invisible sm:visible`}>
         { !homepage && 
         <button

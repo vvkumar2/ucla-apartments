@@ -44,7 +44,7 @@ function getMaxValue(inputString) {
 }
 
 // This is the Listings page component that renders all the apartments for selected school and allows user to filter them by different parameters such as price, number of bedrooms, etc.
-const Listings = () => {
+const Listings = ({hideLoader, showLoader}) => {
   const [apartments, setApartments] = useState([]);
   const [filteredApartments, setFilteredApartments] = useState([]);
   const [mapView, setMapView] = useState(false);
@@ -306,6 +306,8 @@ const Listings = () => {
               dataLimit={listingsPerPage}
               pageLimit={maxPages < pageLimit ? maxPages : pageLimit}
               maxPagesInput={maxPages}
+              hideLoader={hideLoader} 
+              showLoader={showLoader}
             />
           )}
           {mapView && (

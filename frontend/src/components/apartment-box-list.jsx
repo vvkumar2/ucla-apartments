@@ -3,9 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import ApartmentBox from './apartment-box';
 
-const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, maxPagesInput }) => {
+const ApartmentBoxList = ({ apartmentList, dataLimit, pageLimit, hideLoader, showLoader }) => {
   const [maxPages, setMaxPages] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Set loading state to true until the apartment list is loaded
+  useEffect(() => {
+    if (apartmentList.length === 0) {
+      showLoader();
+    } else {
+      hideLoader();
+    }
+  }, [showLoader, hideLoader, apartmentList]);
 
   // Set the max number of pages needed to display all the apartments
   useEffect(() => {
