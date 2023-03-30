@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
+export const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL ?? '',
   process.env.REACT_APP_SUPABASE_ANON_KEY ?? '',
 );
@@ -30,12 +30,13 @@ export async function signInToSupabase(email, password) {
 }
 
 export async function signOutFromSupabase() {
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+  console.log('error', error);
 }
 
 export async function sendSupabaseResetPasswordLink(email) {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.BASE_URL}/reset-password`,
+    redirectTo: `${process.env.REACT_APP_BASE_URL}/reset-password`,
   });
 
   return error?.message ?? 'Success';
@@ -72,6 +73,8 @@ export async function resetPasswordInSupabase(password) {
  */
 export async function getSupabaseUserSession() {
   const { data } = await supabase.auth.getSession();
+  console.log('data');
+  console.log(data);
   const {
     session: { user },
   } = data;
@@ -155,7 +158,7 @@ export async function checkIfItemInSupabaseCategory(email, apartment, category) 
 
     const res = data[0][fieldName] ?? [];
 
-    console.log(fieldName)
+    console.log(fieldName);
     console.log(apartment.id);
     console.log(res);
     return res.some((elem) => elem.id === apartment.id);

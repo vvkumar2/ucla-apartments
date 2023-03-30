@@ -163,7 +163,7 @@ function FiltersDropdownLargeScreen({ minBedFieldChangeHandler, maxBedFieldChang
               </button>
               {showCurrentDropdown && (
                 <div ref={catMenu} className="absolute top-14 right-0 z-10 flex w-full flex-col gap-4 rounded-lg border bg-white p-5 dark:bg-gray-700">
-                  <div className="flex flex-col justify-between border-b pb-1">
+                  <div className="flex justify-between border-b pb-1">
                     <span className="text-sm">{filter}</span>
                     <span className="cursor-pointer text-sm font-bold text-blue-700" onClick={filter === 'Beds' ? resetBeds : filter === 'Baths' ? resetBaths : resetRent}>
                       Clear

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-
+import { Navigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import LoadingSpinner from '../assets/loading-spinner';
 import Footer from '../components/footer';
 import FormInput from '../components/form-input';
 import Navbar from '../components/navbar';
 import RegisterPopup from '../components/register-popup.jsx';
-
-import { Navigate } from 'react-router-dom';
 import useUserContext from '../context/user.context';
 
 // This is the Login page component that renders the login form and allows user to login to their account.
@@ -18,6 +16,7 @@ const Login = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
 
   function changeEmail(event) {
     setEmail(event.target.value);
@@ -29,7 +28,9 @@ const Login = () => {
 
   async function handleLogin(event) {
     event.preventDefault();
+    setLoginLoading(true);
     const resp = await login(email, password);
+    setLoginLoading(false);
 
     if (resp !== 'Success') {
       toast.error(resp);
@@ -64,7 +65,7 @@ const Login = () => {
       <div className="flex h-screen min-h-[100vh] items-center justify-center">
         <form
           onSubmit={handleLogin}
-          className="flex w-[550px] flex-col items-center gap-6 rounded-xl bg-white p-10 shadow-standard"
+          className="flex w-[450px] flex-col items-center gap-6 rounded-xl bg-white p-10 shadow-standard"
         >
           <h1 className="text-2xl font-bold">Login</h1>
           <div className="flex w-full flex-col items-center gap-3">
@@ -78,10 +79,11 @@ const Login = () => {
           </div>
           <div className="flex w-full flex-col gap-3">
             <button
-              className="h-[50px] w-full rounded-md bg-blue-700 font-bold text-white hover:bg-blue-800"
+              className="flex h-[50px] w-full items-center justify-center gap-2 rounded-md bg-blue-700 font-bold text-white hover:bg-blue-800"
               type="submit"
             >
               Login
+              {loginLoading && <LoadingSpinner color="WHITE" size="SMALL" />}
             </button>
             <span
               className="text-md pointer cursor-pointer text-center text-gray-400 hover:underline"

@@ -53,8 +53,6 @@ export const UserProvider = ({ children }) => {
       'COMPLETED',
     );
 
-    console.log(savedForLaterItemsResponse);
-
     setEmail(supabaseEmail);
     setFirstName(supabaseFirstName);
     setLastName(supabaseLastName);
