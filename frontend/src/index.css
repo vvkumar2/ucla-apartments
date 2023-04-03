@@ -86,7 +86,7 @@ body {
   width: 3em;
   height: 3em;
   border: .5em solid rgba(25, 25, 25, 0.2);
-  border-left: .5em solid #000000;
+  border-left: .5em solid #0f0f0fd9;
   border-radius: 50%;
   animation: load8 1.1s infinite linear;
   transition: opacity 0.3s;
